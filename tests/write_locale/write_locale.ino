@@ -25,7 +25,7 @@
 #define SS_PIN          10          // Configurable, see typical pin layout above
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
-
+int locale = 0;
 
 void setup() {
   Serial.begin(9600);                                           // Initialize serial communications with the PC
@@ -43,6 +43,7 @@ void loop() {
   // Cette clé est utilisée pour s'authentifier avec la carte mifare. Mais nos n'allons pas utiliser cette fonctionalité (ou plutôt : nous allons garder la clé d'origine pour ne pas compliqer)
   MFRC522::MIFARE_Key key;
   for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
+
 
 
 
@@ -68,7 +69,7 @@ void loop() {
 
 
       // on prépare des variables qui vont recevoir toutes les infos, dont un tableau, buffer, qui recevra les données du block sélectionné
-      byte buffer1[18];
+      byte buffer[18];
 
       block = 4; // numéro du block, la locale est stockée dan le 4
       len = 18; // on s'en fou (je crois), on peut toujours laisser 18
@@ -82,7 +83,7 @@ void loop() {
         return;
       }
 
-      
+
       //Serial.println(F("Authenticating using key A..."));
       status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, block, &key, &(mfrc522.uid));
       if (status != MFRC522::STATUS_OK) {
@@ -92,9 +93,31 @@ void loop() {
       }
       else Serial.println(F("PCD_Authenticate() success: "));
 
-      
+
       // set locale
-      buffer[0] = 1;
+      buffer[0] = locale;
+
+      if (buffer[0] == 0)
+      {
+        Serial.println(F("Français"));
+      }
+
+      if (buffer[0] == 1)
+      {
+        Serial.println(F("Neederlands"));
+      }
+
+      if (buffer[0] == 2)
+      {
+        Serial.println(F("English"));
+      }
+
+      if (buffer[0] == 3)
+      {
+        Serial.println(F("Deutsh"));
+      }
+
+
 
       // Write block
       status = mfrc522.MIFARE_Write(block, buffer, 16);
@@ -106,9 +129,16 @@ void loop() {
       else Serial.println(F("MIFARE_Write() success: "));
 
 
+      // increment locale for next card
+      locale++;
+      if (locale > 3)
+      {
+        locale = 0;
+      }
+
       //----------------------------------------
 
-      Serial.println(F("\n**End Reading**\n"));
+      Serial.println(F("\n**End writing**\n"));
 
       delay(1000); //change value if you want to read cards faster
 
