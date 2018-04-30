@@ -97,21 +97,25 @@ void loop() {
       if (buffer1[0] == 0)
       {
         Serial.println(F("Français"));
+        Serial.println(F("play fr.h264"));
       }
 
       if (buffer1[0] == 1)
       {
         Serial.println(F("Neederlands"));
+        Serial.println(F("play nl.h264"));
       }
 
       if (buffer1[0] == 2)
       {
         Serial.println(F("English"));
+        Serial.println(F("play en.h264"));
       }
 
       if (buffer1[0] == 3)
       {
         Serial.println(F("Deutsh"));
+        Serial.println(F("play de.h264"));
       }
 
       
