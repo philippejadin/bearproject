@@ -48,8 +48,7 @@
 
    Sector >  Block >  Bytes
    16 secteurs de 4 blocs chacun (secteurs 0..15) > contenant 16 octets
-   Nous allons utiliser le secteur 1 bloc 4 5 6
-   et si nécessaire secteur 2 block 8 9 10
+   Nous allons utiliser les block 4, 5, 6, 8, 9, 10
 
    N'utiliser que ceux qui n'ont rien ci-dessus (ceux où tout est à 0)
 
