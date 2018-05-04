@@ -1,7 +1,7 @@
 /*
 
    Affiche en liaison série la locale encodée sur la carte mifare
-   
+
    Sector >  Block >  Bytes
    16 secteurs de 4 blocs chacun (secteurs 0..15) > contenant 16 octets
    Nous allons utiliser le secteur 1 bloc 4 5 6
@@ -25,19 +25,29 @@
 #define SS_PIN          10          // Configurable, see typical pin layout above
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
+int ledPin = 3;
 
+int ledLow = 10; // led semi allumée
+int ledHigh= 200; // led full power (255 = réel maximum)
 
 void setup() {
   Serial.begin(9600);                                           // Initialize serial communications with the PC
   SPI.begin();                                                  // Init SPI bus
   mfrc522.PCD_Init();                                              // Init MFRC522 card
   Serial.println(F("Read locale"));    //shows in serial that it is ready to read
+  pinMode(ledPin, OUTPUT);   // sets the pin as output
+
 }
 
 
 
 //*****************************************************************************************//
 void loop() {
+
+
+  analogWrite(ledPin, ledLow);
+
+
 
   // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
   // Cette clé est utilisée pour s'authentifier avec la carte mifare. Mais nos n'allons pas utiliser cette fonctionalité (ou plutôt : nous allons garder la clé d'origine pour ne pas compliqer)
@@ -59,12 +69,13 @@ void loop() {
     // Select one of the cards
     if ( mfrc522.PICC_ReadCardSerial()) {
 
+      analogWrite(ledPin, ledHigh);
 
       Serial.println(F("**Card Detected:**"));
 
       //-------------------------------------------
       mfrc522.PICC_DumpDetailsToSerial(&(mfrc522.uid)); //dump some details about the card
-     //mfrc522.PICC_DumpToSerial(&(mfrc522.uid));      //uncomment this to see all blocks in hex
+      //mfrc522.PICC_DumpToSerial(&(mfrc522.uid));      //uncomment this to see all blocks in hex
 
 
       // on prépare des variables qui vont recevoir toutes les infos, dont un tableau, buffer, qui recevra les données du block sélectionné
@@ -104,12 +115,16 @@ void loop() {
       {
         Serial.println(F("Neederlands"));
         Serial.println(F("play nl.h264"));
+        analogWrite(ledPin, ledHigh);
+        delay(5000);
       }
 
       if (buffer1[0] == 2)
       {
         Serial.println(F("English"));
         Serial.println(F("play en.h264"));
+        analogWrite(ledPin, ledHigh);
+        delay(5000);
       }
 
       if (buffer1[0] == 3)
@@ -118,17 +133,36 @@ void loop() {
         Serial.println(F("play de.h264"));
       }
 
-      
+
 
       //----------------------------------------
 
       Serial.println(F("\n**End Reading**\n"));
 
-      delay(1000); //change value if you want to read cards faster
+
 
       // ne pas oublier ceci quand tout est fini :
       mfrc522.PICC_HaltA();
       mfrc522.PCD_StopCrypto1();
+
+      delay(100);
+      analogWrite(ledPin, 0);
+      delay(100);
+      analogWrite(ledPin, ledHigh);
+      delay(100);
+      analogWrite(ledPin, 0);
+      delay(100);
+      analogWrite(ledPin, ledHigh);
+      delay(100);
+      analogWrite(ledPin, 0);
+      delay(100);
+      analogWrite(ledPin, ledHigh);
+      delay(100);
+
+
+
+      //delay(1000); //change value if you want to read cards faster
+
 
     }
 
