@@ -113,18 +113,23 @@ void loop() {
 
       if (buffer1[0] == 1)
       {
-        Serial.println(F("Neederlands"));
+        Serial.println(F("Nederlands"));
         Serial.println(F("play nl.h264"));
+        /*
         analogWrite(ledPin, ledHigh);
         delay(5000);
+        */
       }
 
       if (buffer1[0] == 2)
       {
         Serial.println(F("English"));
         Serial.println(F("play en.h264"));
+        /*
+         
         analogWrite(ledPin, ledHigh);
         delay(5000);
+        */
       }
 
       if (buffer1[0] == 3)
