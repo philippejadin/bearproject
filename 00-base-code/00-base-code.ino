@@ -61,6 +61,9 @@ void setup() {
 //*****************************************************************************************//
 void loop() {
 
+  wdt_enable(WDTO_2S); // active le watchdog pour rebooter l'arduino si pas de réponse après 2 secondes
+
+
   analogWrite(LED_PIN, ledLow);
 
 
@@ -98,24 +101,16 @@ void loop() {
       if (status != MFRC522::STATUS_OK) {
         Serial.print(F("Authentication failed: "));
         Serial.println(mfrc522.GetStatusCodeName(status));
-        Serial.println(F("REBOOTING"));
-        wdt_enable(WDTO_60MS); // active le watchdog pour rebooter l'arduino
-        delay(300);
-        return;
       }
 
 
       // là on lit les données
       len = sizeof(data);
       status = mfrc522.MIFARE_Read(block, data, &len);
-      len = sizeof(data);
+
       if (status != MFRC522::STATUS_OK) {
         Serial.print(F("Reading failed: "));
         Serial.println(mfrc522.GetStatusCodeName(status));
-        Serial.println(F("REBOOTING"));
-        wdt_enable(WDTO_60MS); // active le watchdog pour rebooter l'arduino
-        delay(300);
-        return;
       }
 
       // Cloturer au plus vite la lecture de la carte
@@ -144,25 +139,29 @@ void loop() {
         Serial.println(F("play de.h264"));
       }
 
-      /*
-            delay(100);
-            analogWrite(LED_PIN, 0);
-            delay(100);
-            analogWrite(LED_PIN, ledHigh);
-            delay(100);
-            analogWrite(LED_PIN, 0);
-            delay(100);
-            analogWrite(LED_PIN, ledHigh);
-            delay(100);
-            analogWrite(LED_PIN, 0);
-            delay(100);
-            analogWrite(LED_PIN, ledHigh);
-            delay(100);
-            analogWrite(LED_PIN, ledLow);
+      wdt_reset();
 
 
-            delay(500); // attente totale : 1300 ms
-      */
+      delay(100);
+      analogWrite(LED_PIN, 0);
+      delay(100);
+      analogWrite(LED_PIN, ledHigh);
+      delay(100);
+      analogWrite(LED_PIN, 0);
+      delay(100);
+      analogWrite(LED_PIN, ledHigh);
+      delay(100);
+      analogWrite(LED_PIN, 0);
+      delay(100);
+      analogWrite(LED_PIN, ledHigh);
+      delay(100);
+      analogWrite(LED_PIN, ledLow);
+
+
+      delay(500); // attente totale : 1300 ms
+
+
+      wdt_reset();
 
     }
 
