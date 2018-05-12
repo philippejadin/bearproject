@@ -1,3 +1,5 @@
+
+
 /*
 
    Module de base à modifier pour les autres modules
@@ -34,26 +36,31 @@
 #include <SPI.h>
 #include <MFRC522.h>
 #include <avr/wdt.h>
+#include <FadeLed.h>
+
 
 #define RST_PIN         9           // pin reset du lecteur rfid
 #define SS_PIN          10          // pins slave select du lecteur rfid
 #define LED_PIN         3
+
+FadeLed led(3); //Fading status LED on pin 5
 
 const char MODULE[]    =      "00-base"; // à changer pour chaque module, pour l'identifier facilement
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 
 
-int ledLow = 15; // led semi allumée
-int ledHigh = 200; // led full power (255 = réel maximum)
+int ledLow = 5; // led semi allumée
+int ledMedium = 40; // led medium power (100 = réel maximum)
+int ledHigh = 80; // led full power (100 = réel maximum)
 
 void setup() {
   Serial.begin(9600);                                           // Initialize serial communications with the PC
   SPI.begin();                                                  // Init SPI bus
   mfrc522.PCD_Init();                                              // Init MFRC522 card
   Serial.println(MODULE);    //affiche le nom du module en debug série
-  pinMode(LED_PIN, OUTPUT);   // init pin leds
-
+  //pinMode(LED_PIN, OUTPUT);   // init pin leds
+  led.setTime(1000, true);
 }
 
 
@@ -62,13 +69,28 @@ void setup() {
 void loop() {
 
   wdt_enable(WDTO_2S); // active le watchdog pour rebooter l'arduino si pas de réponse après 2 secondes
+  FadeLed::update();
+
+  if (led.done())
+  {
+    if (led.get() == ledLow)
+    {
+      led.set(ledMedium);
+    } else
+    {
+      led.set(ledLow);
+    }
+  }
 
 
-  analogWrite(LED_PIN, ledLow);
+
+  //analogWrite(LED_PIN, ledLow);
 
 
   // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
   // Cette clé est utilisée pour s'authentifier avec la carte mifare. Mais nous n'allons pas utiliser cette fonctionalité (ou plutôt : nous allons garder la clé d'origine pour ne pas compliqer)
+  
+  
   MFRC522::MIFARE_Key key;
   for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
 
@@ -155,7 +177,7 @@ void loop() {
       delay(100);
       analogWrite(LED_PIN, ledHigh);
       delay(100);
-      analogWrite(LED_PIN, ledLow);
+      analogWrite(LED_PIN, 0);
 
 
       delay(500); // attente totale : 1300 ms
