@@ -1,194 +1,73 @@
-
-
 /*
-
    Module de base à modifier pour les autres modules
 
-
-   Stockage RFID :
-
-   Sector >  Block >  Bytes
-   16 secteurs de 4 blocs chacun (secteurs 0..15) > contenant 16 octets
-   Nous allons utiliser le secteur 1 bloc 4 5 6
-   et si nécessaire secteur 2 block 8 9 10
-
-   N'utiliser que ceux qui n'ont rien ci-dessus (ceux où tout est à 0)
-
-   block 4 = locale
-   Valeurs :
-   0 = fr
-   1 = nl
-   2 = en
-   3 = de
-
    PINS arduino utilisées :
-
    - serial : 0, 1
    - leds : 3
    - mosfet et/ou relais : 4, 5, 6, 7
    - rfid : 9, 10, 11, 12, 13
    - i2c : A4 (SDA), A5 (SCL)
-
-
-
 */
+
+const char MODULE_NAME[] = "00-base"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 
 #include <SPI.h>
 #include <MFRC522.h>
 #include <avr/wdt.h>
 #include <FadeLed.h>
+#include <bearlib.h> // à inclure en dernier
 
 
-#define RST_PIN         9           // pin reset du lecteur rfid
-#define SS_PIN          10          // pins slave select du lecteur rfid
-#define LED_PIN         3
-
-FadeLed led(3); //Fading status LED on pin 5
-
-const char MODULE[]    =      "00-base"; // à changer pour chaque module, pour l'identifier facilement
-
-MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
-
-
-int ledLow = 5; // led semi allumée
-int ledMedium = 40; // led medium power (100 = réel maximum)
-int ledHigh = 80; // led full power (100 = réel maximum)
 
 void setup() {
-  Serial.begin(9600);                                           // Initialize serial communications with the PC
-  SPI.begin();                                                  // Init SPI bus
-  mfrc522.PCD_Init();                                              // Init MFRC522 card
-  Serial.println(MODULE);    //affiche le nom du module en debug série
-  //pinMode(LED_PIN, OUTPUT);   // init pin leds
-  led.setTime(1000, true);
+  bear_init();
+  wdt_enable(WDTO_8S); // active le watchdog pour rebooter l'arduino si pas de réponse après 8 secondes
 }
 
 
 
 //*****************************************************************************************//
 void loop() {
+  FadeLed::update(); // gestion du fondu des leds, à appeller en boucle
+  wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
-  wdt_enable(WDTO_2S); // active le watchdog pour rebooter l'arduino si pas de réponse après 2 secondes
-  FadeLed::update();
+  bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente
 
-  if (led.done())
-  {
-    if (led.get() == ledLow)
-    {
-      led.set(ledMedium);
-    } else
-    {
-      led.set(ledLow);
-    }
-  }
-
-
-
-  //analogWrite(LED_PIN, ledLow);
-
-
-  // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
-  // Cette clé est utilisée pour s'authentifier avec la carte mifare. Mais nous n'allons pas utiliser cette fonctionalité (ou plutôt : nous allons garder la clé d'origine pour ne pas compliqer)
   
-  
-  MFRC522::MIFARE_Key key;
-  for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
+  // Attend une carte RFID
+  if (bear_has_card()) {
+
+    analogWrite(LED_PIN, LED_HIGH);
+
+    byte locale = bear_get_locale();
 
 
-
-  // on prépare des variables qui vont recevoir toutes les infos, dont un tableau, data, qui recevra les données du block sélectionné
-
-  MFRC522::StatusCode status;
-  byte data[72];
-  byte block = 4; // numéro du block, que l'on interroge, ici la locale
-  byte len = sizeof(data);
-
-  //-------------------------------------------
-
-  // Look for new cards
-  if ( mfrc522.PICC_IsNewCardPresent()) {
-
-    // Select one of the cards
-    if ( mfrc522.PICC_ReadCardSerial()) {
-
-      analogWrite(LED_PIN, ledHigh);
-
-
-      //-------------------------------------------
-      //mfrc522.PICC_DumpDetailsToSerial(&(mfrc522.uid)); //dump some details about the card
-      //mfrc522.PICC_DumpToSerial(&(mfrc522.uid));      //uncomment this to see all blocks in hex
-
-      // on s'authentifie avec l'uid de la carte trouvé ci-dessus ainsi qu'avec la clé initialisée ci-dessus aussi
-      status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, block, &key, &(mfrc522.uid)); //line 834 of MFRC522.cpp file
-      if (status != MFRC522::STATUS_OK) {
-        Serial.print(F("Authentication failed: "));
-        Serial.println(mfrc522.GetStatusCodeName(status));
-      }
-
-
-      // là on lit les données
-      len = sizeof(data);
-      status = mfrc522.MIFARE_Read(block, data, &len);
-
-      if (status != MFRC522::STATUS_OK) {
-        Serial.print(F("Reading failed: "));
-        Serial.println(mfrc522.GetStatusCodeName(status));
-      }
-
-      // Cloturer au plus vite la lecture de la carte
-      mfrc522.PICC_HaltA();
-      mfrc522.PCD_StopCrypto1();
-
-
-      // en fonction de la locale on écrit en série ce que l'on veut faire :
-      if (data[0] == 0)
-      {
-        Serial.println(F("play fr.h264"));
-      }
-
-      if (data[0] == 1)
-      {
-        Serial.println(F("play nl.h264"));
-      }
-
-      if (data[0] == 2)
-      {
-        Serial.println(F("play en.h264"));
-      }
-
-      if (data[0] == 3)
-      {
-        Serial.println(F("play de.h264"));
-      }
-
-      wdt_reset();
-
-
-      delay(100);
-      analogWrite(LED_PIN, 0);
-      delay(100);
-      analogWrite(LED_PIN, ledHigh);
-      delay(100);
-      analogWrite(LED_PIN, 0);
-      delay(100);
-      analogWrite(LED_PIN, ledHigh);
-      delay(100);
-      analogWrite(LED_PIN, 0);
-      delay(100);
-      analogWrite(LED_PIN, ledHigh);
-      delay(100);
-      analogWrite(LED_PIN, 0);
-
-
-      delay(500); // attente totale : 1300 ms
-
-
-      wdt_reset();
-
+    // en fonction de la locale on écrit en série ce que l'on veut faire :
+    if (locale == LOCALE_FR)
+    {
+      Serial.println(F("play fr.h264"));
     }
 
-  }
+    if (locale == LOCALE_NL)
+    {
+      Serial.println(F("play nl.h264"));
+    }
 
+    if (locale == LOCALE_EN)
+    {
+      Serial.println(F("play en.h264"));
+    }
+
+    if (locale == LOCALE_DE)
+    {
+      Serial.println(F("play de.h264"));
+    }
+
+    bear_led_blink();
+    
+    delay(500); // attente totale : 1300 ms
+  }
 
 }
+
 
