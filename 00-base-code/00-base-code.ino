@@ -11,24 +11,19 @@
 
 const char MODULE_NAME[] = "00-base"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 
-#include <SPI.h>
-#include <MFRC522.h>
-#include <avr/wdt.h>
-#include <FadeLed.h>
 #include <bearlib.h> // à inclure en dernier
 
 
 
 void setup() {
   bear_init();
-  wdt_enable(WDTO_8S); // active le watchdog pour rebooter l'arduino si pas de réponse après 8 secondes
 }
 
 
 
 //*****************************************************************************************//
 void loop() {
-  FadeLed::update(); // gestion du fondu des leds, à appeller en boucle
+  
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente
