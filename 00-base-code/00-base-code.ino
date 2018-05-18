@@ -40,17 +40,17 @@ void loop() {
     // en fonction de la locale on écrit en série ce que l'on veut faire :
     if (locale == LOCALE_FR)
     {
-      Serial.println(F("play fr.h264"));
+      Serial.println(F("play fr.mov"));
     }
 
     if (locale == LOCALE_NL)
     {
-      Serial.println(F("play nl.h264"));
+      Serial.println(F("play nl.mov"));
     }
 
     if (locale == LOCALE_EN)
     {
-      Serial.println(F("play en.h264"));
+      Serial.println(F("play en.mov"));
     }
 
     if (locale == LOCALE_DE)
