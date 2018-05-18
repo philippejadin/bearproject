@@ -15,11 +15,9 @@ const int duree_max = 2000;
 
 #include <bearlib.h> // à inclure en dernier
 
-
-
 void setup() {
   bear_init();
-  Serial.println("loop 01-fr-idle.h264");
+  Serial.println("loop 01-fr-idle.mp4");
 }
 
 
@@ -37,25 +35,16 @@ void loop() {
     analogWrite(LED_PIN, LED_HIGH);
 
     if (bear_set_locale(LOCALE_FR)) {
-
-      Serial.println("play 01-fr-action.h264");
+      Serial.println("play 01-fr-action.mp4");
       bear_led_blink();
-      while (bear_is_playing(duree_max))
-      {
-      }
-      
-      Serial.println("loop 01-fr-idle.h264");
-    
-    } else {
+      bear_delay(4000);
+      Serial.println("loop 01-fr-idle.mp4");
 
+    } else {
       Serial.println("play error_fr.mp4");
       bear_led_blink_error();
-      while (bear_is_playing(duree_max))
-      {
-      }
-      
-      Serial.println("loop 01-fr-idle.h264");
+      bear_delay(4000);
+      Serial.println("loop 01-fr-idle.mp4");
     }
   }
-
 }
