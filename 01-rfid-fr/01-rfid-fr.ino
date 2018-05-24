@@ -11,7 +11,7 @@
 */
 
 const char MODULE_NAME[] = "01-rfid-fr"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
-const int duree_max = 2000;
+
 
 #include <bearlib.h> // à inclure en dernier
 

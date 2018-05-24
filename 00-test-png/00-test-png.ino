@@ -9,7 +9,7 @@
    - i2c : A4 (SDA), A5 (SCL)
 */
 
-const char MODULE_NAME[] = "00-base"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
+const char MODULE_NAME[] = "00-test-png"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 
 #include <bearlib.h> // à inclure en dernier
 
@@ -17,6 +17,11 @@ const char MODULE_NAME[] = "00-base"; // à changer pour chaque module, pour l'i
 
 void setup() {
   bear_init();
+  Serial.println(F("play test.png"));
+  bear_delay(3000);
+  Serial.println(F("clearscreen"));
+  Serial.println(F("play error.png"));
+  bear_delay(3000);
 }
 
 
@@ -35,6 +40,9 @@ void loop() {
     analogWrite(LED_PIN, LED_HIGH);
 
     byte locale = bear_get_locale();
+
+    Serial.print("Locale is ");
+    Serial.println(locale);
 
 
     // en fonction de la locale on écrit en série ce que l'on veut faire :
