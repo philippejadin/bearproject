@@ -17,7 +17,7 @@ const int duree_max = 2000;
 
 void setup() {
   bear_init();
-  Serial.println("loop 01-fr-idle.mp4");
+  Serial.println("loop 01-fr-idle.h264");
 }
 
 
@@ -35,16 +35,16 @@ void loop() {
     analogWrite(LED_PIN, LED_HIGH);
 
     if (bear_set_locale(LOCALE_FR)) {
-      Serial.println("play 01-fr-action.mp4");
+      Serial.println("play 01-fr-action.h264");
       bear_led_blink();
       bear_delay(4000);
-      Serial.println("loop 01-fr-idle.mp4");
+      Serial.println("loop 01-fr-idle.h264");
 
     } else {
-      Serial.println("play error_fr.mp4");
+      Serial.println("play error_fr.h264");
       bear_led_blink_error();
       bear_delay(4000);
-      Serial.println("loop 01-fr-idle.mp4");
+      Serial.println("loop 01-fr-idle.h264");
     }
   }
 }
