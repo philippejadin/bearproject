@@ -46,5 +46,7 @@ void loop() {
       bear_delay(4000);
       Serial.println("loop 01-fr-idle.h264");
     }
+
+    bear_stop();
   }
 }

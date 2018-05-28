@@ -23,12 +23,12 @@ void setup() {
 
 //*****************************************************************************************//
 void loop() {
-  
+
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente
 
-  
+
   // Attend une carte RFID
   if (bear_has_card()) {
 
@@ -36,31 +36,36 @@ void loop() {
 
     byte locale = bear_get_locale();
 
+    if (locale == false)
+    {
+      Serial.println(F("play error.h264"));
+    }
 
     // en fonction de la locale on écrit en série ce que l'on veut faire :
     if (locale == LOCALE_FR)
     {
-      Serial.println(F("play fr.mp4"));
+      Serial.println(F("play fr.h264"));
     }
 
     if (locale == LOCALE_NL)
     {
-      Serial.println(F("play nl.mp4"));
+      Serial.println(F("play nl.h264"));
     }
 
     if (locale == LOCALE_EN)
     {
-      Serial.println(F("play en.mp4"));
+      Serial.println(F("play en.h264"));
     }
 
     if (locale == LOCALE_DE)
     {
-      Serial.println(F("play de.mp4"));
+      Serial.println(F("play de.h264"));
     }
 
     bear_led_blink();
-    
-    delay(500); // attente totale : 1300 ms
+    bear_stop();
+
+    bear_delay(500); // attente totale : 1300 ms
   }
 
 }

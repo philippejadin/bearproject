@@ -41,10 +41,10 @@ void loop() {
   if (bear_has_card()) {
     //coupe tous les relais
     for (int i = 0; i < n_max_relay; i++) {
-      digitalWrite (relay_pin(i), LOW);
+      digitalWrite (relay_pin[i], LOW);
     }
-    //bling bling
-    analogWrite(LED_PIN, LED_HIGH);
+
+   
     // selectionne le relais suivant
     if (n_relay < n_max_relay) {
       n_relay++;
@@ -53,8 +53,11 @@ void loop() {
       n_relay = 0;
     }
     //allume le relais selectionné
-    digitalWrite (relay_pin(n_relay), HIGH );
+    digitalWrite (relay_pin[n_relay], HIGH );
 
+    //bling bling
+    bear_led_blink();
+    bear_stop();
   }
 
 }

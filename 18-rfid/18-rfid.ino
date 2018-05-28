@@ -59,9 +59,11 @@ void loop() {
         fadeAmount = -fadeAmount;
       }
       // wait for 30 milliseconds to see the dimming effect
-      delay(30);
+      bear_delay(30);
     }
 
+    bear_led_blink();
+    bear_stop();
 
   }
 
