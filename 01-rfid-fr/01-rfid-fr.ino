@@ -41,7 +41,7 @@ void loop() {
       Serial.println("loop 01-fr-idle.h264");
 
     } else {
-      Serial.println("play error_fr.h264");
+      Serial.println("play error.h264");
       bear_led_blink_error();
       bear_delay(4000);
       Serial.println("loop 01-fr-idle.h264");
