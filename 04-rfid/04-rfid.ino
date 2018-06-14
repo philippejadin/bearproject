@@ -15,7 +15,7 @@ const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'i
 
 #include <bearlib.h> // à inclure en dernier
 
-const int n_max_relay = 4;//nbre de relay
+const int n_max_relay = 3;//nbre de relay
 int n_relay = 0;
 int relay_pin[4] = {RELAY_1, RELAY_2, RELAY_3, RELAY_4};
 
@@ -54,6 +54,8 @@ void loop() {
     }
     //allume le relais selectionné
     digitalWrite (relay_pin[n_relay], HIGH );
+    Serial.print("Enable relay ");
+    Serial.println(n_relay);
 
     //bling bling
     bear_led_blink();
