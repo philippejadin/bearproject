@@ -36,17 +36,19 @@ void loop() {
 
     if (bear_set_locale(LOCALE_FR)) {
       Serial.println("play 01-fr-action.h264");
+      bear_stop();
       bear_led_blink();
-      bear_delay(4000);
+      bear_delay(10000);
       Serial.println("loop 01-fr-idle.h264");
 
     } else {
-      Serial.println("play error.h264");
+      Serial.println("play 00-error.h264");
+      bear_stop();
       bear_led_blink_error();
       bear_delay(4000);
       Serial.println("loop 01-fr-idle.h264");
     }
 
-    bear_stop();
+    
   }
 }
