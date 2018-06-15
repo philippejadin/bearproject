@@ -8,6 +8,16 @@
    - mosfet et/ou relais : 4, 5, 6, 7
    - rfid : 9, 10, 11, 12, 13
    - i2c : A4 (SDA), A5 (SCL)
+
+
+   RELAIS : 
+   - Blanc : GND
+   - Rose : VCC
+   - Brun : Relais 1
+   - Vert : Relais 2
+   - Gris : Relais 3
+   - Jaune : Relais 4
+   
 */
 
 const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
