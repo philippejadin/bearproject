@@ -20,6 +20,10 @@
    - polaire = 16
    - brun = 17
 
+   principe : le master demande à chaque slave si il a quelque chose à envoyer, 
+   si c'est le cas, le slave envoi le chiffre de la locale (fr, nl, en ou de), 
+   ainsi le master peux lancer la video adéquate en fonction de la locale et du numéro du slave
+
 */
 
 const char MODULE_NAME[] = "16-pixel-master"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
