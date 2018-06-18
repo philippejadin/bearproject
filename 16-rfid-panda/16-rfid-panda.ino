@@ -59,9 +59,10 @@ void loop() {
 // function that executes whenever data is requested by master
 // this function is registered as an event, see setup()
 void requestEvent() {
-  if (locale <> 0)
+
+  Wire.write(locale); // on envoit la locale reçue et puis on la remet à 0 pour ne plus l'envoyer la fois suivante
+  if (locale != 0)
   {
-    Wire.write(locale); // on envoit la locale reçue et puis on la remet à 0 pour ne plus l'envoyer la fois suivante
     locale = 0;
   }
 

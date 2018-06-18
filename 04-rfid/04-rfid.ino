@@ -10,14 +10,14 @@
    - i2c : A4 (SDA), A5 (SCL)
 
 
-   RELAIS : 
+   RELAIS :
    - Blanc : GND
    - Rose : VCC
    - Brun : Relais 1
    - Vert : Relais 2
    - Gris : Relais 3
    - Jaune : Relais 4
-   
+
 */
 
 const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
@@ -36,6 +36,14 @@ void setup() {
   pinMode (RELAY_2, OUTPUT);
   pinMode (RELAY_3, OUTPUT);
   pinMode (RELAY_4, OUTPUT);
+
+  //coupe tous les relais sauf 1
+  digitalWrite (RELAY_1, HIGH);
+  digitalWrite (RELAY_2, LOW);
+  digitalWrite (RELAY_3, LOW);
+  digitalWrite (RELAY_4, LOW);
+
+
 }
 
 
@@ -49,12 +57,15 @@ void loop() {
 
   // Attend une carte RFID
   if (bear_has_card()) {
-    //coupe tous les relais
-    for (int i = 0; i < n_max_relay; i++) {
-      digitalWrite (relay_pin[i], LOW);
-    }
 
-   
+
+    //coupe tous les relais
+    digitalWrite (RELAY_1, LOW);
+    digitalWrite (RELAY_2, LOW);
+    digitalWrite (RELAY_3, LOW);
+    digitalWrite (RELAY_4, LOW);
+
+    
     // selectionne le relais suivant
     if (n_relay < n_max_relay) {
       n_relay++;

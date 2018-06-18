@@ -51,11 +51,15 @@ void loop() {
   for (int i = 10; i < 18; i++)
   {
     Wire.requestFrom(i, 1);    // request 1 bytes from slave device #i (10-17)
-
+    
     while (Wire.available()) { // slave may send less than requested
       char c = Wire.read(); // receive a byte as character
+      Serial.print("slave id : ");
       Serial.print(i);         // imprime l'adresse qui a répondu
-      Serial.println(c);         // imprime la locale reçue
+      Serial.print(" / locale : ");
+      Serial.write(c);         // imprime la locale reçue
+      Serial.println();
+     
     }
   }
 }
