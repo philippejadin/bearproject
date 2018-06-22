@@ -37,6 +37,35 @@ void loop() {
     analogWrite(LED_PIN, LED_HIGH);
 
 
+     // idem pour la lecture :
+    byte locale_initial = bear_get_locale();
+
+    Serial.print("locale : ");
+    Serial.println(locale_initial);
+
+
+    // en fonction de la locale on écrit sur port série ce que l'on veut faire :
+    if (locale_initial == LOCALE_FR)
+    {
+      Serial.println(F("play fr.mp4"));
+    }
+
+    if (locale_initial == LOCALE_NL)
+    {
+      Serial.println(F("play nl.mp4"));
+    }
+
+    if (locale_initial == LOCALE_EN)
+    {
+      Serial.println(F("play en.mp4"));
+    }
+
+    if (locale_initial == LOCALE_DE)
+    {
+      Serial.println(F("play de.mp4"));
+    }
+
+
 
     /* Exemple de lecture de données sur carte rfid.
       Il faut préciser le block et la position que l'on veut lire.
@@ -61,7 +90,7 @@ void loop() {
 
 
     // Encore plus simple, écriture de la langue sur le rfid :
-    bear_set_locale(LOCALE_DE);
+    bear_set_locale(LOCALE_EN);
 
     // idem pour la lecture :
     byte locale = bear_get_locale();

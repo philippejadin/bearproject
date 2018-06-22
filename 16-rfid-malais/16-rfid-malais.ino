@@ -22,7 +22,7 @@
 
 */
 
-const char MODULE_NAME[] = "16-rfid-panda"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
+const char MODULE_NAME[] = "16-rfid-malais"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 
 
 #include <bearlib.h> // à inclure en dernier
@@ -34,7 +34,7 @@ int locale = 0; // locale stockée de manière globale
 
 void setup() {
   bear_init();
-  Wire.begin(10);                // join i2c bus with address #10
+  Wire.begin(12);                // join i2c bus with address #10
   Wire.onRequest(requestEvent); // register event
 }
 
