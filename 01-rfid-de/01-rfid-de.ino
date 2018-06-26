@@ -10,14 +10,14 @@
    - i2c : A4 (SDA), A5 (SCL)
 */
 
-const char MODULE_NAME[] = "01-rfid-en"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
+const char MODULE_NAME[] = "01-rfid-de"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 
 
 #include <bearlib.h> // à inclure en dernier
 
 void setup() {
   bear_init();
-  Serial.println("loop 01-en-idle.h264");
+  Serial.println("loop 01-de-idle.h264");
 }
 
 
@@ -34,8 +34,8 @@ void loop() {
 
     analogWrite(LED_PIN, LED_HIGH);
 
-    if (bear_set_locale(LOCALE_EN)) {
-      Serial.println("play 01-en-action.h264");
+    if (bear_set_locale(LOCALE_DE)) {
+      Serial.println("play 01-de-action.h264");
 
       // efface les données de la carte
       bear_erase();
@@ -43,7 +43,7 @@ void loop() {
       bear_stop();
       bear_led_blink();
       bear_delay(8000);
-      Serial.println("loop 01-en-idle.h264");
+      Serial.println("loop 01-de-idle.h264");
     } else {
       bear_delay(100);
       bear_stop();

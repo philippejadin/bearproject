@@ -50,29 +50,34 @@ void loop() {
     for (int i = 0; i < 255; i++)
     {
       analogWrite(MOSFET_1, i);
-      bear_delay(20);
+      analogWrite(LED_PIN, i);
+      bear_delay(random(20,30));
     }
 
-    for (int i = 255; i > 0; i--)
+    for (int i = 255; i > 10; i--)
     {
       analogWrite(MOSFET_1, i);
-      bear_delay(10);
+      analogWrite(LED_PIN, i);
+      bear_delay(random(10,20));
     }
 
-    for (int i = 0; i < 255; i++)
+    for (int i = 10; i < 255; i++)
     {
       analogWrite(MOSFET_1, i);
-      bear_delay(20);
+      analogWrite(LED_PIN, i);
+      bear_delay(random(5,15));
     }
 
-    for (int i = 255; i > 0; i--)
+    for (int i = 255; i > 10; i--)
     {
       analogWrite(MOSFET_1, i);
-      bear_delay(40);
+      analogWrite(LED_PIN, i);
+      bear_delay(random(10,20));
     }
 
     // TODO code mosfet OFF
     analogWrite(MOSFET_1, 0);
+    analogWrite(LED_PIN, LED_LOW);
     Serial.println("disable mosfet");
 
 

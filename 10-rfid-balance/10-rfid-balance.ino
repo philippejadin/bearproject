@@ -23,11 +23,12 @@ const char MODULE_NAME[] = "10-rfid-balance"; // à changer pour chaque module, 
 #include <bearlib.h> // à inclure en dernier
 
 const int switchPin = 6; // switch déclencheur de la balance
-int buttonState = 0; 
+int locale;
 
 void setup() {
   bear_init();
   pinMode(switchPin, INPUT);
+  Serial.println("loop 10-idle.h264");
 }
 
 
@@ -39,37 +40,94 @@ void loop() {
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
 
 
-  // code debug
-  buttonState = digitalRead(switchPin);
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
-    // turn LED on:
-    analogWrite(LED_PIN, LED_HIGH);
-  } else {
-    // turn LED off:
-    analogWrite(LED_PIN, LED_LOW);
-  }
-  // fin code debug
+  // attente carte rfid
+  if (bear_has_card())
+  {
 
-  // Attend une carte RFID
-  if (bear_has_card()) {
-
-    analogWrite(LED_PIN, LED_HIGH);
+    // lit la langue
+    locale = bear_get_locale();
     bear_stop();
-    bear_led_blink();
 
-    for (int i = 0; i < 10; i++)
+
+    // stocke temps de départ
+
+
+    // joue la séquence départ (1)
+    if (locale == LOCALE_FR)
     {
-      analogWrite(5, 255);
-      delay(500);
+      Serial.println("play 10-action1-fr.h264");
+    }
 
-      analogWrite(5, 0);
-      delay(500);
+    if (locale == LOCALE_EN)
+    {
+      Serial.println("play 10-action1-en.h264");
+    }
+
+    if (locale == LOCALE_DE)
+    {
+      Serial.println("play 10-action1-de.h264");
 
     }
 
+    if (locale == LOCALE_NL)
+    {
+      Serial.println("play 10-action1-nl.h264");
+    }
+
+    bear_delay(1000);
+
+    // attends bouton on pour jouer séquence suivante et clignote
+
+    for (int i = 2; i < 6; i++)
+    {
+      while (digitalRead(switchPin) == LOW)
+      {
+        analogWrite(5, 255);
+        bear_delay(200);
+
+        analogWrite(5, 0);
+        bear_delay(200);
+      }
+
+
+      String command = "play 10-action";
+      command = command + i + "-";
+      
+      if (locale == LOCALE_FR)
+      {
+        command = command + "fr";
+      }
+
+      if (locale == LOCALE_EN)
+      {
+        command = command + "en";
+      }
+
+      if (locale == LOCALE_DE)
+      {
+        command = command + "de";
+      }
+
+      if (locale == LOCALE_NL)
+      {
+       command = command + "nl";
+      }
+
+      command = command + ".h264";
+
+      Serial.println(command);
+
+      bear_delay(1000);
+      
+    }
+
+    Serial.println("loop 10-idle.h264");
+
   }
 
+  
 }
+
+
 
 

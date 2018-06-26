@@ -31,7 +31,7 @@ int relay_pin[4] = {RELAY_1, RELAY_2, RELAY_3, RELAY_4};
 
 void setup() {
   bear_init();
-  Serial.println("loop 01-fr-idle.mp4");
+
   pinMode (RELAY_1, OUTPUT);
   pinMode (RELAY_2, OUTPUT);
   pinMode (RELAY_3, OUTPUT);
