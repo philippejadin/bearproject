@@ -32,7 +32,6 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    analogWrite(LED_PIN, LED_HIGH);
     locale = bear_get_locale();
     bear_stop();
 

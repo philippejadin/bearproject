@@ -10,8 +10,8 @@
    - i2c : A4 (SDA), A5 (SCL)
 */
 
-const char MODULE_NAME[] = "00-video-test"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
-
+const char MODULE_NAME[] = "09-rfid-panda"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
+const int duree_video = 1800//en ms
 
 #include <bearlib.h> // à inclure en dernier
 
@@ -29,15 +29,80 @@ void loop() {
 
   // Attend une carte RFID
   if (bear_has_card()) {
-    analogWrite(LED_PIN, LED_HIGH);
+      locale = bear_get_locale();
+      delay(100);// verifier
+      int food = bear_read(5,0);
+      delay(100);
+      bear_stop();
 
-    Serial.println("play 09-result-panda10.h264");
-    bear_stop();
+if (food == 0){
+    if (locale == (LOCALE_FR))
+    {
+      Serial.println("play 02-action-fr.wav");
+    }
+
+    if (locale == (LOCALE_EN))
+    {
+      Serial.println("play 02-action-en.wav");
+    }
+
+    if (locale == (LOCALE_NL))
+    {
+      Serial.println("play 02-action-nl.wav");
+    }
+
+    if (locale == (LOCALE_DE))
+    {
+      Serial.println("play 02-action-de.wav");
+    }
     bear_led_blink();
-    bear_delay(1800); // ce chiffre est à peu près ok
-    Serial.println("loop 09-idle-panda.h264");
   }
 
-
-
+  else if(food==1){
+    Serial.println("09-result-panda1.h264");
+    }
+    
+  else if(food==2){
+    Serial.println("09-result-panda2.h264");
+    }
+    
+  else if(food== 3){
+    Serial.println("09-result-panda3.h264");
+    }
+    
+  else if(food== 4){
+    Serial.println("09-result-panda4.h264");
+    }
+    
+  else if(food== 5){
+    Serial.println("09-result-panda5.h264");
+    }
+    
+  else if(food== 6){
+    Serial.println("09-result-panda6.h264");
+    }
+    
+  else if(food== 7){
+    Serial.println("09-result-panda7.h264");
+    }
+    
+  else if(food== 8){
+    Serial.println("09-result-panda8.h264");
+    }
+    else if(food== 9){
+    Serial.println("09-result-panda9.h264");
+    }
+    else if(food== 10){
+    Serial.println("09-result-panda10.h264");
+    }
+    else if(food== 11){
+    Serial.println("09-result-panda11.h264");
+    }
+    bear_led_blink();
+    bear_delay(duree_video);//ce chiffre est à peu près ok
+    //Serial.println("bear on the place");
+  
+  Serial.println("loop 09-idle-panda.h264");
+  }
+ 
 }
