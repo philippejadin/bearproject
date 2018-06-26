@@ -55,6 +55,7 @@ if (food == 0){
       Serial.println("play 09-wrong-de.png");
     };
     bear_led_blink();
+    bear_delay(5000);
   }
 
   else if(food==1){
