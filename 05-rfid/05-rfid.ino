@@ -28,6 +28,7 @@ const char MODULE_NAME[] = "05-rfid"; // à changer pour chaque module, pour l'i
 int locale;
 
 void setup() {
+  bear_init();
   Serial.begin(31250); // communication midi avec axoloti
 
 }
@@ -49,6 +50,7 @@ void loop() {
 
     locale = bear_get_locale();
     bear_stop();
+    bear_led_blink();
 
 
     // jouer le son d'explication selon la langue
@@ -58,14 +60,53 @@ void loop() {
     // 62 = en
     // 63 = de
 
+    if (locale == LOCALE_FR)
+    {
+      MIDI_note(60);
+    }
+
+    if (locale == LOCALE_NL)
+    {
+      MIDI_note(61);
+    }
+
+    if (locale == LOCALE_EN)
+    {
+      MIDI_note(62);
+    }
+
+    if (locale == LOCALE_DE)
+    {
+      MIDI_note(63);
+    }
+
+    bear_delay(5000);
+
     // record xx secondes
     // note midi : 64
+    MIDI_note(64);
+    bear_delay(5000);
 
     // play xx secondes
     // note midi : 65
 
-    bear_led_blink();
+    MIDI_note(65);
+    bear_delay(5000);
 
   }
+
+}
+
+//send MIDI message
+void MIDI_note(int note) {
+  Serial.write(144);//send note on
+  Serial.write(note);//send pitch data
+  Serial.write(100);//send velocity data
+  delay(100);
+  Serial.write(128);//send note off command
+  Serial.write(note);//send pitch data
+  Serial.write(100);//send velocity data
+  delay(100);
+
 
 }
