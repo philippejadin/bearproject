@@ -17,13 +17,13 @@
 
 */
 
-const char MODULE_NAME[] = "12-rfid-resting"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
+const char MODULE_NAME[] = "12-rfid-moving"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 #include <bearlib.h> // à inclure en dernier
 
 //----- config me
-const int pause = 5000;  // ms
-const int battement = 5000; // ms
-const int nbr_battement = 3;
+const int pause = 1000;  // ms
+const int battement = 2000; // ms
+const int nbr_battement = 6;
 //-----------
 
 
@@ -67,7 +67,7 @@ void loop() {
   if (bear_has_card()) {
     bear_stop();
     for (int i = 0; i <= nbr_battement; i++ ) {
-      Serial.print("play 12-resting.wav");
+      Serial.print("play 12-moving.wav");
       coeur();
       bear_delay(pause);
     }
