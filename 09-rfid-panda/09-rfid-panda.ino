@@ -34,6 +34,7 @@ void loop() {
        food = bear_read(5,0);
       delay(100);
       bear_stop();
+
 if (food == 0){
 
     if (locale == (LOCALE_FR))
@@ -56,6 +57,7 @@ if (food == 0){
       Serial.println("play 09-wrong-de.png");
     };
     bear_led_blink();
+    bear_delay(5000);
   }
 
   else if(food==1){
