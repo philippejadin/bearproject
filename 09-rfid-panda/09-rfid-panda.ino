@@ -35,24 +35,25 @@ void loop() {
       delay(100);
       bear_stop();
 if (food == 0){
+
     if (locale == (LOCALE_FR))
     {
-      Serial.println("play 02-action-fr.wav");
+      Serial.println("play 09-wrong-fr.png");
     };
 
     if (locale == (LOCALE_EN))
     {
-      Serial.println("play 02-action-en.wav");
+      Serial.println("play 09-wrong-en.png");
     };
 
     if (locale == (LOCALE_NL))
     {
-      Serial.println("play 02-action-nl.wav");
+      Serial.println("play 09-wrong-nl.png");
     };
 
     if (locale == (LOCALE_DE))
     {
-      Serial.println("play 02-action-de.wav");
+      Serial.println("play 09-wrong-de.png");
     };
     bear_led_blink();
   }
