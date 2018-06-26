@@ -36,22 +36,18 @@ void loop() {
 
     if (bear_set_locale(LOCALE_EN)) {
       Serial.println("play 01-en-action.h264");
+
+      // efface les données de la carte
+      bear_erase();
+
       bear_stop();
       bear_led_blink();
       bear_delay(8000);
       Serial.println("loop 01-en-idle.h264");
-
     } else {
-      /*
-      Serial.println("play 00-error.png");
-      bear_stop();
-      bear_led_blink_error();
-      */
       bear_delay(100);
       bear_stop();
-      /*Serial.println("loop 01-fr-idle.h264");*/
     }
 
-    
   }
 }

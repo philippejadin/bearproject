@@ -36,6 +36,10 @@ void loop() {
 
     if (bear_set_locale(LOCALE_FR)) {
       Serial.println("play 01-fr-action.h264");
+
+      // efface les données de la carte
+      bear_erase();
+      
       bear_stop();
       bear_led_blink();
       bear_delay(8000);
