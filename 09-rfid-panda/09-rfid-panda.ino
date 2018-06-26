@@ -11,8 +11,8 @@
 */
 
 const char MODULE_NAME[] = "09-rfid-panda"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
-const int duree_video = 1800//en ms
-
+const int duree_video = 1800;//en ms
+int locale, food;
 #include <bearlib.h> // à inclure en dernier
 
 void setup() {
@@ -31,30 +31,29 @@ void loop() {
   if (bear_has_card()) {
       locale = bear_get_locale();
       delay(100);// verifier
-      int food = bear_read(5,0);
+       food = bear_read(5,0);
       delay(100);
       bear_stop();
-
 if (food == 0){
     if (locale == (LOCALE_FR))
     {
       Serial.println("play 02-action-fr.wav");
-    }
+    };
 
     if (locale == (LOCALE_EN))
     {
       Serial.println("play 02-action-en.wav");
-    }
+    };
 
     if (locale == (LOCALE_NL))
     {
       Serial.println("play 02-action-nl.wav");
-    }
+    };
 
     if (locale == (LOCALE_DE))
     {
       Serial.println("play 02-action-de.wav");
-    }
+    };
     bear_led_blink();
   }
 
