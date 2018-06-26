@@ -24,6 +24,13 @@ const char MODULE_NAME[] = "10-rfid-balance"; // à changer pour chaque module, 
 
 const int switchPin = 6; // switch déclencheur de la balance
 int locale;
+unsigned long chrono;
+
+
+//------------------ config -------
+const long timeout = 10000; // en ms
+//---------------------------------
+
 
 void setup() {
   bear_init();
@@ -50,7 +57,7 @@ void loop() {
 
 
     // stocke temps de départ
-
+    chrono = millis();
 
     // joue la séquence départ (1)
     if (locale == LOCALE_FR)
@@ -87,12 +94,22 @@ void loop() {
 
         analogWrite(5, 0);
         bear_delay(200);
+
+        if (millis() - chrono >= timeout)
+        {
+          Serial.println("timeout");
+          Serial.println("loop 10-idle.h264");
+          return;
+        }
       }
+
+      // relance le timeout
+      chrono = millis();
 
 
       String command = "play 10-action";
       command = command + i + "-";
-      
+
       if (locale == LOCALE_FR)
       {
         command = command + "fr";
@@ -110,22 +127,23 @@ void loop() {
 
       if (locale == LOCALE_NL)
       {
-       command = command + "nl";
+        command = command + "nl";
       }
 
       command = command + ".h264";
 
       Serial.println(command);
 
-      bear_delay(1000);
-      
-    }
+      bear_delay(1000); // TODO
 
+    }
+    bear_delay(6000); // à tester TODO
+    
     Serial.println("loop 10-idle.h264");
 
   }
 
-  
+
 }
 
 
