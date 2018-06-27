@@ -19,7 +19,7 @@
 
 */
 
-const char MODULE_NAME[] = "16-pixel-master"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
+const char MODULE_NAME[] = "13-rfid-summer-master"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 
 
 #include <bearlib.h> // à inclure en dernier
@@ -27,7 +27,7 @@ const char MODULE_NAME[] = "16-pixel-master"; // à changer pour chaque module, 
 // cfr. https://www.arduino.cc/en/Tutorial/MasterReader
 
 
-int locale = 0; // locale stockée de manière globale
+int saison = 0; // locale stockée de manière globale
 
 void setup() {
   bear_init();
@@ -37,22 +37,29 @@ void setup() {
 
 //*****************************************************************************************//
 void loop() {
-
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   // interroge chaque slave à tour de role pour savoir si il a quelque chose à nous dire (une locale)
-  Wire.requestFrom(10, 1);    // request 1 bytes from slave device #i (10-17)
+  Wire.requestFrom(11, 1);    // request 1 bytes from slave device #i (10-17)
 
-  while (Wire.available()) { // slave may send less than requested
-    // à tester ...besoin d'un locale = Wire.read(); ?????????????????????
-    Serial.print("play 13-prout.wav");
-    delay(100);
-    Serial.print("play 13-action-winter.h264");
-  }
-  if (bear_has_card()) {
-    bear_stop();
-    Serial.print ("play 13-prout.wav");
-    delay(100);
-    Serial.print("play 13-action-summer.h264");
-  }
+  while (Wire.available()) {
+
+    saison = Wire.read();
+    if (saison != 0){
+    
+
+      Serial.println("play 13-prout.wav");
+      delay(100);
+      Serial.println("play 13-action-winter.h264");
+}
+
+}
+if (bear_has_card()) {
+  bear_stop();
+
+  Serial.println ("play 13-prout.wav");
+  delay(100);
+  Serial.println("play 13-action-summer.h264");
+  bear_led_blink();
+}
 }

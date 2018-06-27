@@ -25,14 +25,12 @@ const char MODULE_NAME[] = "13-rfid-winter_slave"; // à changer pour chaque mod
 #include <bearlib.h> // à inclure en dernier
 #include <Wire.h> // i2c
 
-int saison;
 // cfr. https://www.arduino.cc/en/Tutorial/MasterReader
 
-
+int saison = 0;
 void setup() {
   bear_init();
-  Wire.begin(10);        // join i2c bus (address optional for master)
-  Wire.setClock(10000); // 10khz bus speed
+  Wire.begin(11);        // join i2c bus (address optional for master)
   Wire.onRequest(requestEvent); // register event
 }
 
@@ -48,7 +46,8 @@ void loop() {
   if (bear_has_card()) {
     bear_stop();
     saison = 1;
-    bear_delay(1000);
+    bear_led_blink();
+    bear_delay(500);
 
   }
 }
@@ -56,7 +55,7 @@ void loop() {
 // function that executes whenever data is requested by master
 // this function is registered as an event, see setup()
 void requestEvent() {
-
+Serial.println("slave requestEvent");
   Wire.write(saison); // on envoit la locale reçue et puis on la remet à 0 pour ne plus l'envoyer la fois suivante
   if (saison != 0)
   {
