@@ -25,6 +25,7 @@ const char MODULE_NAME[] = "19-rfid"; // à changer pour chaque module, pour l'i
 
 void setup() {
   bear_init();
+  pinMode(RELAY_1, OUTPUT);
 }
 
 
@@ -39,25 +40,18 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    analogWrite(LED_PIN, LED_HIGH);
     bear_stop();
-
-
-
-    Serial.println("start show");
-
     digitalWrite(RELAY_1, HIGH);
     analogWrite(LED_PIN, LED_HIGH);
-
+    Serial.println("start show");
+    
     bear_led_blink();
 
-    bear_delay(200);
+    bear_delay(2000);
 
     digitalWrite(RELAY_1, LOW);
     analogWrite(LED_PIN, LED_LOW);
 
-
-    bear_delay(2000);
 
     Serial.println("ready for more");
 
