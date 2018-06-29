@@ -7,7 +7,7 @@
    - i2c : A4 (SDA), A5 (SCL)
 
   Numéro de block : 6
-  
+
   Position :
   08-rfid-panda :  1
   08-rfid-lippu : 2
@@ -23,12 +23,15 @@
 const char MODULE_NAME[] = "08-rfid-result"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 byte data[18]; // va contenir toutes les données
 String filename;
+String filecount;
+int count = 0;
 
 
 #include <bearlib.h> // à inclure en dernier
 
 void setup() {
   bear_init();
+  randomSeed(analogRead(0));
 }
 
 
@@ -42,42 +45,60 @@ void loop() {
   if (bear_has_card()) {
 
     // code exemple qui rempli la position 1 et 2
-    //bear_write(6, 1, 1);
-    //bear_write(6, 2, 1);
+    //bear_write(6, 1, 0);
+    //bear_write(6, 5, 1);
 
     bear_read_block(6, data);
     int locale = bear_get_locale();
     bear_stop();
 
     // construction du nom de fichier en regardant chaque case si elle contient un 1 ou pas
-    filename = "08-result";
+
+    count = 0;
+    filename = "";
+    filecount = "";
+
     for (int i = 1; i < 9; i++)
     {
       if (data[i] == 1)
       {
-        filename = filename + i;
+        filecount = filecount + i;
+        count ++;
       }
     }
 
+    // si max 3 animaux sélectionnés on génère le nom de fichier :
+    if (count < 4)
+    {
+      filename = "08-result" + filecount;
+    }
+    else // sinon on tire au sort un animal chimérique (oui, chimérique!)
+    {
+      filename = "08-resultmore";
+      filename = filename + random(1,8);
+    }
+    
+
+    
     // ajout de la locale
     if (locale == LOCALE_FR)
     {
-      filename = filename + "-fr.h264";
+      filename = filename + "-fr.png";
     }
     if (locale == LOCALE_EN)
     {
-      filename = filename + "-en.h264";
+      filename = filename + "-en.png";
     }
     if (locale == LOCALE_NL)
     {
-      filename = filename + "-nl.h264";
+      filename = filename + "-nl.png";
     }
     if (locale == LOCALE_DE)
     {
-      filename = filename + "-de.h264";
+      filename = filename + "-de.png";
     }
 
-    Serial.println(filename);
+    Serial.println("play " + filename);
 
     bear_led_blink();
   }
