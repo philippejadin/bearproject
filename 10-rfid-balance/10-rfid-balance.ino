@@ -1,7 +1,4 @@
 /*
-
-  Cette version utilise fadeled
-
    PINS arduino utilisées :
    - serial : 0, 1
    - leds : 3
@@ -87,6 +84,7 @@ void loop() {
 
     for (int i = 2; i < 6; i++)
     {
+      // reste bloqué tant que le bouton n'est pas pressé
       while (digitalRead(switchPin) == LOW)
       {
         analogWrite(5, 255);
