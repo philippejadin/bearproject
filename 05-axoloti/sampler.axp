@@ -1,0 +1,202 @@
+<patch-1.0 appVersion="1.0.12">
+   <obj type="audio/inconfig" uuid="9a80ef3c19f2a8f81da3a3b7c1c44d18126b97d9" name="inconfig_1" x="70" y="14">
+      <params/>
+      <attribs>
+         <combo attributeName="gain" selection="9dB"/>
+         <combo attributeName="boost" selection="20dB"/>
+         <combo attributeName="mode" selection="Mono(L)"/>
+      </attribs>
+   </obj>
+   <obj type="table/alloc 16b sdram" uuid="6d8eb0fd68f404cb5d14e7d4c8c146c8ccf09da1" name="sample" x="168" y="14">
+      <params/>
+      <attribs>
+         <combo attributeName="size" selection="2097152"/>
+         <text attributeName="init">
+            <sText><![CDATA[]]></sText>
+         </text>
+      </attribs>
+   </obj>
+   <comment type="patch/comment" x="308" y="14" text="Allocate the table here and look in the subpatch how to access it basically ../sample"/>
+   <obj type="audio/in stereo" uuid="99848ad6d90a8e615e83b2e619cfc806f28e7281" name="in_1" x="210" y="126">
+      <params/>
+      <attribs/>
+   </obj>
+   <patcher type="patch/patcher" uuid="df66b1d6-11d0-429b-b95a-87c2fc756059" name="patcher_1" x="770" y="154">
+      <params/>
+      <attribs>
+         <combo attributeName="poly" selection="8"/>
+         <combo attributeName="midichannel" selection="inherit"/>
+         <combo attributeName="mididevice" selection="omni"/>
+         <combo attributeName="midiport" selection="omni"/>
+      </attribs>
+      <subpatch appVersion="1.0.12">
+         <obj type="midi/in/keyb" uuid="53b04874696932f38aceaa168bd5d9efb743716d" name="keyb_1" x="140" y="112">
+            <params/>
+            <attribs/>
+         </obj>
+         <obj type="table/play pitch" uuid="5632a54926261833bbb9fff049e71322c360e57e" name="play_1" x="504" y="154">
+            <params>
+               <frac32.s.map name="pitch" value="-12.0"/>
+            </params>
+            <attribs>
+               <objref attributeName="table" obj="../sample"/>
+            </attribs>
+         </obj>
+         <obj type="gain/vca" uuid="a9f2dcd18043e2f47364e45cb8814f63c2a37c0d" name="vca_1" x="756" y="252">
+            <params/>
+            <attribs/>
+         </obj>
+         <obj type="patch/outlet a" uuid="abd8c5fd3b0524a6630f65cad6dc27f6c58e2a3e" name="outlet_1" x="882" y="308">
+            <params/>
+            <attribs/>
+         </obj>
+         <obj type="env/adsr" uuid="d1dbcc5fa6f87b98a6a91c87fd44acee5e690bac" name="adsr_1" x="532" y="336">
+            <params>
+               <frac32.s.map name="a" value="-31.0"/>
+               <frac32.s.map name="d" value="14.0"/>
+               <frac32.u.map name="s" value="63.5"/>
+               <frac32.s.map name="r" value="0.0"/>
+            </params>
+            <attribs/>
+         </obj>
+         <nets>
+            <net>
+               <source obj="keyb_1" outlet="gate"/>
+               <dest obj="adsr_1" inlet="gate"/>
+               <dest obj="play_1" inlet="start"/>
+            </net>
+            <net>
+               <source obj="play_1" outlet="wave"/>
+               <dest obj="vca_1" inlet="a"/>
+            </net>
+            <net>
+               <source obj="adsr_1" outlet="env"/>
+               <dest obj="vca_1" inlet="v"/>
+            </net>
+            <net>
+               <source obj="vca_1" outlet="o"/>
+               <dest obj="outlet_1" inlet="outlet"/>
+            </net>
+            <net>
+               <source obj="keyb_1" outlet="note"/>
+               <dest obj="play_1" inlet="pitch"/>
+            </net>
+         </nets>
+         <settings>
+            <subpatchmode>polyphonic</subpatchmode>
+            <MidiChannel>1</MidiChannel>
+            <HasMidiChannelSelector>true</HasMidiChannelSelector>
+            <NPresets>8</NPresets>
+            <NPresetEntries>32</NPresetEntries>
+            <NModulationSources>8</NModulationSources>
+            <NModulationTargetsPerSource>8</NModulationTargetsPerSource>
+         </settings>
+         <notes><![CDATA[]]></notes>
+         <windowPos>
+            <x>0</x>
+            <y>0</y>
+            <width>1283</width>
+            <height>807</height>
+         </windowPos>
+      </subpatch>
+   </patcher>
+   <obj type="rbrt/looper/lrec" uuid="2e5874a9-b38b-40bf-8dda-03863ab6ca59" name="lrec_1" x="406" y="168">
+      <params>
+         <frac32.s.map name="attack" value="-50.0"/>
+         <bool32.tgl name="hard" value="0"/>
+         <frac32.s.map name="release" value="-11.0"/>
+         <bool32.tgl name="nofade" value="0"/>
+      </params>
+      <attribs>
+         <objref attributeName="table" obj="sample"/>
+         <combo attributeName="slots" selection="1"/>
+      </attribs>
+   </obj>
+   <obj type="TSG/fx/reverb" uuid="9a812a08-92a6-468f-8f7c-e81c7675a08f" name="obj_1" x="938" y="168">
+      <params>
+         <frac32.u.map name="PreDelay" value="0.5"/>
+         <frac32.u.map name="decay" value="30.5"/>
+         <frac32.u.map name="LowDamp" value="33.5"/>
+         <frac32.u.map name="HighDamp" value="29.5"/>
+         <frac32.u.map name="size" value="37.5"/>
+         <frac32.s.map name="mod_:pitch" value="-16.0"/>
+         <frac32.u.map name="mod_:gain" value="13.5"/>
+         <frac32.u.map name="diffusion" value="63.5"/>
+         <frac32.u.map name="mix" value="13.5"/>
+      </params>
+      <attribs/>
+   </obj>
+   <obj type="audio/out stereo" uuid="a1ca7a567f535acc21055669829101d3ee7f0189" name="out_1" x="1134" y="168">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_1" x="70" y="224">
+      <params/>
+      <attribs>
+         <spinner attributeName="note" value="36"/>
+      </attribs>
+   </obj>
+   <obj type="disp/bool" uuid="a0ee71d48208b71752cbb8c05e55145106ef3946" name="bool_1" x="616" y="224">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="mix/mix 2 g" uuid="a68d65dda222bc916b36b283cc06d2edd719bf3b" name="mix_1" x="210" y="266">
+      <params>
+         <frac32.u.map name="gain1" value="32.0"/>
+         <frac32.u.map name="gain2" value="32.0"/>
+      </params>
+      <attribs/>
+   </obj>
+   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_1" x="70" y="336">
+      <params>
+         <bool32.mom name="b" value="0"/>
+      </params>
+      <attribs/>
+   </obj>
+   <obj type="rbrt/midi/in/monitor" uuid="64b3d36e-97ab-4b18-91f7-ff611e14fd7a" name="monitor_1" x="112" y="490">
+      <params/>
+      <attribs/>
+   </obj>
+   <nets>
+      <net>
+         <source obj="in_1" outlet="left"/>
+         <dest obj="lrec_1" inlet="wave"/>
+      </net>
+      <net>
+         <source obj="lrec_1" outlet="rec"/>
+         <dest obj="bool_1" inlet="in"/>
+      </net>
+      <net>
+         <source obj="obj_1" outlet="l"/>
+         <dest obj="out_1" inlet="left"/>
+         <dest obj="out_1" inlet="right"/>
+      </net>
+      <net>
+         <source obj="patcher_1" outlet="outlet_1"/>
+         <dest obj="obj_1" inlet="InL"/>
+         <dest obj="obj_1" inlet="InR"/>
+      </net>
+      <net>
+         <source obj="keyb_1" outlet="gate"/>
+         <dest obj="mix_1" inlet="in1"/>
+      </net>
+      <net>
+         <source obj="button_1" outlet="o"/>
+         <dest obj="mix_1" inlet="in2"/>
+      </net>
+      <net>
+         <source obj="mix_1" outlet="out"/>
+         <dest obj="lrec_1" inlet="rec"/>
+      </net>
+   </nets>
+   <settings>
+      <subpatchmode>no</subpatchmode>
+   </settings>
+   <notes><![CDATA[]]></notes>
+   <windowPos>
+      <x>-8</x>
+      <y>-8</y>
+      <width>1552</width>
+      <height>840</height>
+   </windowPos>
+</patch-1.0>
