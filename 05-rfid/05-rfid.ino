@@ -13,9 +13,9 @@
     https://www.arduino.cc/en/Tutorial/Midi
 
   The circuit:
-  - digital in 1 connected to MIDI jack pin 5
-  - MIDI jack pin 2 connected to ground
-  - MIDI jack pin 4 connected to +5V through 220 ohm resistor
+  - digital in 1 connected to MIDI jack pin 5 : cable jaune
+  - MIDI jack pin 2 connected to ground : cable blanc
+  - MIDI jack pin 4 connected to +5V through 220 ohm resistor : cable brun
 
 
 */
