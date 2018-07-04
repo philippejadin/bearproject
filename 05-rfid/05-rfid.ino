@@ -100,7 +100,7 @@ void loop() {
       note(63);
     }
 
-    bear_delay(5000);
+    bear_delay(1000);
 
     // record xx secondes
     // note midi : 64
@@ -111,8 +111,10 @@ void loop() {
     // play xx secondes
     // note midi : 65
 
-    note(65);
-    bear_delay(5000);
+    note_on(65);
+    bear_delay(8000); // TODO
+    note_off(65);
+  
 
   }
 

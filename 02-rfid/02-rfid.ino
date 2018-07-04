@@ -17,7 +17,6 @@ int locale;
 
 void setup() {
   bear_init();
-  //Serial.println("loop 02-fr-idle.h264");
 }
 
 
@@ -56,6 +55,7 @@ void loop() {
       Serial.println("play 02-action-de.wav");
     }
     bear_led_blink();
+    bear_delay(2000);
   }
 
 }

@@ -1,6 +1,4 @@
-
 /*
-   Module de base à modifier pour les autres modules
 
    PINS arduino utilisées :
    - serial : 0, 1
@@ -25,7 +23,7 @@ const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'i
 
 #include <bearlib.h> // à inclure en dernier
 
-const int n_max_relay = 3;//nbre de relay
+const int n_max_relay = 4;//nbre de relay
 int n_relay = 0;
 int relay_pin[4] = {RELAY_1, RELAY_2, RELAY_3, RELAY_4};
 
@@ -58,6 +56,7 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
 
+    bear_stop();
 
     //coupe tous les relais
     digitalWrite (RELAY_1, LOW);
@@ -65,9 +64,9 @@ void loop() {
     digitalWrite (RELAY_3, LOW);
     digitalWrite (RELAY_4, LOW);
 
-    
+
     // selectionne le relais suivant
-    if (n_relay < n_max_relay) {
+    if (n_relay < n_max_relay - 1) {
       n_relay++;
     }
     else {
@@ -80,7 +79,7 @@ void loop() {
 
     //bling bling
     bear_led_blink();
-    bear_stop();
+
   }
 
 }

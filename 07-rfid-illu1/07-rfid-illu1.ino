@@ -1,6 +1,6 @@
 /*
-   
-   
+
+
    Cette version utilise juste une boucle for
 
    PINS arduino utilisées :
@@ -51,41 +51,34 @@ void loop() {
     {
       analogWrite(MOSFET_1, i);
       analogWrite(LED_PIN, i);
-      bear_delay(random(20,30));
+      bear_delay(random(20, 30));
     }
 
     for (int i = 255; i > 10; i--)
     {
       analogWrite(MOSFET_1, i);
       analogWrite(LED_PIN, i);
-      bear_delay(random(10,20));
+      bear_delay(random(10, 20));
     }
 
     for (int i = 10; i < 255; i++)
     {
       analogWrite(MOSFET_1, i);
       analogWrite(LED_PIN, i);
-      bear_delay(random(5,15));
+      bear_delay(random(5, 15));
     }
 
     for (int i = 255; i > 10; i--)
     {
       analogWrite(MOSFET_1, i);
       analogWrite(LED_PIN, i);
-      bear_delay(random(10,20));
+      bear_delay(random(10, 20));
     }
 
     // TODO code mosfet OFF
     analogWrite(MOSFET_1, 0);
     analogWrite(LED_PIN, LED_LOW);
     Serial.println("disable mosfet");
-
-
-  } else {
-
-    bear_delay(100);
-    bear_stop();
-
   }
 
 }

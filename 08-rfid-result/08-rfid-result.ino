@@ -67,42 +67,79 @@ void loop() {
       }
     }
 
-    // si max 3 animaux sélectionnés on génère le nom de fichier :
-    if (count < 4)
+
+    if (count == 0) // si rien sélectionné, tuto pour expliquer ce qu'il faut en sélectionner au moins un
+    {
+      filename = "08-wrong-";
+      // ajout de la locale
+      if (locale == LOCALE_FR)
+      {
+        filename = filename + "fr";
+      }
+      if (locale == LOCALE_EN)
+      {
+        filename = filename + "en";
+      }
+      if (locale == LOCALE_NL)
+      {
+        filename = filename + "nl";
+      }
+      if (locale == LOCALE_DE)
+      {
+        filename = filename + "de";
+      }
+      filename = filename + ".h264";
+    }
+    else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
     {
       filename = "08-result" + filecount;
+
+      // ajout de la locale
+      if (locale == LOCALE_FR)
+      {
+        filename = filename + "-fr.png";
+      }
+      if (locale == LOCALE_EN)
+      {
+        filename = filename + "-en.png";
+      }
+      if (locale == LOCALE_NL)
+      {
+        filename = filename + "-nl.png";
+      }
+      if (locale == LOCALE_DE)
+      {
+        filename = filename + "-de.png";
+      }
     }
     else // sinon on tire au sort un animal chimérique (oui, chimérique!)
     {
       filename = "08-resultmore";
-      filename = filename + random(1,8);
-    }
-    
+      filename = filename + random(1, 8);
 
-    
-    // ajout de la locale
-    if (locale == LOCALE_FR)
-    {
-      filename = filename + "-fr.png";
+      // ajout de la locale
+      if (locale == LOCALE_FR)
+      {
+        filename = filename + "-fr.png";
+      }
+      if (locale == LOCALE_EN)
+      {
+        filename = filename + "-en.png";
+      }
+      if (locale == LOCALE_NL)
+      {
+        filename = filename + "-nl.png";
+      }
+      if (locale == LOCALE_DE)
+      {
+        filename = filename + "-de.png";
+      }
     }
-    if (locale == LOCALE_EN)
-    {
-      filename = filename + "-en.png";
-    }
-    if (locale == LOCALE_NL)
-    {
-      filename = filename + "-nl.png";
-    }
-    if (locale == LOCALE_DE)
-    {
-      filename = filename + "-de.png";
-    }
+
 
     Serial.println("play " + filename);
-
     bear_led_blink();
+    bear_delay(2000);
   }
-
-
 
 }

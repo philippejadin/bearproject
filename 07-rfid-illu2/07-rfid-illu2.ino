@@ -1,7 +1,7 @@
 /*
 
- Cette version utilise fadeled
- 
+  Cette version utilise fadeled
+
    PINS arduino utilisées :
    - serial : 0, 1
    - leds : 3
@@ -79,17 +79,12 @@ void loop() {
       wdt_reset();
     }
 
-    
+
 
     // TODO code mosfet OFF
     analogWrite(MOSFET_1, 0);
     Serial.println("disable mosfet");
 
-
-  } else {
-
-    bear_delay(100);
-    bear_stop();
 
   }
 

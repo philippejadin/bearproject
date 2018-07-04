@@ -1,6 +1,4 @@
-
 /*
-   Module de base à modifier pour les autres modules
 
    PINS arduino utilisées :
    - serial : 0, 1
@@ -17,22 +15,20 @@ int locale;
 
 void setup() {
   bear_init();
-  //Serial.println("loop 02-fr-idle.h264");
 }
 
 
 //*****************************************************************************************//
 void loop() {
 
-  wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
+  wdt_reset();
 
-  bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
+  bear_led_standby();
 
 
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    analogWrite(LED_PIN, LED_HIGH);
     locale = bear_get_locale();
     bear_stop();
 

@@ -1,7 +1,4 @@
-
 /*
-   Module de base à modifier pour les autres modules
-
    PINS arduino utilisées :
    - serial : 0, 1
    - leds : 3
