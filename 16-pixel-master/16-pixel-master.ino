@@ -132,7 +132,7 @@ void loop() {
         {
           filename = filename + "panda";
           pixel_clear();
-          pixel_print("panda");
+          pixel_print("panda"); // TODO ici il faudra mettre le chiffre correct pour chaque ours
         }
         if (slave_id == 11)
         {
