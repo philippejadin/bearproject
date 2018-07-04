@@ -21,10 +21,19 @@
    Ce module est connecté en midi à la carte axoloti
     https://www.arduino.cc/en/Tutorial/Midi
 
-  The circuit:
+  Connecteur midi : 
   - digital in 1 connected to MIDI jack pin 5 : cable jaune
   - MIDI jack pin 2 connected to ground : cable blanc
   - MIDI jack pin 4 connected to +5V through 220 ohm resistor : cable brun
+
+
+  Connection micro et axoloti
+  Il s'agit d'un microphone électret amplifié avec gain variable (mini pot à l'arrière) https://www.adafruit.com/product/1063
+  Le gros jack est cablé comme ceci : 
+  Blanc : masse
+  Jaune : left
+  Vert : right
+  Brun : sort sur un jumper à connecter sur une sortie VCC de l'axoloti en direct pour alimenter le microphone
 
 
 */
