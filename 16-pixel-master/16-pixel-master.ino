@@ -87,7 +87,7 @@ void setup() {
   matrix.show();
 
   pixel_print("ready");
-  delay(5000);
+  delay(2000);
   pixel_clear();
 
 }
@@ -109,50 +109,113 @@ void loop() {
 
 
   // interroge chaque slave à tour de role pour savoir si il a quelque chose à nous dire (une locale)
-  for (int i = 10; i < 18; i++)
+  for (int slave_id = 10; slave_id < 18; slave_id++)
   {
-    Wire.requestFrom(i, 1);    // request 1 bytes from slave device #i (10-17)
+    Wire.requestFrom(slave_id, 1);    // request 1 bytes from slave device #slave_id (10-17)
 
     while (Wire.available()) { // slave may send less than requested
       locale = Wire.read(); // receive a byte as character
 
+
       if (locale != 0)
       {
         Serial.print("slave id : ");
-        Serial.println(i);         // imprime l'adresse qui a répondu
+        Serial.println(slave_id);         // imprime l'adresse qui a répondu
+
+
+        // construction du nom de fichier :
+        //16-cartel-panda-fr.h264
+
+        String filename = "16-cartel-";
+
+        if (slave_id == 10)
+        {
+          filename = filename + "panda";
+          pixel_clear();
+          pixel_print("panda");
+        }
+        if (slave_id == 11)
+        {
+          filename = filename + "lippu";
+          pixel_clear();
+          pixel_print("lippu");
+        }
+        if (slave_id == 12)
+        {
+          filename = filename + "malais";
+          pixel_clear();
+          pixel_print("malais");
+        }
+        if (slave_id == 13)
+        {
+          filename = filename + "collier";
+          pixel_clear();
+          pixel_print("collier");
+        }
+        if (slave_id == 14)
+        {
+          filename = filename + "lunette";
+          pixel_clear();
+          pixel_print("lunette");
+        }
+        if (slave_id == 15)
+        {
+          filename = filename + "noir";
+          pixel_clear();
+          pixel_print("noir");
+        }
+        if (slave_id == 16)
+        {
+          filename = filename + "polaire";
+          pixel_clear();
+          pixel_print("polaire");
+        }
+        if (slave_id == 17)
+        {
+          filename = filename + "brun";
+          pixel_clear();
+          pixel_print("brun");
+        }
+
+        filename = filename + "-";
+
+
+
         Serial.print("locale : ");
-      }
 
-      if (locale == LOCALE_FR)
-      {
-        Serial.println("FR");
-        pixel_clear();
-        pixel_print("fr");
-      }
-      if (locale == LOCALE_EN)
-      {
-        Serial.println("EN");
-        pixel_clear();
-        pixel_print("en");
-      }
+        if (locale == LOCALE_FR)
+        {
+          filename = filename + "fr";
+          Serial.println("FR");
 
-      if (locale == LOCALE_NL)
-      {
-        Serial.println("NL");
-        pixel_clear();
-        pixel_print("nl");
+        }
+        if (locale == LOCALE_EN)
+        {
+          filename = filename + "en";
+          Serial.println("EN");
+
+        }
+
+        if (locale == LOCALE_NL)
+        {
+          filename = filename + "nl";
+          Serial.println("NL");
+
+        }
+
+        if (locale == LOCALE_DE)
+        {
+          filename = filename + "de";
+          Serial.println("DE");
+
+        }
+
+        filename = filename + ".h264";
+
+        Serial.print("play ");
+        Serial.println(filename);
       }
-
-      if (locale == LOCALE_DE)
-      {
-        Serial.println("DE");
-        pixel_clear();
-        pixel_print("de");
-      }
-
-
     }
-
   }
 }
 
