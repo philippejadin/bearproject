@@ -1,6 +1,15 @@
 
 /*
-   Module de base à modifier pour les autres modules
+   Ce module communique avec un axoloti en midi.
+   En envoyant différentes notes midi,
+   - il déclenche l'enregistrement (note midi 64)
+   - la reproduction déformée du son (note midi 65)
+   - il joue différents sons d'introduction (aide dans les différentes langues).
+
+    // 60 = fr
+    // 61 = nl
+    // 62 = en
+    // 63 = de
 
    PINS arduino utilisées :
    - serial : 0, 1
@@ -37,6 +46,8 @@ void setup() {
 //*****************************************************************************************//
 void loop() {
 
+
+
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
@@ -62,35 +73,36 @@ void loop() {
 
     if (locale == LOCALE_FR)
     {
-      MIDI_note(60);
+      note(60);
     }
 
     if (locale == LOCALE_NL)
     {
-      MIDI_note(61);
+      note(61);
     }
 
     if (locale == LOCALE_EN)
     {
-      MIDI_note(62);
+      note(62);
     }
 
     if (locale == LOCALE_DE)
     {
-      MIDI_note(63);
+      note(63);
     }
 
     bear_delay(5000);
 
     // record xx secondes
     // note midi : 64
-    MIDI_note(64);
+    note_on(64);
     bear_delay(5000);
+    note_off(64);
 
     // play xx secondes
     // note midi : 65
 
-    MIDI_note(65);
+    note(65);
     bear_delay(5000);
 
   }
@@ -98,7 +110,7 @@ void loop() {
 }
 
 //send MIDI message
-void MIDI_note(int note) {
+void note(int note) {
   Serial.write(144);//send note on
   Serial.write(note);//send pitch data
   Serial.write(100);//send velocity data
@@ -107,6 +119,23 @@ void MIDI_note(int note) {
   Serial.write(note);//send pitch data
   Serial.write(100);//send velocity data
   delay(100);
-
-
 }
+
+void note_on(int note)
+{
+  Serial.write(144);//send note on
+  Serial.write(note);//send pitch data
+  Serial.write(100);//send velocity data
+  delay(10);
+}
+
+
+void note_off(int note)
+{
+  Serial.write(128);//send note off command
+  Serial.write(note);//send pitch data
+  Serial.write(100);//send velocity data
+  delay(10);
+}
+
+

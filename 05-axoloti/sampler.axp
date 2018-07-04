@@ -21,7 +21,7 @@
       <params/>
       <attribs/>
    </obj>
-   <patcher type="patch/patcher" uuid="df66b1d6-11d0-429b-b95a-87c2fc756059" name="patcher_1" x="770" y="154">
+   <patcher type="patch/patcher" uuid="343cd181-8641-461a-ac0f-014d021a4965" name="patcher_1" x="770" y="154">
       <params/>
       <attribs>
          <combo attributeName="poly" selection="8"/>
@@ -30,16 +30,18 @@
          <combo attributeName="midiport" selection="omni"/>
       </attribs>
       <subpatch appVersion="1.0.12">
-         <obj type="midi/in/keyb" uuid="53b04874696932f38aceaa168bd5d9efb743716d" name="keyb_1" x="140" y="112">
-            <params/>
-            <attribs/>
-         </obj>
          <obj type="table/play pitch" uuid="5632a54926261833bbb9fff049e71322c360e57e" name="play_1" x="504" y="154">
             <params>
                <frac32.s.map name="pitch" value="-12.0"/>
             </params>
             <attribs>
                <objref attributeName="table" obj="../sample"/>
+            </attribs>
+         </obj>
+         <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_2" x="210" y="196">
+            <params/>
+            <attribs>
+               <spinner attributeName="note" value="65"/>
             </attribs>
          </obj>
          <obj type="gain/vca" uuid="a9f2dcd18043e2f47364e45cb8814f63c2a37c0d" name="vca_1" x="756" y="252">
@@ -61,11 +63,6 @@
          </obj>
          <nets>
             <net>
-               <source obj="keyb_1" outlet="gate"/>
-               <dest obj="adsr_1" inlet="gate"/>
-               <dest obj="play_1" inlet="start"/>
-            </net>
-            <net>
                <source obj="play_1" outlet="wave"/>
                <dest obj="vca_1" inlet="a"/>
             </net>
@@ -78,8 +75,9 @@
                <dest obj="outlet_1" inlet="outlet"/>
             </net>
             <net>
-               <source obj="keyb_1" outlet="note"/>
-               <dest obj="play_1" inlet="pitch"/>
+               <source obj="keyb_2" outlet="gate"/>
+               <dest obj="play_1" inlet="start"/>
+               <dest obj="adsr_1" inlet="gate"/>
             </net>
          </nets>
          <settings>
@@ -133,7 +131,7 @@
    <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_1" x="70" y="224">
       <params/>
       <attribs>
-         <spinner attributeName="note" value="36"/>
+         <spinner attributeName="note" value="64"/>
       </attribs>
    </obj>
    <obj type="disp/bool" uuid="a0ee71d48208b71752cbb8c05e55145106ef3946" name="bool_1" x="616" y="224">
@@ -153,7 +151,7 @@
       </params>
       <attribs/>
    </obj>
-   <obj type="rbrt/midi/in/monitor" uuid="64b3d36e-97ab-4b18-91f7-ff611e14fd7a" name="monitor_1" x="112" y="490">
+   <obj type="rbrt/midi/in/monitor" uuid="64b3d36e-97ab-4b18-91f7-ff611e14fd7a" name="monitor_1" x="98" y="476">
       <params/>
       <attribs/>
    </obj>
@@ -191,6 +189,12 @@
    </nets>
    <settings>
       <subpatchmode>no</subpatchmode>
+      <MidiChannel>1</MidiChannel>
+      <NPresets>8</NPresets>
+      <NPresetEntries>32</NPresetEntries>
+      <NModulationSources>8</NModulationSources>
+      <NModulationTargetsPerSource>8</NModulationTargetsPerSource>
+      <Author></Author>
    </settings>
    <notes><![CDATA[]]></notes>
    <windowPos>
