@@ -36,7 +36,7 @@
 // lines are arranged in columns, progressive order.  The shield uses
 // 800 KHz (v2) pixels that expect GRB color data.
 // width, height, tiles x, tiles y
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 4,1, PIN,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 6,1, PIN,
   NEO_MATRIX_TOP     + NEO_MATRIX_RIGHT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_PROGRESSIVE +
   NEO_TILE_TOP + NEO_TILE_RIGHT + NEO_TILE_ZIGZAG,
@@ -54,7 +54,7 @@ const uint16_t colors[] = {
 void setup() {
   matrix.begin();
   matrix.setTextWrap(false);
-  matrix.setBrightness(20);
+  matrix.setBrightness(50);
   matrix.setTextColor(colors[0]);
 }
 
@@ -66,14 +66,10 @@ void loop() {
   
   matrix.fillScreen(matrix.Color(0, 0, 0));
   
-  matrix.setCursor(0, 0);
+  matrix.setCursor(x, 0);
   matrix.print(F("Bonjour Julien !!! :)"));
-  matrix.setTextColor(matrix.Color(255, 0, 0));
-  matrix.show();
-  delay(100);
-  
 
-  /*
+
   if(--x < -150) { // mettre ici la longueur de la chaine qui scroll
     x = matrix.width();
     if(++pass >= 3) pass = 0;
@@ -81,5 +77,5 @@ void loop() {
   }
   matrix.show();
   delay(70);
-  */
+  
 }
