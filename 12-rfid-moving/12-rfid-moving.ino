@@ -22,34 +22,41 @@ const char MODULE_NAME[] = "12-rfid-moving"; // à changer pour chaque module, p
 
 //----- config me
 const int pause = 1000;  // ms
-const int battement = 2000; // ms
+const int delay_battement = 100; // ms
 const int nbr_battement = 6;
 //-----------
 
 
-int up_and_down = (battement / 3);
+void coeur()
+{
+  for (int battement = 0; battement <= nbr_battement; battement++)
+  {
 
-void coeur() {
+    // battement en fondu in:
+    for (int intensite = 0; intensite < 255; intensite = intensite + 8)
+    {
+      analogWrite (MOSFET_1, intensite);
+      analogWrite (3, intensite);
+      bear_delay(2);
+    }
 
-  for (int i = 0; i <= up_and_down; i++) {
-    int var_led = map(i, 0, up_and_down, 0, 255);
-    //analogWrite (MOSFET_1, var_led );
-    analogWrite (3, var_led );
-    wdt_reset();
 
+    // battement en fondu out :
+    for (int intensite = 255; intensite >= 1; intensite--)
+    {
+      analogWrite (MOSFET_1, intensite );
+      analogWrite (3, intensite );
+      bear_delay(8); // ici on peut faire un fondu plus lent
+    }
+
+    // delai entre 2 battements
+    bear_delay(delay_battement);
   }
 
-
-  bear_delay(up_and_down);
-
-  for (int i = up_and_down; i >= 0; i--) {
-    int var_led = map(i, 0, up_and_down, 0, 255);
-    //analogWrite (MOSFET_1, var_led );
-    analogWrite (3, var_led );
-    wdt_reset();
-  }
-
+  
 }
+
+
 void setup() {
   bear_init();
 }
@@ -66,16 +73,11 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
     bear_stop();
-    for (int i = 0; i <= nbr_battement; i++ ) {
-      Serial.print("play 12-moving.wav");
-      coeur();
-      bear_delay(pause);
-    }
-
-
+    Serial.print("play 12-moving.wav");
+    coeur();
+    bear_delay(pause);
 
   }
-
 }
 
 
