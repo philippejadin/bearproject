@@ -1,8 +1,4 @@
 /*
-
-
-   Cette version utilise juste une boucle for
-
    PINS arduino utilisées :
    - serial : 0, 1
    - leds : 3

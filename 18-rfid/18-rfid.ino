@@ -14,12 +14,11 @@ const char MODULE_NAME[] = "18-rfid"; // à changer pour chaque module, pour l'i
 
 
 #include <bearlib.h> // à inclure en dernier
-//duree animation led
-const int duree_show = 5000;
 
-//a nettoyer
-const int n_max_relay = 1;//nbre de relay
-int n_relay = 0;
+
+/*********** config *********/
+const int duree_show = 5000;
+/*********** ****************/
 
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
@@ -42,15 +41,15 @@ void loop() {
 
   // Attend une carte RFID
 
-  //
   if (bear_has_card()) {
     analogWrite(LED_PIN, LED_HIGH);
-    mosfet_etat = 0;
-    delay(5);
+
+
     //allume le relais selectionné
     digitalWrite (RELAY_1, HIGH );
-    analogWrite (MOSFET_1, mosfet_etat);
-    for (int i; i < duree_show; i++) {
+
+    /*analogWrite (MOSFET_1, mosfet_etat);
+      for (int i; i < duree_show; i++) {
       // change the brightness for next time through the loop:
       brightness = brightness + fadeAmount;
 
@@ -60,16 +59,14 @@ void loop() {
       }
       // wait for 30 milliseconds to see the dimming effect
       bear_delay(30);
-    }
+      }
+    */
 
     bear_led_blink();
     bear_stop();
+    bear_delay(duree_show);
+    digitalWrite (RELAY_1, HIGH );
 
   }
 
 }
-
-/*coupe tous les relais
-  for (int i = 0; i < n_max_relay; i++) {
-  digitalWrite (relay_pin(i), LOW);
-  }*/

@@ -16,8 +16,7 @@ void setup() {
   bear_init();
   Serial.println("loop 17-idle.h264");
   Serial.println("loop 17-roue.wav"); // on garde l'audio tout le temps ?
-
-  randomSeed(analogRead(0));
+  count = 0;
 }
 
 
@@ -34,7 +33,13 @@ void loop() {
 
     bear_stop();
 
-    count = random(1, 6);
+    count ++;
+
+    if (count == 6)
+    {
+      count = 1;
+    }
+
 
     if (count == 1)
     {
@@ -61,11 +66,14 @@ void loop() {
       Serial.println("play 17-option5.wav");
       Serial.println("play 17-option5.h264");
     }
-    
+
     bear_led_blink();
 
     bear_delay(1000); // TODO à définir ou alors différent pour chaque vidéo
-    
+
+    Serial.println("loop 17-idle.h264");
+    Serial.println("loop 17-roue.wav");
+
   }
 
 }

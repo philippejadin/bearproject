@@ -54,7 +54,7 @@ void loop() {
   while (digitalRead(TRIGGER_PIN) == HIGH)
   {
     Serial.println("show begin!");
-    startshow();
+    startshow(); // voir ci-dessous
     delay(500);
     Serial.println("show finished!");
   }
