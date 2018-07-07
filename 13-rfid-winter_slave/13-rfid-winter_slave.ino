@@ -55,7 +55,7 @@ void loop() {
 // function that executes whenever data is requested by master
 // this function is registered as an event, see setup()
 void requestEvent() {
-Serial.println("slave requestEvent");
+  Serial.println("slave requestEvent");
   Wire.write(saison); // on envoit la locale reçue et puis on la remet à 0 pour ne plus l'envoyer la fois suivante
   if (saison != 0)
   {
