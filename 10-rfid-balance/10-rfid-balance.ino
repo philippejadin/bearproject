@@ -25,7 +25,7 @@ unsigned long chrono;
 
 
 //------------------ config -------
-const long timeout = 10000; // en ms
+const long timeout = 20000; // en ms
 //---------------------------------
 
 
