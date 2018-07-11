@@ -25,13 +25,14 @@ unsigned long chrono;
 
 
 //------------------ config -------
-const long timeout = 20000; // en ms
+const long timeout = 18000; // en ms
 //---------------------------------
 
 
 void setup() {
   bear_init();
   pinMode(switchPin, INPUT);
+  Serial.println("play 10-bkg.png");
   Serial.println("loop 10-idle.h264");
 }
 
@@ -50,6 +51,7 @@ void loop() {
 
     // lit la langue
     locale = bear_get_locale();
+    bear_delay(50);
     bear_stop();
 
 
@@ -88,10 +90,10 @@ void loop() {
       while (digitalRead(switchPin) == LOW)
       {
         analogWrite(5, 255);
-        bear_delay(200);
+        bear_delay(50);
 
         analogWrite(5, 0);
-        bear_delay(200);
+        bear_delay(50);
 
         if (millis() - chrono >= timeout)
         {
@@ -132,10 +134,10 @@ void loop() {
 
       Serial.println(command);
 
-      bear_delay(1000); // TODO
+      bear_delay(200); // TODO
 
     }
-    bear_delay(6000); // à tester TODO
+    bear_delay(7500); // à tester TODO
     
     Serial.println("loop 10-idle.h264");
 

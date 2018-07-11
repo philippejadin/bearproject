@@ -17,7 +17,8 @@ const char MODULE_NAME[] = "00-video-test"; // à changer pour chaque module, po
 
 void setup() {
   bear_init();
-  Serial.println("loop 09-idle-panda.h264");
+  Serial.println("play 09-bkg-brun.png");
+  Serial.println("loop 09-idle-brun.h264");
 }
 
 
@@ -35,14 +36,12 @@ void loop() {
     analogWrite(LED_PIN, LED_HIGH);
 
 
-    Serial.println("play 09-result-panda10.h264");
+    Serial.println("play 09-result-brun11.h264");
     bear_stop();
     bear_led_blink();
+    analogWrite(LED_PIN, LED_HIGH);
     bear_delay(1800);
-    Serial.println("loop 09-idle-panda.h264");
-
+    Serial.println("loop 09-idle-brun.h264");
   }
-
-
 
 }
