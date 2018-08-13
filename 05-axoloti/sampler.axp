@@ -2,8 +2,8 @@
    <obj type="audio/inconfig" uuid="9a80ef3c19f2a8f81da3a3b7c1c44d18126b97d9" name="inconfig_1" x="70" y="14">
       <params/>
       <attribs>
-         <combo attributeName="gain" selection="30dB"/>
-         <combo attributeName="boost" selection="20dB"/>
+         <combo attributeName="gain" selection="0dB"/>
+         <combo attributeName="boost" selection="0dB"/>
          <combo attributeName="mode" selection="Mono(L)"/>
       </attribs>
    </obj>
@@ -28,10 +28,10 @@
       <params/>
       <attribs/>
    </obj>
-   <patcher type="patch/patcher" uuid="666f5058-59f9-4638-87df-eb4b05538c24" name="patcher_1" x="770" y="154">
+   <patcher type="patch/patcher" uuid="ec1475af-e6d4-4a9b-a87f-732b13ab62f0" name="patcher_1" x="728" y="154">
       <params/>
       <attribs>
-         <combo attributeName="poly" selection="8"/>
+         <combo attributeName="poly" selection="2"/>
          <combo attributeName="midichannel" selection="inherit"/>
          <combo attributeName="mididevice" selection="omni"/>
          <combo attributeName="midiport" selection="omni"/>
@@ -39,7 +39,7 @@
       <subpatch appVersion="1.0.12">
          <obj type="table/play pitch" uuid="5632a54926261833bbb9fff049e71322c360e57e" name="play_1" x="560" y="154">
             <params>
-               <frac32.s.map name="pitch" value="4.0"/>
+               <frac32.s.map name="pitch" value="0.0"/>
             </params>
             <attribs>
                <objref attributeName="table" obj="../sample"/>
@@ -68,6 +68,12 @@
             </params>
             <attribs/>
          </obj>
+         <obj type="ctrl/dial b" uuid="862e7d7f29093cb1ce4aed72244d118ad4d46692" name="dial_1" x="294" y="350">
+            <params>
+               <frac32.s.map name="value" value="-11.0"/>
+            </params>
+            <attribs/>
+         </obj>
          <nets>
             <net>
                <source obj="play_1" outlet="wave"/>
@@ -85,6 +91,10 @@
                <source obj="keyb_2" outlet="gate"/>
                <dest obj="play_1" inlet="start"/>
                <dest obj="adsr_1" inlet="gate"/>
+            </net>
+            <net>
+               <source obj="dial_1" outlet="out"/>
+               <dest obj="play_1" inlet="pitch"/>
             </net>
          </nets>
          <settings>

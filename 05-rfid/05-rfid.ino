@@ -102,17 +102,21 @@ void loop() {
 
     bear_delay(1000);
 
-    // record xx secondes
+    // record 5 secondes
     // note midi : 64
     note_on(64);
+    analogWrite(LED_PIN, LED_HIGH);
     bear_delay(5000);
+    analogWrite(LED_PIN, LED_LOW);
     note_off(64);
 
-    // play xx secondes
+    // play 5 secondes
     // note midi : 65
 
     note_on(65);
-    bear_delay(8000); // TODO
+    analogWrite(LED_PIN, LED_HIGH);
+    bear_delay(5000); // TODO
+    analogWrite(LED_PIN, LED_LOW);
     note_off(65);
   
 
