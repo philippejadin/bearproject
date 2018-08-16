@@ -10,13 +10,13 @@
 const char MODULE_NAME[] = "17-rfid"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 #include <bearlib.h> // à inclure en dernier
 
-int count = 1;
+int count = 0;
 
 void setup() {
   bear_init();
+  Serial.println("play 17-background.png");
   Serial.println("loop 17-idle.h264");
-  Serial.println("loop 17-roue.wav"); // on garde l'audio tout le temps ?
-  count = 0;
+  
 }
 
 
@@ -40,39 +40,45 @@ void loop() {
       count = 1;
     }
 
+    analogWrite(LED_PIN, LED_HIGH);
 
     if (count == 1)
     {
       Serial.println("play 17-option1.wav");
       Serial.println("play 17-option1.h264");
+      bear_delay(25000);
     }
     if (count == 2)
     {
       Serial.println("play 17-option2.wav");
       Serial.println("play 17-option2.h264");
+      bear_delay(28000);
     }
     if (count == 3)
     {
       Serial.println("play 17-option3.wav");
       Serial.println("play 17-option3.h264");
+      bear_delay(30000);
     }
     if (count == 4)
     {
       Serial.println("play 17-option4.wav");
       Serial.println("play 17-option4.h264");
+      bear_delay(25000);
     }
     if (count == 5)
     {
       Serial.println("play 17-option5.wav");
       Serial.println("play 17-option5.h264");
+      bear_delay(25000);
     }
 
-    bear_led_blink();
+    
+    analogWrite(LED_PIN, LED_LOW);
 
-    bear_delay(1000); // TODO à définir ou alors différent pour chaque vidéo
 
     Serial.println("loop 17-idle.h264");
-    Serial.println("loop 17-roue.wav");
+
 
   }
 
