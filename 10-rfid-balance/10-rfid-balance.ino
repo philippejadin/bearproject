@@ -51,7 +51,7 @@ void loop() {
 
     // lit la langue
     locale = bear_get_locale();
-    bear_delay(50);
+    bear_led_blink();
     bear_stop();
 
 
