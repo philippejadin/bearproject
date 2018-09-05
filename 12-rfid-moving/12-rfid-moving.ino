@@ -22,7 +22,7 @@ const char MODULE_NAME[] = "12-rfid-moving"; // à changer pour chaque module, p
 
 //----- config me
 const int pause = 1000;  // ms
-const int delay_battement = 100; // ms
+const int delay_battement = 10000; // ms
 const int nbr_battement = 6;
 //-----------
 
@@ -31,6 +31,8 @@ void coeur()
 {
   for (int battement = 0; battement <= nbr_battement; battement++)
   {
+
+    Serial.println("play 12-moving.wav");
 
     // battement en fondu in:
     for (int intensite = 0; intensite < 255; intensite = intensite + 8)
@@ -73,7 +75,6 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
     bear_stop();
-    Serial.print("play 12-moving.wav");
     coeur();
     bear_delay(pause);
 
