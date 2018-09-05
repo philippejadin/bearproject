@@ -21,9 +21,8 @@ const char MODULE_NAME[] = "12-rfid-resting"; // à changer pour chaque module, 
 #include <bearlib.h> // à inclure en dernier
 
 //----- config me
-const int pause = 1000;  // ms
-const int delay_battement = 100; // ms
-const int nbr_battement = 6;
+const int delay_battement = 7000; // ms
+const int nbr_battement = 3;
 //-----------
 
 
@@ -32,21 +31,23 @@ void coeur()
   for (int battement = 0; battement <= nbr_battement; battement++)
   {
 
+    Serial.println("play 12-resting.wav");
+
     // battement en fondu in:
-    for (int intensite = 0; intensite < 255; intensite = intensite + 4)
+    for (int intensite = 0; intensite < 255; intensite = intensite + 8)
     {
       analogWrite (MOSFET_1, intensite);
       analogWrite (3, intensite);
-      bear_delay(1);
+      bear_delay(2);
     }
 
 
     // battement en fondu out :
-    for (int intensite = 180; intensite >= 1; intensite--)
+    for (int intensite = 255; intensite >= 1; intensite--)
     {
       analogWrite (MOSFET_1, intensite );
       analogWrite (3, intensite );
-      bear_delay(15); // ici on peut faire un fondu plus lent
+      bear_delay(8); // ici on peut faire un fondu plus lent
     }
 
     // delai entre 2 battements
@@ -73,10 +74,7 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
     bear_stop();
-    Serial.print("play 12-resting.wav");
     coeur();
-    bear_delay(pause);
-
   }
 }
 

@@ -21,9 +21,8 @@ const char MODULE_NAME[] = "12-rfid-moving"; // à changer pour chaque module, p
 #include <bearlib.h> // à inclure en dernier
 
 //----- config me
-const int pause = 1000;  // ms
-const int delay_battement = 10000; // ms
-const int nbr_battement = 6;
+const int delay_battement = 1000; // ms
+const int nbr_battement = 8;
 //-----------
 
 
@@ -76,8 +75,6 @@ void loop() {
   if (bear_has_card()) {
     bear_stop();
     coeur();
-    bear_delay(pause);
-
   }
 }
 
