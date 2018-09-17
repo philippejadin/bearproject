@@ -50,7 +50,7 @@ const char MODULE_NAME[] = "16-pixel-master"; // à changer pour chaque module, 
 */
 
 // TODO changer le 4 en 6 quand les 6 panneaux sont soudés :
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 4, 1, PIN,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 5, 1, PIN,
                             NEO_MATRIX_TOP     + NEO_MATRIX_RIGHT +
                             NEO_MATRIX_COLUMNS + NEO_MATRIX_PROGRESSIVE +
                             NEO_TILE_TOP + NEO_TILE_RIGHT + NEO_TILE_ZIGZAG,
@@ -77,7 +77,7 @@ void setup() {
   // neopixels :
   matrix.begin();
   matrix.setTextWrap(false);
-  matrix.setBrightness(50);
+  matrix.setBrightness(20);
   matrix.setTextColor(colors[0]);
 
   x = matrix.width();
@@ -104,10 +104,6 @@ void loop() {
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
 
-
-
-
-
   // interroge chaque slave à tour de role pour savoir si il a quelque chose à nous dire (une locale)
   for (int slave_id = 10; slave_id < 18; slave_id++)
   {
@@ -127,54 +123,59 @@ void loop() {
         //16-cartel-panda-fr.h264
 
         String filename = "16-cartel-";
+        long countdown = 0; // nombre d'ours encore en vie
+        int color = 1; // couleur du chiffre définitif
+
+        pixel_clear();
 
         if (slave_id == 10)
         {
           filename = filename + "panda";
-          pixel_clear();
-          pixel_print("panda"); // TODO ici il faudra mettre le chiffre correct pour chaque ours
+          countdown = 2000;
+          color = 2;
         }
         if (slave_id == 11)
         {
           filename = filename + "lippu";
-          pixel_clear();
-          pixel_print("lippu");
+          countdown = 20000;
+          color = 1;
         }
         if (slave_id == 12)
         {
           filename = filename + "malais";
-          pixel_clear();
-          pixel_print("malais");
+          countdown = 10000;
+          color = 1;
+
         }
         if (slave_id == 13)
         {
           filename = filename + "collier";
-          pixel_clear();
-          pixel_print("collier");
+          countdown = 60000;
+          color = 1;
         }
         if (slave_id == 14)
         {
           filename = filename + "lunette";
-          pixel_clear();
-          pixel_print("lunette");
+          countdown = 10000;
+          color = 1;
         }
         if (slave_id == 15)
         {
           filename = filename + "noir";
-          pixel_clear();
-          pixel_print("noir");
+          countdown = 900000;
+          color = 3;
         }
         if (slave_id == 16)
         {
           filename = filename + "polaire";
-          pixel_clear();
-          pixel_print("polaire");
+          countdown = 25000;
+          color = 1;
         }
         if (slave_id == 17)
         {
           filename = filename + "brun";
-          pixel_clear();
-          pixel_print("brun");
+          countdown = 200000;
+          color = 3;
         }
 
         filename = filename + "-";
@@ -187,33 +188,38 @@ void loop() {
         {
           filename = filename + "fr";
           Serial.println("FR");
-
         }
-        if (locale == LOCALE_EN)
+        else if (locale == LOCALE_EN)
         {
           filename = filename + "en";
           Serial.println("EN");
-
         }
-
-        if (locale == LOCALE_NL)
+        else if (locale == LOCALE_NL)
         {
           filename = filename + "nl";
           Serial.println("NL");
-
         }
 
-        if (locale == LOCALE_DE)
+        else if (locale == LOCALE_DE)
         {
           filename = filename + "de";
           Serial.println("DE");
-
+        }
+        else
+        {
+          filename = filename + "en";
+          Serial.println("EN");
         }
 
+
+        // joue le fichier
         filename = filename + ".h264";
 
-        Serial.print("play ");
+        Serial.print("loop ");
         Serial.println(filename);
+
+        // affiche le nombre sur le lcd avec anim
+        pixel_countdown(countdown, color);
       }
     }
   }
@@ -222,11 +228,104 @@ void loop() {
 
 void pixel_print(String message)
 {
-  matrix.setTextColor(matrix.Color(255, 0, 0));
+  matrix.setTextColor(matrix.Color(255, 255, 255));
   matrix.setCursor(0, 0);
   matrix.print(message);
   matrix.show();
-  delay(70);
+  bear_delay(70);
+}
+
+
+// colors :
+// 1 = rouge
+// 2 = orange
+// 3 = vert
+void pixel_countdown(long number, int color)
+{
+  matrix.setTextColor(matrix.Color(255, 255, 255));
+  matrix.setCursor(0, 0);
+
+  long interval = number / 50; // nombre de "frames" dans l'animation du décompte
+  for (long i = 0; i <= number; i = i + interval)
+  {
+    matrix.fillScreen(matrix.Color(0, 0, 0));
+    pixel_print_aligned(i);
+    matrix.show();
+    bear_delay(5);
+  }
+
+  bear_delay(250);
+
+  if (color == 1)
+  {
+    matrix.setTextColor(matrix.Color(255, 0, 0));
+  }
+
+  if (color == 2)
+  {
+    matrix.setTextColor(matrix.Color(255, 128, 0));
+  }
+
+  if (color == 3)
+  {
+    matrix.setTextColor(matrix.Color(0, 255, 0));
+  }
+
+  matrix.fillScreen(matrix.Color(0, 0, 0));
+  pixel_print_aligned(number);
+  matrix.show();
+
+
+
+}
+
+
+// affiche un nombre sur le neopixel avec le bon alignement (à droite)
+void pixel_print_aligned(long number)
+{
+
+  if (number < 10000000)
+  {
+    matrix.setCursor(0, 0);
+  }
+
+  if (number < 1000000)
+  {
+    matrix.setCursor(5, 0);
+  }
+
+  if (number < 100000)
+  {
+    matrix.setCursor(11, 0);
+  }
+
+  if (number < 10000)
+  {
+    matrix.setCursor(17, 0);
+  }
+
+  if (number < 1000)
+  {
+    matrix.setCursor(23, 0);
+  }
+
+  if (number < 100)
+  {
+    matrix.setCursor(29, 0);
+  }
+
+  if (number < 10)
+  {
+    matrix.setCursor(36, 0);
+  }
+
+
+
+
+
+
+
+  matrix.print(number);
 }
 
 void pixel_clear()
