@@ -24,7 +24,7 @@ const unsigned int TRIG_PIN = 2;
 const unsigned int ECHO_PIN = 4;
 
 //------------------ config ----------
-int min_distance = 30; // distance en dessous de laquelle on déclenche (en cm)
+int min_distance = 20; // distance en dessous de laquelle on déclenche (en cm)
 //------------------------------------
 
 
@@ -38,7 +38,7 @@ void setup() {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
-  Serial.println("play 00-start.wav"); // son de démarage pour confirmer que tout est ok
+  Serial.println("play 00-start.wav");
   delay(1000);
 }
 
@@ -46,15 +46,17 @@ void setup() {
 //*****************************************************************************************//
 void loop() {
 
+  Serial.println("play 20-growl.wav");
+  delay(5000);
+
   // interoge l'ultrason
   if (distance() < min_distance)
   {
     Serial.println("play 20-growl.wav");
-    Serial.println(distance());
-    delay(1000);
+    delay(3000);
   }
 
-  delay(20);
+  delay(100);
 
   //Serial.println(distance());
 
