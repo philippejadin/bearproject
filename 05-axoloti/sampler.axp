@@ -2,8 +2,8 @@
    <obj type="audio/inconfig" uuid="9a80ef3c19f2a8f81da3a3b7c1c44d18126b97d9" name="inconfig_1" x="70" y="14">
       <params/>
       <attribs>
-         <combo attributeName="gain" selection="0dB"/>
-         <combo attributeName="boost" selection="0dB"/>
+         <combo attributeName="gain" selection="33dB"/>
+         <combo attributeName="boost" selection="20dB"/>
          <combo attributeName="mode" selection="Mono(L)"/>
       </attribs>
    </obj>
@@ -28,7 +28,7 @@
       <params/>
       <attribs/>
    </obj>
-   <patcher type="patch/patcher" uuid="ec1475af-e6d4-4a9b-a87f-732b13ab62f0" name="patcher_1" x="728" y="154">
+   <patcher type="patch/patcher" uuid="93dd4e8c-69ad-49e4-8875-91d6762e4abb" name="patcher_1" x="728" y="154">
       <params/>
       <attribs>
          <combo attributeName="poly" selection="2"/>
