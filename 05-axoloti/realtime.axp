@@ -1,5 +1,5 @@
 <patch-1.0 appVersion="1.0.12">
-   <obj type="audio/inconfig" uuid="9a80ef3c19f2a8f81da3a3b7c1c44d18126b97d9" name="inconfig_1" x="70" y="14">
+   <obj type="audio/inconfig" uuid="9a80ef3c19f2a8f81da3a3b7c1c44d18126b97d9" name="inconfig_1" x="84" y="0">
       <params/>
       <attribs>
          <combo attributeName="gain" selection="33dB"/>
@@ -7,22 +7,39 @@
          <combo attributeName="mode" selection="Stereo"/>
       </attribs>
    </obj>
-   <obj type="audio/outconfig" uuid="eace67e3304afaa1bb695b444e9345f2d8adaf00" name="outconfig_1" x="168" y="14">
+   <obj type="audio/outconfig" uuid="eace67e3304afaa1bb695b444e9345f2d8adaf00" name="outconfig_1" x="182" y="0">
       <params/>
       <attribs>
          <combo attributeName="headphones" selection="6dB"/>
          <combo attributeName="mode" selection="Stereo"/>
       </attribs>
    </obj>
-   <comment type="patch/comment" x="490" y="14" text="Allocate the table here and look in the subpatch how to access it basically ../sample"/>
-   <obj type="fx/clds/pitchshifter" uuid="CF2FFE3A-9363-4C78-AF25-9F3A41E5F0E4" name="pitchshifter_1" x="588" y="98">
+   <comment type="patch/comment" x="980" y="98" text="Ici on active ou pas l&apos;effet en temps réel"/>
+   <comment type="patch/comment" x="588" y="126" text="Effet en temps réel"/>
+   <comment type="patch/comment" x="840" y="126" text="Reverb"/>
+   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_6" x="980" y="126">
+      <params>
+         <bool32.mom name="b" value="0"/>
+      </params>
+      <attribs/>
+   </obj>
+   <obj type="logic/or 2" uuid="3805d3c84d30032a44fbdbe42d9a2988a1790a3e" name="or_1" x="1078" y="140">
+      <params/>
+      <attribs/>
+   </obj>
+   <comment type="patch/comment" x="1260" y="140" text="Mixage de tout"/>
+   <obj type="audio/in stereo" uuid="99848ad6d90a8e615e83b2e619cfc806f28e7281" name="in_1" x="308" y="154">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="fx/clds/pitchshifter" uuid="CF2FFE3A-9363-4C78-AF25-9F3A41E5F0E4" name="pitchshifter_1" x="588" y="154">
       <params>
          <frac32.u.map name="ratio" value="28.5"/>
          <frac32.u.map name="size" value="49.0"/>
       </params>
       <attribs/>
    </obj>
-   <obj type="TSG/fx/reverb" uuid="9a812a08-92a6-468f-8f7c-e81c7675a08f" name="obj_1" x="840" y="112">
+   <obj type="TSG/fx/reverb" uuid="9a812a08-92a6-468f-8f7c-e81c7675a08f" name="obj_1" x="798" y="154">
       <params>
          <frac32.u.map name="PreDelay" value="18.0"/>
          <frac32.u.map name="decay" value="30.5"/>
@@ -36,13 +53,9 @@
       </params>
       <attribs/>
    </obj>
-   <obj type="audio/in stereo" uuid="99848ad6d90a8e615e83b2e619cfc806f28e7281" name="in_1" x="210" y="126">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="mix/mix 8 g" uuid="ca3c8ec626ad31e48d8374d5dd44962bf3bd7e6f" name="mix_3" x="1050" y="140">
+   <obj type="mix/mix 8 g" uuid="ca3c8ec626ad31e48d8374d5dd44962bf3bd7e6f" name="mix_3" x="1260" y="196">
       <params>
-         <frac32.u.map name="gain1" value="32.0"/>
+         <frac32.u.map name="gain1" value="48.0"/>
          <frac32.u.map name="gain2" value="32.0"/>
          <frac32.u.map name="gain3" value="32.0"/>
          <frac32.u.map name="gain4" value="32.0"/>
@@ -53,103 +66,112 @@
       </params>
       <attribs/>
    </obj>
-   <obj type="audio/out stereo" uuid="a1ca7a567f535acc21055669829101d3ee7f0189" name="out_1" x="1246" y="140">
+   <obj type="audio/out stereo" uuid="a1ca7a567f535acc21055669829101d3ee7f0189" name="out_1" x="1414" y="196">
       <params/>
       <attribs/>
    </obj>
-   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_1" x="56" y="182">
+   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_6" x="938" y="210">
       <params/>
       <attribs>
          <spinner attributeName="note" value="64"/>
       </attribs>
    </obj>
-   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_1" x="322" y="238">
+   <obj type="gain/vca" uuid="a9f2dcd18043e2f47364e45cb8814f63c2a37c0d" name="vca_1" x="1162" y="238">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="rbrt/midi/in/monitor" uuid="64b3d36e-97ab-4b18-91f7-ff611e14fd7a" name="monitor_1" x="70" y="252">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="disp/chart b" uuid="d2bdf496f96ee521628490a038411210fbe29b15" name="chart_1" x="1064" y="266">
+      <params/>
+      <attribs/>
+   </obj>
+   <comment type="patch/comment" x="294" y="294" text="Lecture du texte d&apos;intro"/>
+   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_1" x="294" y="322">
       <params>
          <bool32.mom name="b" value="0"/>
       </params>
       <attribs/>
    </obj>
-   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_1" x="518" y="252">
+   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_1" x="518" y="336">
       <params/>
       <attribs>
          <file attributeName="fn" file="05-action-fr.raw"/>
       </attribs>
    </obj>
-   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_1" x="434" y="266">
+   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_1" x="434" y="350">
       <params/>
       <attribs/>
    </obj>
-   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_2" x="294" y="294">
+   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_2" x="294" y="378">
       <params/>
       <attribs>
          <spinner attributeName="note" value="60"/>
       </attribs>
    </obj>
-   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_2" x="322" y="392">
+   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_2" x="294" y="476">
       <params>
          <bool32.mom name="b" value="0"/>
       </params>
       <attribs/>
    </obj>
-   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_2" x="420" y="406">
+   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_2" x="420" y="490">
       <params/>
       <attribs/>
    </obj>
-   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_2" x="518" y="406">
+   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_2" x="518" y="490">
       <params/>
       <attribs>
          <file attributeName="fn" file="05-action-nl.raw"/>
       </attribs>
    </obj>
-   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_3" x="294" y="448">
+   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_3" x="294" y="532">
       <params/>
       <attribs>
          <spinner attributeName="note" value="61"/>
       </attribs>
    </obj>
-   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_5" x="322" y="546">
+   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_5" x="294" y="630">
       <params>
          <bool32.mom name="b" value="0"/>
       </params>
       <attribs/>
    </obj>
-   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_3" x="420" y="560">
+   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_3" x="420" y="644">
       <params/>
       <attribs/>
    </obj>
-   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_3" x="518" y="574">
+   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_3" x="518" y="658">
       <params/>
       <attribs>
          <file attributeName="fn" file="05-action-en.raw"/>
       </attribs>
    </obj>
-   <obj type="rbrt/midi/in/monitor" uuid="64b3d36e-97ab-4b18-91f7-ff611e14fd7a" name="monitor_1" x="14" y="602">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_4" x="294" y="602">
+   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_4" x="294" y="686">
       <params/>
       <attribs>
          <spinner attributeName="note" value="62"/>
       </attribs>
    </obj>
-   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_3" x="322" y="700">
+   <obj type="ctrl/button" uuid="ef3d13774349df85aa9bfecf30dbc91ab8488b3f" name="button_3" x="294" y="784">
       <params>
          <bool32.mom name="b" value="0"/>
       </params>
       <attribs/>
    </obj>
-   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_4" x="434" y="728">
+   <obj type="math/bitor" uuid="92a4c63183567284fe0c2030f0dc82df4722dc91" name="bitor_4" x="420" y="812">
       <params/>
       <attribs/>
    </obj>
-   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_4" x="518" y="728">
+   <obj type="wave/play fn" uuid="25910f7130532e4934eed3cf2a934324790d0f00" name="play_4" x="518" y="812">
       <params/>
       <attribs>
          <file attributeName="fn" file="05-action-de.raw"/>
       </attribs>
    </obj>
-   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_5" x="294" y="756">
+   <obj type="midi/in/keyb note" uuid="ac0cd98e6c0373b7be73d25900342a62ebcf5f" name="keyb_5" x="294" y="840">
       <params/>
       <attribs>
          <spinner attributeName="note" value="63"/>
@@ -176,10 +198,6 @@
       <net>
          <source obj="in_1" outlet="right"/>
          <dest obj="pitchshifter_1" inlet="r"/>
-      </net>
-      <net>
-         <source obj="obj_1" outlet="l"/>
-         <dest obj="mix_3" inlet="in1"/>
       </net>
       <net>
          <source obj="play_1" outlet="out"/>
@@ -240,6 +258,31 @@
       <net>
          <source obj="keyb_5" outlet="gate"/>
          <dest obj="bitor_4" inlet="in2"/>
+      </net>
+      <net>
+         <source obj="bitor_4" outlet="out"/>
+         <dest obj="play_4" inlet="start"/>
+      </net>
+      <net>
+         <source obj="obj_1" outlet="l"/>
+         <dest obj="vca_1" inlet="a"/>
+      </net>
+      <net>
+         <source obj="vca_1" outlet="o"/>
+         <dest obj="mix_3" inlet="in1"/>
+      </net>
+      <net>
+         <source obj="button_6" outlet="o"/>
+         <dest obj="or_1" inlet="i1"/>
+      </net>
+      <net>
+         <source obj="or_1" outlet="o"/>
+         <dest obj="chart_1" inlet="in"/>
+         <dest obj="vca_1" inlet="v"/>
+      </net>
+      <net>
+         <source obj="keyb_6" outlet="gate"/>
+         <dest obj="or_1" inlet="i2"/>
       </net>
    </nets>
    <settings>

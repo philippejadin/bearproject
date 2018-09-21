@@ -102,6 +102,17 @@ void loop() {
 
     bear_delay(1000);
 
+
+    // active l'effet pendant 5 secondes
+    note_on(64);
+    analogWrite(LED_PIN, LED_HIGH);
+    bear_delay(5000);
+    analogWrite(LED_PIN, LED_LOW);
+    note_off(64);
+
+
+    
+    /*
     // record 5 secondes
     // note midi : 64
     note_on(64);
@@ -118,7 +129,7 @@ void loop() {
     bear_delay(5000); // TODO
     analogWrite(LED_PIN, LED_LOW);
     note_off(65);
-  
+    */
 
   }
 
