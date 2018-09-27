@@ -11,7 +11,7 @@
 */
 
 const char MODULE_NAME[] = "09-rfid-lippu"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
-const int duree_video = 1800;//en ms
+const int duree_video = 2000;//en ms
 int locale, food;
 #include <bearlib.h> // à inclure en dernier
 
