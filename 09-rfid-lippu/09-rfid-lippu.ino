@@ -31,81 +31,83 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
     locale = bear_get_locale();
-    delay(100);// verifier
     food = bear_read(5, 0);
-    delay(100);
     bear_stop();
-    if (food == 0) {
+
+    if (food == 20) // pas de nourriture !
+    {
 
       if (locale == (LOCALE_FR))
       {
         Serial.println("play 09-wrong-fr.png");
-      };
+      }
 
       if (locale == (LOCALE_EN))
       {
         Serial.println("play 09-wrong-en.png");
-      };
+      }
 
       if (locale == (LOCALE_NL))
       {
         Serial.println("play 09-wrong-nl.png");
-      };
+      }
 
       if (locale == (LOCALE_DE))
       {
         Serial.println("play 09-wrong-de.png");
-      };
+      }
       bear_led_blink();
-      bear_delay(5000);
+      bear_delay(4000);
       Serial.println("play 09-bkg-lippu.png");
     }
 
-    else if (food == 1) {
-      Serial.println("play 09-result-lippu1.h264");
-    }
+    if (food > 0 && food < 12)
+    {
+      if (food == 1) {
+        Serial.println("play 09-result-lippu1.h264");
+      }
 
-    else if (food == 2) {
-      Serial.println("play 09-result-lippu2.h264");
-    }
+      if (food == 2) {
+        Serial.println("play 09-result-lippu2.h264");
+      }
 
-    else if (food == 3) {
-      Serial.println("play 09-result-lippu3.h264");
-    }
+      if (food == 3) {
+        Serial.println("play 09-result-lippu3.h264");
+      }
 
-    else if (food == 4) {
-      Serial.println("play 09-result-lippu4.h264");
-    }
+      if (food == 4) {
+        Serial.println("play 09-result-lippu4.h264");
+      }
 
-    else if (food == 5) {
-      Serial.println("play 09-result-lippu5.h264");
-    }
+      if (food == 5) {
+        Serial.println("play 09-result-lippu5.h264");
+      }
 
-    else if (food == 6) {
-      Serial.println("play 09-result-lippu6.h264");
-    }
+      if (food == 6) {
+        Serial.println("play 09-result-lippu6.h264");
+      }
 
-    else if (food == 7) {
-      Serial.println("play 09-result-lippu7.h264");
-    }
+      if (food == 7) {
+        Serial.println("play 09-result-lippu7.h264");
+      }
 
-    else if (food == 8) {
-      Serial.println("play 09-result-lippu8.h264");
+      if (food == 8) {
+        Serial.println("play 09-result-lippu8.h264");
+      }
+      if (food == 9) {
+        Serial.println("play 09-result-lippu9.h264");
+      }
+      if (food == 10) {
+        Serial.println("play 09-result-lippu10.h264");
+      }
+      if (food == 11) {
+        Serial.println("play 09-result-lippu11.h264");
+      }
+      bear_led_blink();
+      bear_delay(duree_video);
+      Serial.println("loop 09-idle-lippu.h264");
     }
-    else if (food == 9) {
-      Serial.println("play 09-result-lippu9.h264");
-    }
-    else if (food == 10) {
-      Serial.println("play 09-result-lippu10.h264");
-    }
-    else if (food == 11) {
-      Serial.println("play 09-result-lippu11.h264");
-    }
-    bear_led_blink();
-    bear_delay(duree_video);//ce chiffre est à peu près ok
-    //Serial.println("bear on the place");
-
-    Serial.println("loop 09-idle-lippu.h264");
+  
   }
 
 }

@@ -28,83 +28,86 @@ void loop() {
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
 
   // Attend une carte RFID
-  if (bear_has_card()) {
+  if (bear_has_card())
+  {
     locale = bear_get_locale();
-    delay(100);// verifier
     food = bear_read(5, 0);
-    delay(100);
     bear_stop();
-    if (food == 0) {
 
+    if (food == 20) // pas de nourriture !
+    {
       if (locale == (LOCALE_FR))
       {
         Serial.println("play 09-wrong-fr.png");
-      };
+      }
 
       if (locale == (LOCALE_EN))
       {
         Serial.println("play 09-wrong-en.png");
-      };
+      }
 
       if (locale == (LOCALE_NL))
       {
         Serial.println("play 09-wrong-nl.png");
-      };
+      }
 
       if (locale == (LOCALE_DE))
       {
         Serial.println("play 09-wrong-de.png");
-      };
+      }
       bear_led_blink();
-      bear_delay(5000);
+      bear_delay(4000);
       Serial.println("play 09-bkg-brun.png");
     }
 
-    else if (food == 1) {
-      Serial.println("play 09-result-brun1.h264");
+    if (food > 0 && food < 12)
+    {
+      if (food == 1) {
+        Serial.println("play 09-result-brun1.h264");
+      }
+
+      if (food == 2) {
+        Serial.println("play 09-result-brun2.h264");
+      }
+
+      if (food == 3) {
+        Serial.println("play 09-result-brun3.h264");
+      }
+
+      if (food == 4) {
+        Serial.println("play 09-result-brun4.h264");
+      }
+
+      if (food == 5) {
+        Serial.println("play 09-result-brun5.h264");
+      }
+
+      if (food == 6) {
+        Serial.println("play 09-result-brun6.h264");
+      }
+
+      if (food == 7) {
+        Serial.println("play 09-result-brun7.h264");
+      }
+
+      if (food == 8) {
+        Serial.println("play 09-result-brun8.h264");
+      }
+      else if (food == 9) {
+        Serial.println("play 09-result-brun9.h264");
+      }
+      else if (food == 10) {
+        Serial.println("play 09-result-brun10.h264");
+      }
+      else if (food == 11) {
+        Serial.println("play 09-result-brun11.h264");
+      }
+
+      bear_led_blink();
+      bear_delay(duree_video);
+      Serial.println("loop 09-idle-brun.h264");
     }
 
-    else if (food == 2) {
-      Serial.println("play 09-result-brun2.h264");
-    }
-
-    else if (food == 3) {
-      Serial.println("play 09-result-brun3.h264");
-    }
-
-    else if (food == 4) {
-      Serial.println("play 09-result-brun4.h264");
-    }
-
-    else if (food == 5) {
-      Serial.println("play 09-result-brun5.h264");
-    }
-
-    else if (food == 6) {
-      Serial.println("play 09-result-brun6.h264");
-    }
-
-    else if (food == 7) {
-      Serial.println("play 09-result-brun7.h264");
-    }
-
-    else if (food == 8) {
-      Serial.println("play 09-result-brun8.h264");
-    }
-    else if (food == 9) {
-      Serial.println("play 09-result-brun9.h264");
-    }
-    else if (food == 10) {
-      Serial.println("play 09-result-brun10.h264");
-    }
-    else if (food == 11) {
-      Serial.println("play 09-result-brun11.h264");
-    }
-    bear_led_blink();
-    bear_delay(duree_video);//ce chiffre est à peu près ok
-    //Serial.println("bear on the place");
-
-    Serial.println("loop 09-idle-brun.h264");
   }
 
 }

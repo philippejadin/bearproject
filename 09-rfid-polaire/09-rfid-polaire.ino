@@ -33,9 +33,10 @@ void loop() {
     locale = bear_get_locale();
     food = bear_read(5, 0);
     bear_stop();
-    bear_led_blink();
 
-    if (food == 0) {
+
+    if (food == 20)
+    {
       if (locale == (LOCALE_FR))
       {
         Serial.println("play 09-wrong-fr.png");
@@ -55,56 +56,62 @@ void loop() {
       {
         Serial.println("play 09-wrong-de.png");
       }
+
       bear_led_blink();
-      bear_delay(5000);
+      bear_delay(4000);
       Serial.println("play 09-bkg-polaire.png");
+
     }
 
-    else if (food == 1) {
-      Serial.println("play 09-result-polaire1.h264");
-    }
+    if (food > 0 && food < 12)
+    {
+      if (food == 1) {
+        Serial.println("play 09-result-polaire1.h264");
+      }
 
-    else if (food == 2) {
-      Serial.println("play 09-result-polaire2.h264");
-    }
+      if (food == 2) {
+        Serial.println("play 09-result-polaire2.h264");
+      }
 
-    else if (food == 3) {
-      Serial.println("play 09-result-polaire3.h264");
-    }
+      if (food == 3) {
+        Serial.println("play 09-result-polaire3.h264");
+      }
 
-    else if (food == 4) {
-      Serial.println("play 09-result-polaire4.h264");
-    }
+      if (food == 4) {
+        Serial.println("play 09-result-polaire4.h264");
+      }
 
-    else if (food == 5) {
-      Serial.println("play 09-result-polaire5.h264");
-    }
+      if (food == 5) {
+        Serial.println("play 09-result-polaire5.h264");
+      }
 
-    else if (food == 6) {
-      Serial.println("play 09-result-polaire6.h264");
-    }
+      if (food == 6) {
+        Serial.println("play 09-result-polaire6.h264");
+      }
 
-    else if (food == 7) {
-      Serial.println("play 09-result-polaire7.h264");
-    }
+      if (food == 7) {
+        Serial.println("play 09-result-polaire7.h264");
+      }
 
-    else if (food == 8) {
-      Serial.println("play 09-result-polaire8.h264");
-    }
-    else if (food == 9) {
-      Serial.println("play 09-result-polaire9.h264");
-    }
-    else if (food == 10) {
-      Serial.println("play 09-result-polaire10.h264");
-    }
-    else if (food == 11) {
-      Serial.println("play 09-result-polaire11.h264");
-    }
+      if (food == 8) {
+        Serial.println("play 09-result-polaire8.h264");
+      }
 
-    bear_delay(duree_video);//ce chiffre est à peu près ok
-    //Serial.println("bear on the place");
+      if (food == 9) {
+        Serial.println("play 09-result-polaire9.h264");
+      }
 
-    Serial.println("loop 09-idle-polaire.h264");
+      if (food == 10) {
+        Serial.println("play 09-result-polaire10.h264");
+      }
+
+      if (food == 11) {
+        Serial.println("play 09-result-polaire11.h264");
+      }
+
+      bear_led_blink();
+      bear_delay(duree_video);
+      Serial.println("loop 09-idle-polaire.h264");
+    }
   }
-
 }
