@@ -40,11 +40,6 @@ void loop() {
       // efface les données de la carte
       bear_erase();
 
-
-      // met la nourriture à 20 = pas de nourriture sur la carte
-      bear_write(5, 0, 20);
-
-
       bear_stop();
       bear_led_blink();
       bear_delay(12000);

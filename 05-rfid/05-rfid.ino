@@ -21,7 +21,7 @@
    Ce module est connecté en midi à la carte axoloti
     https://www.arduino.cc/en/Tutorial/Midi
 
-  Connecteur midi : 
+  Connecteur midi :
   - digital in 1 connected to MIDI jack pin 5 : cable jaune
   - MIDI jack pin 2 connected to ground : cable blanc
   - MIDI jack pin 4 connected to +5V through 220 ohm resistor : cable brun
@@ -29,7 +29,7 @@
 
   Connection micro et axoloti
   Il s'agit d'un microphone électret amplifié avec gain variable (mini pot à l'arrière) https://www.adafruit.com/product/1063
-  Le gros jack est cablé comme ceci : 
+  Le gros jack est cablé comme ceci :
   Blanc : masse
   Jaune : left
   Vert : right
@@ -55,23 +55,18 @@ void setup() {
 //*****************************************************************************************//
 void loop() {
 
-
-
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
 
 
   // Attend une carte RFID
-  if (bear_has_card()) {
-
+  if (bear_has_card())
+  {
 
     // lecture de la langue
-
     locale = bear_get_locale();
     bear_stop();
-    bear_led_blink();
-
 
     // jouer le son d'explication selon la langue
     // note midi
@@ -80,56 +75,37 @@ void loop() {
     // 62 = en
     // 63 = de
 
-    if (locale == LOCALE_FR)
+    if (locale)
     {
-      note(60);
+      if (locale == LOCALE_FR)
+      {
+        note(60);
+      }
+
+      if (locale == LOCALE_NL)
+      {
+        note(61);
+      }
+
+      if (locale == LOCALE_EN)
+      {
+        note(62);
+      }
+
+      if (locale == LOCALE_DE)
+      {
+        note(63);
+      }
+
+      bear_delay(1000);
+
+      // active l'effet pendant 10 secondes
+      note_on(64);
+      analogWrite(LED_PIN, LED_HIGH);
+      bear_delay(10000);
+      analogWrite(LED_PIN, LED_LOW);
+      note_off(64);
     }
-
-    if (locale == LOCALE_NL)
-    {
-      note(61);
-    }
-
-    if (locale == LOCALE_EN)
-    {
-      note(62);
-    }
-
-    if (locale == LOCALE_DE)
-    {
-      note(63);
-    }
-
-    bear_delay(1000);
-
-
-    // active l'effet pendant 5 secondes
-    note_on(64);
-    analogWrite(LED_PIN, LED_HIGH);
-    bear_delay(5000);
-    analogWrite(LED_PIN, LED_LOW);
-    note_off(64);
-
-
-    
-    /*
-    // record 5 secondes
-    // note midi : 64
-    note_on(64);
-    analogWrite(LED_PIN, LED_HIGH);
-    bear_delay(5000);
-    analogWrite(LED_PIN, LED_LOW);
-    note_off(64);
-
-    // play 5 secondes
-    // note midi : 65
-
-    note_on(65);
-    analogWrite(LED_PIN, LED_HIGH);
-    bear_delay(5000); // TODO
-    analogWrite(LED_PIN, LED_LOW);
-    note_off(65);
-    */
 
   }
 
@@ -140,11 +116,11 @@ void note(int note) {
   Serial.write(144);//send note on
   Serial.write(note);//send pitch data
   Serial.write(100);//send velocity data
-  delay(100);
+  delay(10);
   Serial.write(128);//send note off command
   Serial.write(note);//send pitch data
   Serial.write(100);//send velocity data
-  delay(100);
+  delay(10);
 }
 
 void note_on(int note)
