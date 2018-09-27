@@ -34,6 +34,9 @@ void loop() {
     locale = bear_get_locale();
     bear_stop();
 
+    Serial.print("locale ");
+    Serial.println(locale);
+
     if (locale == (LOCALE_FR))
     {
       Serial.println("play 02-action-fr.wav");
