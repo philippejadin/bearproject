@@ -32,7 +32,7 @@ void loop() {
     bear_write(5,0,1);
     bear_stop();
     bear_led_blink();
-//  Serial.println("saumon c'est bon!");
+    Serial.println("saumon c'est bon!");
   }
 
 

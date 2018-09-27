@@ -17,6 +17,7 @@ int locale, food;
 
 void setup() {
   bear_init();
+  Serial.println("play 09-bkg-lippu.png");
   Serial.println("loop 09-idle-lippu.h264");
 }
 
@@ -60,44 +61,44 @@ void loop() {
     }
 
     else if (food == 1) {
-      Serial.println("09-result-lippu1.h264");
+      Serial.println("play 09-result-lippu1.h264");
     }
 
     else if (food == 2) {
-      Serial.println("09-result-lippu2.h264");
+      Serial.println("play 09-result-lippu2.h264");
     }
 
     else if (food == 3) {
-      Serial.println("09-result-lippu3.h264");
+      Serial.println("play 09-result-lippu3.h264");
     }
 
     else if (food == 4) {
-      Serial.println("09-result-lippu4.h264");
+      Serial.println("play 09-result-lippu4.h264");
     }
 
     else if (food == 5) {
-      Serial.println("09-result-lippu5.h264");
+      Serial.println("play 09-result-lippu5.h264");
     }
 
     else if (food == 6) {
-      Serial.println("09-result-lippu6.h264");
+      Serial.println("play 09-result-lippu6.h264");
     }
 
     else if (food == 7) {
-      Serial.println("09-result-lippu7.h264");
+      Serial.println("play 09-result-lippu7.h264");
     }
 
     else if (food == 8) {
-      Serial.println("09-result-lippu8.h264");
+      Serial.println("play 09-result-lippu8.h264");
     }
     else if (food == 9) {
-      Serial.println("09-result-lippu9.h264");
+      Serial.println("play 09-result-lippu9.h264");
     }
     else if (food == 10) {
-      Serial.println("09-result-lippu10.h264");
+      Serial.println("play 09-result-lippu10.h264");
     }
     else if (food == 11) {
-      Serial.println("09-result-lippu11.h264");
+      Serial.println("play 09-result-lippu11.h264");
     }
     bear_led_blink();
     bear_delay(duree_video);//ce chiffre est à peu près ok
