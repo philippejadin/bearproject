@@ -34,8 +34,8 @@
    </obj>
    <obj type="fx/clds/pitchshifter" uuid="CF2FFE3A-9363-4C78-AF25-9F3A41E5F0E4" name="pitchshifter_1" x="588" y="154">
       <params>
-         <frac32.u.map name="ratio" value="28.5"/>
-         <frac32.u.map name="size" value="49.0"/>
+         <frac32.u.map name="ratio" value="35.0"/>
+         <frac32.u.map name="size" value="50.5"/>
       </params>
       <attribs/>
    </obj>
@@ -49,13 +49,13 @@
          <frac32.s.map name="mod_:pitch" value="-16.0"/>
          <frac32.u.map name="mod_:gain" value="17.5"/>
          <frac32.u.map name="diffusion" value="63.5"/>
-         <frac32.u.map name="mix" value="9.5"/>
+         <frac32.u.map name="mix" value="11.5"/>
       </params>
       <attribs/>
    </obj>
    <obj type="mix/mix 8 g" uuid="ca3c8ec626ad31e48d8374d5dd44962bf3bd7e6f" name="mix_3" x="1260" y="196">
       <params>
-         <frac32.u.map name="gain1" value="48.0"/>
+         <frac32.u.map name="gain1" value="45.0"/>
          <frac32.u.map name="gain2" value="32.0"/>
          <frac32.u.map name="gain3" value="32.0"/>
          <frac32.u.map name="gain4" value="32.0"/>
