@@ -57,6 +57,7 @@ void loop() {
       }
       bear_led_blink();
       bear_delay(5000);
+      Serial.println("play 09-bkg-polaire.png");
     }
 
     else if (food == 1) {

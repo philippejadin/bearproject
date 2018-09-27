@@ -17,7 +17,7 @@ const char MODULE_NAME[] = "01-rfid-fr"; // à changer pour chaque module, pour 
 
 void setup() {
   bear_init();
-  Serial.println("loop 01-fr-idle.h264");
+  Serial.println("loop 01-idle-fr.h264");
 }
 
 
@@ -35,15 +35,15 @@ void loop() {
     analogWrite(LED_PIN, LED_HIGH);
 
     if (bear_set_locale(LOCALE_FR)) {
-      Serial.println("play 01-fr-action.h264");
+      Serial.println("play 01-action-fr.h264");
 
       // efface les données de la carte
       bear_erase();
       
       bear_stop();
       bear_led_blink();
-      bear_delay(8000);
-      Serial.println("loop 01-fr-idle.h264");
+      bear_delay(12000);
+      Serial.println("loop 01-idle-fr.h264");
     } else {
       bear_delay(100);
       bear_stop();
