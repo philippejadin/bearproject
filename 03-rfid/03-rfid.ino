@@ -15,6 +15,8 @@ int locale;
 
 void setup() {
   bear_init();
+  Serial.println("play 00-start.wav"); // son de démarage pour confirmer que tout est ok
+  delay(1000);
 }
 
 
@@ -28,33 +30,34 @@ void loop() {
 
   // Attend une carte RFID
   if (bear_has_card()) {
-
-    analogWrite(LED_PIN, LED_HIGH);
     locale = bear_get_locale();
     bear_stop();
 
-    if (locale == (LOCALE_FR))
+    if (locale)
     {
-      Serial.println("play 03-action-fr.wav");
+      if (locale == (LOCALE_FR))
+      {
+        Serial.println("play 03-action-fr.wav");
+      }
+
+      if (locale == (LOCALE_EN))
+      {
+        Serial.println("play 03-action-en.wav");
+      }
+
+      if (locale == (LOCALE_NL))
+      {
+        Serial.println("play 03-action-nl.wav");
+      }
+
+      if (locale == (LOCALE_DE))
+      {
+        Serial.println("play 03-action-de.wav");
+      }
+      bear_led_blink();
+      bear_delay(2000);
     }
 
-    if (locale == (LOCALE_EN))
-    {
-      Serial.println("play 03-action-en.wav");
-    }
-
-    if (locale == (LOCALE_NL))
-    {
-      Serial.println("play 03-action-nl.wav");
-    }
-
-
-    if (locale == (LOCALE_DE))
-    {
-      Serial.println("play 03-action-de.wav");
-    }
-    bear_led_blink();
-    bear_delay(2000);
   }
 
 }

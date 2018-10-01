@@ -21,8 +21,9 @@ const char MODULE_NAME[] = "12-rfid-resting"; // à changer pour chaque module, 
 #include <bearlib.h> // à inclure en dernier
 
 //----- config me
-const int delay_battement = 7000; // ms
+const int delay_battement = 5000; // ms
 const int nbr_battement = 3;
+const int coeur_active = 4; // intensité du coeur quand il est actif entre 2 battements
 //-----------
 
 
@@ -34,32 +35,34 @@ void coeur()
     Serial.println("play 12-resting.wav");
 
     // battement en fondu in:
-    for (int intensite = 0; intensite < 255; intensite = intensite + 8)
+    for (int intensite = coeur_active; intensite < 255; intensite = intensite + 8)
     {
       analogWrite (MOSFET_1, intensite);
       analogWrite (3, intensite);
-      bear_delay(2);
+      delay(2);
     }
 
-
     // battement en fondu out :
-    for (int intensite = 255; intensite >= 1; intensite--)
+    for (int intensite = 255; intensite >= coeur_active; intensite--)
     {
       analogWrite (MOSFET_1, intensite );
       analogWrite (3, intensite );
-      bear_delay(8); // ici on peut faire un fondu plus lent
+      delay(1); // ici on peut faire un fondu plus lent
     }
 
-    // delai entre 2 battements
     bear_delay(delay_battement);
   }
 
-  
+  analogWrite (MOSFET_1, 0);
+
+
 }
 
 
 void setup() {
   bear_init();
+  Serial.println("play 00-start.wav"); // son de démarage pour confirmer que tout est ok
+  delay(1000);
 }
 
 
@@ -68,8 +71,7 @@ void loop() {
 
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
-  bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
-
+  bear_led_standby();
 
   // Attend une carte RFID
   if (bear_has_card()) {

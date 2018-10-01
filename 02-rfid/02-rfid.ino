@@ -17,6 +17,8 @@ int locale;
 
 void setup() {
   bear_init();
+  Serial.println("play 00-start.wav"); // son de démarage pour confirmer que tout est ok
+  delay(1000);
 }
 
 
@@ -37,28 +39,30 @@ void loop() {
     Serial.print("locale ");
     Serial.println(locale);
 
-    if (locale == (LOCALE_FR))
+    if (locale)
     {
-      Serial.println("play 02-action-fr.wav");
-    }
+      if (locale == (LOCALE_FR))
+      {
+        Serial.println("play 02-action-fr.wav");
+      }
 
-    if (locale == (LOCALE_EN))
-    {
-      Serial.println("play 02-action-en.wav");
-    }
+      if (locale == (LOCALE_EN))
+      {
+        Serial.println("play 02-action-en.wav");
+      }
 
-    if (locale == (LOCALE_NL))
-    {
-      Serial.println("play 02-action-nl.wav");
-    }
+      if (locale == (LOCALE_NL))
+      {
+        Serial.println("play 02-action-nl.wav");
+      }
 
-
-    if (locale == (LOCALE_DE))
-    {
-      Serial.println("play 02-action-de.wav");
+      if (locale == (LOCALE_DE))
+      {
+        Serial.println("play 02-action-de.wav");
+      }
+      bear_led_blink();
+      bear_delay(2000);
     }
-    bear_led_blink();
-    bear_delay(2000);
   }
 
 }

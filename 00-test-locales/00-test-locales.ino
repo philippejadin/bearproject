@@ -14,6 +14,7 @@ const char MODULE_NAME[] = "00-test-locale"; // à changer pour chaque module, p
 #include <bearlib.h> // à inclure en dernier
 
 int locale;
+int food;
 
 void setup() {
   bear_init();
@@ -32,32 +33,40 @@ void loop() {
   if (bear_has_card()) {
 
     locale = bear_get_locale();
+    food = bear_read(5, 0);
+
     bear_stop();
 
-    Serial.print("locale ");
+    Serial.print("locale nr : ");
     Serial.println(locale);
+
+    Serial.print("food nr : ");
+    Serial.println(food);
+
+
+
 
     if (locale)
     {
       if (locale == (LOCALE_FR))
       {
-        Serial.println("play 02-action-fr.wav");
+        Serial.println("Locale is french");
       }
 
       if (locale == (LOCALE_EN))
       {
-        Serial.println("play 02-action-en.wav");
+        Serial.println("Locale is english");
       }
 
       if (locale == (LOCALE_NL))
       {
-        Serial.println("play 02-action-nl.wav");
+        Serial.println("Locale is nederlands");
       }
 
 
       if (locale == (LOCALE_DE))
       {
-        Serial.println("play 02-action-de.wav");
+        Serial.println("Locale is deutsch");
       }
       bear_led_blink();
       bear_delay(100);

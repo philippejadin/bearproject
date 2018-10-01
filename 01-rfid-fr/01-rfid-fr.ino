@@ -46,6 +46,5 @@ void loop() {
       bear_delay(10);
       bear_stop();
     }
-
   }
 }
