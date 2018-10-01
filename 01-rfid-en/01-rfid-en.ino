@@ -32,8 +32,6 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    analogWrite(LED_PIN, LED_HIGH);
-
     if (bear_set_locale(LOCALE_EN)) {
       Serial.println("play 01-action-en.h264");
 
@@ -45,7 +43,7 @@ void loop() {
       bear_delay(12000);
       Serial.println("loop 01-idle-en.h264");
     } else {
-      bear_delay(100);
+      bear_delay(10);
       bear_stop();
     }
 

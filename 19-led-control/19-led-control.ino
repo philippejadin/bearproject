@@ -24,7 +24,7 @@ const int NEOPIXEL_PIN = 6;
 const int TRIGGER_PIN = 11;
 
 //--------------------- config
-int num_pixels = 150;
+int num_pixels = 300;
 // ---------------------------
 
 
@@ -40,7 +40,7 @@ void setup() {
   pinMode(TRIGGER_PIN, INPUT);
 
   strip.begin();
-  strip.setBrightness(220); // 0 -> 255 (à 255 ça chauffe un peu, 220 éclaire quasi autant et semble plus safe)
+  strip.setBrightness(180); // 0 -> 255 (à 255 ça chauffe un peu, 220 éclaire quasi autant et semble plus safe)
   strip.show(); // Initialize all pixels to 'off'
 }
 
@@ -65,9 +65,9 @@ void loop() {
 void startshow()
 {
 
-  rainbow(10);
 
 
+  // allume tout depuis le bas :
   for (int i = 0; i < num_pixels; i++)
   {
     strip.setPixelColor(i, 255, 200, 150);
@@ -75,40 +75,20 @@ void startshow()
     delay(2);
   }
 
+  rainbow(1);
+  delay(500);
 
+// éteint tout progressivement
   for (int i = num_pixels; i > 0; i--)
   {
-    strip.setPixelColor(i, 255, 0, 0);
+    strip.setPixelColor(i, 0, 0, 0);
     strip.show();
     delay(2);
   }
 
-  for (int i = 0; i < num_pixels; i++)
-  {
-    strip.setPixelColor(i, 0, 100, 20);
-    strip.show();
-    delay(2);
-  }
-
-
-  for (int i = num_pixels; i > 0; i--)
-  {
-    strip.setPixelColor(i, 0, 0, 255);
-    strip.show();
-    delay(2);
-  }
-
-
-  // eteint tout depuis blanc
-  for (int j = 255; j > 0; j--)
-  {
-    for (int i = 0; i < num_pixels; i++)
-    {
-      strip.setPixelColor(i, j, j, j);
-    }
-    strip.show();
-    delay(5);
-  }
+// éteint dernier pixels
+  strip.setPixelColor(0, 0, 0, 0);
+  strip.show();
 
 
 }

@@ -29,9 +29,12 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    bear_write(5,0,11);
+    if (bear_write(5,0,11))
+    {
+      bear_led_blink();
+    }
     bear_stop();
-    bear_led_blink();
+    
 //  Serial.println("noix c'est bon!");
   }
 

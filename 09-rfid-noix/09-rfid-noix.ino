@@ -22,17 +22,20 @@ void setup() {
 
 //*****************************************************************************************//
 void loop() {
-  
+
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
 
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    bear_write(5,0,2);
+    if (bear_write(5, 0, 2))
+    {
+      bear_led_blink();
+    }
     bear_stop();
-    bear_led_blink();
-//  Serial.println("noix c'est bon!");
+
+    //  Serial.println("noix c'est bon!");
   }
 
 

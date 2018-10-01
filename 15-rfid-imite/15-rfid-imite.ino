@@ -1,6 +1,11 @@
 
 /*
-   Module de base à modifier pour les autres modules
+   Configuration spéciale de la raspberry pour ce module!
+
+  Dans config.ini :
+  - hdmi boost est uncommenté et mis à 4
+  - la config spéciale hdmi des petits lcd est commentée pour garder l'auto config hdmi standard
+
 
    PINS arduino utilisées :
    - serial : 0, 1
@@ -37,31 +42,58 @@ void loop() {
 
     count ++;
 
-    if (count > 5)
+    if (count > 11)
     {
-      count = 0;
+      count = 1;
     }
 
     if (count == 1)
     {
       Serial.println("play 15-action1.png");
     }
-     if (count == 2)
+    if (count == 2)
     {
       Serial.println("play 15-action2.png");
     }
-     if (count == 3)
+    if (count == 3)
     {
       Serial.println("play 15-action3.png");
     }
-     if (count == 4)
+    if (count == 4)
     {
       Serial.println("play 15-action4.png");
     }
-     if (count == 5)
+    if (count == 5)
     {
       Serial.println("play 15-action5.h264");
+      //bear_delay(1000);
     }
+    if (count == 6)
+    {
+      Serial.println("play 15-action6.png");
+    }
+    if (count == 7)
+    {
+      Serial.println("play 15-action7.png");
+    }
+    if (count == 8)
+    {
+      Serial.println("play 15-action8.png");
+    }
+    if (count == 9)
+    {
+      Serial.println("play 15-action9.png");
+    }
+    if (count == 10)
+    {
+      Serial.println("play 15-action10.png");
+    }
+    if (count == 11)
+    {
+      Serial.println("play 15-action11.png");
+    }
+
+
 
     bear_led_blink();
   }

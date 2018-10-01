@@ -34,6 +34,12 @@ void loop() {
     food = bear_read(5, 0);
     bear_stop();
 
+    Serial.print("food : ");
+    Serial.println(food);
+
+    Serial.print("locale : ");
+    Serial.println(locale);
+
     if (food == 20 && locale) // pas de nourriture !
     {
       if (locale == (LOCALE_FR))

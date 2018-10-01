@@ -35,7 +35,4 @@ void loop() {
     bear_led_blink();
     bear_delay(8000);
   }
-
-
-
 }
