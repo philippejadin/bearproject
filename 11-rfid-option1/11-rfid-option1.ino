@@ -32,6 +32,7 @@ void loop() {
     bear_stop();
     Serial.println("play 11-action-option1.h264");
     bear_led_blink();
+    bear_delay(13000);
   }
 
 

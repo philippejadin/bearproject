@@ -30,8 +30,10 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
     bear_stop();
+    Serial.println("play 11-action-option3.wav");
     Serial.println("play 11-action-option3.h264");
     bear_led_blink();
+    bear_delay(8000);
   }
 
 

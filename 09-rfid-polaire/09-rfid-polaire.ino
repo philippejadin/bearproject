@@ -11,7 +11,7 @@
 */
 
 const char MODULE_NAME[] = "09-rfid-polaire"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
-const int duree_video = 2000;//en ms
+const int duree_video = 3200;//en ms
 int locale, food;
 #include <bearlib.h> // à inclure en dernier
 
@@ -35,7 +35,7 @@ void loop() {
     bear_stop();
 
 
-    if (food == 20)
+    if (food == 20 && locale)
     {
       if (locale == (LOCALE_FR))
       {
