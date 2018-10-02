@@ -28,7 +28,6 @@ const char MODULE_NAME[] = "18-admire"; // à changer pour chaque module, pour l
 
 void setup() {
   bear_init();
-  Serial.println("loop 01-fr-idle.mp4");
   pinMode (RELAY_1, OUTPUT);
   pinMode (RELAY_2, OUTPUT);
   pinMode (RELAY_3, OUTPUT);
@@ -60,7 +59,7 @@ void loop() {
 
     digitalWrite (RELAY_1, LOW );
     Serial.print("Disable relay ");
-    
+
   }
 
 }

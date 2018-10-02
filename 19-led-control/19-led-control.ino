@@ -64,9 +64,6 @@ void loop() {
 
 void startshow()
 {
-
-
-
   // allume tout depuis le bas :
   for (int i = 0; i < num_pixels; i++)
   {

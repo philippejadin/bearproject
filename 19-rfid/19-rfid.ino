@@ -40,7 +40,7 @@ void loop() {
     digitalWrite(RELAY_1, HIGH);
     analogWrite(LED_PIN, LED_HIGH);
     Serial.println("start show");
-    
+
     bear_led_blink();
 
     bear_delay(2000);
@@ -50,11 +50,6 @@ void loop() {
 
 
     Serial.println("ready for more");
-
-  } else {
-
-    bear_delay(100);
-    bear_stop();
 
   }
 

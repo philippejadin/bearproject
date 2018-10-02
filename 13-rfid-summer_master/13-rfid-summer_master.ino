@@ -45,21 +45,16 @@ void loop() {
   while (Wire.available()) {
 
     saison = Wire.read();
-    if (saison != 0){
-    
-
-      Serial.println("play 13-prout.wav");
-      delay(100);
+    if (saison != 0) {
+      Serial.println("play 13-action-winter.wav");
       Serial.println("play 13-action-winter.h264");
-}
-
-}
-if (bear_has_card()) {
-  bear_stop();
-
-  Serial.println ("play 13-prout.wav");
-  delay(100);
-  Serial.println("play 13-action-summer.h264");
-  bear_led_blink();
-}
+    }
+  }
+  
+  if (bear_has_card()) {
+    bear_stop();
+    Serial.println ("play 13-action-summer.wav");
+    Serial.println("play 13-action-summer.h264");
+    bear_led_blink();
+  }
 }

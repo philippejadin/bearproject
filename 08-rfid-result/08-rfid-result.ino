@@ -43,103 +43,99 @@ void loop() {
 
   // Attend une carte RFID
   if (bear_has_card()) {
-
-    // code exemple qui rempli la position 1 et 2
-    //bear_write(6, 1, 0);
-    //bear_write(6, 5, 1);
-
-    bear_read_block(6, data);
+    int data_read = bear_read_block(6, data);
     int locale = bear_get_locale();
     bear_stop();
 
-    // construction du nom de fichier en regardant chaque case si elle contient un 1 ou pas
-
-    count = 0;
-    filename = "";
-    filecount = "";
-
-    for (int i = 1; i < 9; i++)
+    if (locale && data_read) // on ne lance la machine que si on a bien une locale ET les données de la carte
     {
-      if (data[i] == 1)
+      // construction du nom de fichier en regardant chaque case si elle contient un 1 ou pas
+
+      count = 0;
+      filename = "";
+      filecount = "";
+
+      for (int i = 1; i < 9; i++)
       {
-        filecount = filecount + i;
-        count ++;
+        if (data[i] == 1)
+        {
+          filecount = filecount + i;
+          count ++;
+        }
       }
+
+
+      if (count == 0) // si rien sélectionné, tuto pour expliquer ce qu'il faut en sélectionner au moins un
+      {
+        filename = "08-wrong-";
+        // ajout de la locale
+        if (locale == LOCALE_FR)
+        {
+          filename = filename + "fr";
+        }
+        if (locale == LOCALE_EN)
+        {
+          filename = filename + "en";
+        }
+        if (locale == LOCALE_NL)
+        {
+          filename = filename + "nl";
+        }
+        if (locale == LOCALE_DE)
+        {
+          filename = filename + "de";
+        }
+        filename = filename + ".h264";
+      }
+      else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
+      {
+        filename = "08-result" + filecount;
+
+        // ajout de la locale
+        if (locale == LOCALE_FR)
+        {
+          filename = filename + "-fr.png";
+        }
+        if (locale == LOCALE_EN)
+        {
+          filename = filename + "-en.png";
+        }
+        if (locale == LOCALE_NL)
+        {
+          filename = filename + "-nl.png";
+        }
+        if (locale == LOCALE_DE)
+        {
+          filename = filename + "-de.png";
+        }
+      }
+      else // sinon on tire au sort un animal chimérique (oui, chimérique!)
+      {
+        filename = "08-resultmore";
+        filename = filename + random(1, 8);
+
+        // ajout de la locale
+        if (locale == LOCALE_FR)
+        {
+          filename = filename + "-fr.png";
+        }
+        if (locale == LOCALE_EN)
+        {
+          filename = filename + "-en.png";
+        }
+        if (locale == LOCALE_NL)
+        {
+          filename = filename + "-nl.png";
+        }
+        if (locale == LOCALE_DE)
+        {
+          filename = filename + "-de.png";
+        }
+      }
+
+      Serial.println("play " + filename);
+      bear_led_blink();
+      bear_delay(2000);
     }
-
-
-    if (count == 0) // si rien sélectionné, tuto pour expliquer ce qu'il faut en sélectionner au moins un
-    {
-      filename = "08-wrong-";
-      // ajout de la locale
-      if (locale == LOCALE_FR)
-      {
-        filename = filename + "fr";
-      }
-      if (locale == LOCALE_EN)
-      {
-        filename = filename + "en";
-      }
-      if (locale == LOCALE_NL)
-      {
-        filename = filename + "nl";
-      }
-      if (locale == LOCALE_DE)
-      {
-        filename = filename + "de";
-      }
-      filename = filename + ".h264";
-    }
-    else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
-    {
-      filename = "08-result" + filecount;
-
-      // ajout de la locale
-      if (locale == LOCALE_FR)
-      {
-        filename = filename + "-fr.png";
-      }
-      if (locale == LOCALE_EN)
-      {
-        filename = filename + "-en.png";
-      }
-      if (locale == LOCALE_NL)
-      {
-        filename = filename + "-nl.png";
-      }
-      if (locale == LOCALE_DE)
-      {
-        filename = filename + "-de.png";
-      }
-    }
-    else // sinon on tire au sort un animal chimérique (oui, chimérique!)
-    {
-      filename = "08-resultmore";
-      filename = filename + random(1, 8);
-
-      // ajout de la locale
-      if (locale == LOCALE_FR)
-      {
-        filename = filename + "-fr.png";
-      }
-      if (locale == LOCALE_EN)
-      {
-        filename = filename + "-en.png";
-      }
-      if (locale == LOCALE_NL)
-      {
-        filename = filename + "-nl.png";
-      }
-      if (locale == LOCALE_DE)
-      {
-        filename = filename + "-de.png";
-      }
-    }
-
-
-    Serial.println("play " + filename);
-    bear_led_blink();
-    bear_delay(2000);
   }
-
 }

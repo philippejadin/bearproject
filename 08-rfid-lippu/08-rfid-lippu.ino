@@ -7,7 +7,7 @@
    - i2c : A4 (SDA), A5 (SCL)
 
   Numéro de block : 6
-  
+
   Position :
   08-rfid-panda :  1
   08-rfid-lippu : 2
@@ -38,9 +38,12 @@ void loop() {
 
   // Attend une carte RFID
   if (bear_has_card()) {
-    bear_write(6, 2, 1); //(block, position, valeur)
+    if (bear_write(6, 2, 1)) //(block, position, valeur)
+    {
+      bear_led_blink();
+    }
     bear_stop();
-    bear_led_blink();
+
   }
 
 

@@ -51,98 +51,100 @@ void loop() {
 
     // lit la langue
     locale = bear_get_locale();
-    bear_led_blink();
     bear_stop();
 
-
-    // stocke temps de départ
-    chrono = millis();
-
-    // joue la séquence départ (1)
-    if (locale == LOCALE_FR)
+    if (locale)
     {
-      Serial.println("play 10-action1-fr.h264");
-    }
+      bear_led_blink();
 
-    if (locale == LOCALE_EN)
-    {
-      Serial.println("play 10-action1-en.h264");
-    }
-
-    if (locale == LOCALE_DE)
-    {
-      Serial.println("play 10-action1-de.h264");
-
-    }
-
-    if (locale == LOCALE_NL)
-    {
-      Serial.println("play 10-action1-nl.h264");
-    }
-
-    bear_delay(1000);
-
-    // attends bouton on pour jouer séquence suivante et clignote
-
-    for (int i = 2; i < 6; i++)
-    {
-      // reste bloqué tant que le bouton n'est pas pressé
-      while (digitalRead(switchPin) == LOW)
-      {
-        analogWrite(5, 255);
-        bear_delay(50);
-
-        analogWrite(5, 0);
-        bear_delay(50);
-
-        if (millis() - chrono >= timeout)
-        {
-          Serial.println("timeout");
-          Serial.println("loop 10-idle.h264");
-          return;
-        }
-      }
-
-      // relance le timeout
+      // stocke temps de départ
       chrono = millis();
 
-
-      String command = "play 10-action";
-      command = command + i + "-";
-
+      // joue la séquence départ (1)
       if (locale == LOCALE_FR)
       {
-        command = command + "fr";
+        Serial.println("play 10-action1-fr.h264");
       }
 
       if (locale == LOCALE_EN)
       {
-        command = command + "en";
+        Serial.println("play 10-action1-en.h264");
       }
 
       if (locale == LOCALE_DE)
       {
-        command = command + "de";
+        Serial.println("play 10-action1-de.h264");
+
       }
 
       if (locale == LOCALE_NL)
       {
-        command = command + "nl";
+        Serial.println("play 10-action1-nl.h264");
       }
 
-      command = command + ".h264";
+      bear_delay(1000);
 
-      Serial.println(command);
+      // attends bouton on pour jouer séquence suivante et clignote
 
-      bear_delay(200); // TODO
+      for (int i = 2; i < 6; i++)
+      {
+        // reste bloqué tant que le bouton n'est pas pressé
+        while (digitalRead(switchPin) == LOW)
+        {
+          analogWrite(5, 255);
+          bear_delay(50);
 
-    }
-    bear_delay(7500); // à tester TODO
+          analogWrite(5, 0);
+          bear_delay(50);
+
+          if (millis() - chrono >= timeout)
+          {
+            Serial.println("timeout");
+            Serial.println("loop 10-idle.h264");
+            return;
+          }
+        }
+
+        // relance le timeout
+        chrono = millis();
+
+
+        String command = "play 10-action";
+        command = command + i + "-";
+
+        if (locale == LOCALE_FR)
+        {
+          command = command + "fr";
+        }
+
+        if (locale == LOCALE_EN)
+        {
+          command = command + "en";
+        }
+
+        if (locale == LOCALE_DE)
+        {
+          command = command + "de";
+        }
+
+        if (locale == LOCALE_NL)
+        {
+          command = command + "nl";
+        }
+
+        command = command + ".h264";
+
+        Serial.println(command);
+
+        bear_delay(200); // TODO
+
+      }
+      bear_delay(7500); // à tester TODO
+
+      Serial.println("loop 10-idle.h264");
     
-    Serial.println("loop 10-idle.h264");
-
+    }
   }
-
 
 }
 

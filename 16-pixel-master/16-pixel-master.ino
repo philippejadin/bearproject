@@ -318,13 +318,7 @@ void pixel_print_aligned(long number)
   {
     matrix.setCursor(36, 0);
   }
-
-
-
-
-
-
-
+  
   matrix.print(number);
 }
 
