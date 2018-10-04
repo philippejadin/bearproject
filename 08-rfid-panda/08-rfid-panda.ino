@@ -38,6 +38,12 @@ void loop() {
 
   // Attend une carte RFID
   if (bear_has_card()) {
+
+    if (bear_read(6, 10) == 1) // efface tout si on a affiché le résultat
+    {
+      bear_erase_block(6);
+    }
+
     if (bear_write(6, 1, 1)) //(block, position, valeur)
     {
       bear_led_blink();

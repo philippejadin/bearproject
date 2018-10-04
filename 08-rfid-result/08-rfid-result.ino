@@ -32,6 +32,7 @@ int count = 0;
 void setup() {
   bear_init();
   randomSeed(analogRead(0));
+  Serial.println("loop 08-idle.h264");
 }
 
 
@@ -45,6 +46,8 @@ void loop() {
   if (bear_has_card()) {
     int data_read = bear_read_block(6, data);
     int locale = bear_get_locale();
+    // bear_erase_block(6); // efface les ressemblances
+    bear_write(6, 10, 1); // marque le résultat comme affiché
     bear_stop();
 
     if (locale && data_read) // on ne lance la machine que si on a bien une locale ET les données de la carte
@@ -86,6 +89,9 @@ void loop() {
           filename = filename + "de";
         }
         filename = filename + ".h264";
+        Serial.println("loop " + filename);
+        bear_led_blink();
+        bear_delay(6000);
       }
       else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
       {
@@ -108,11 +114,14 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
+        Serial.println("play " + filename);
+        bear_led_blink();
+        bear_delay(5000);
+        Serial.println("blank");
       }
       else // sinon on tire au sort un animal chimérique (oui, chimérique!)
       {
         filename = "08-resultmore";
-        filename = filename + random(1, 8);
 
         // ajout de la locale
         if (locale == LOCALE_FR)
@@ -131,11 +140,14 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
+        Serial.println("play " + filename);
+        bear_led_blink();
+        bear_delay(5000);
+        Serial.println("blank");
       }
 
-      Serial.println("play " + filename);
-      bear_led_blink();
-      bear_delay(2000);
+
+      Serial.println("loop 08-idle.h264");
     }
   }
 }
