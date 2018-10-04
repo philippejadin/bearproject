@@ -17,6 +17,7 @@ const char MODULE_NAME[] = "11-rfid-option1"; // à changer pour chaque module, 
 
 void setup() {
   bear_init();
+  Serial.println("play 11-bkg-option1.png");
   Serial.println("loop 11-idle-option1.h264");
 }
 
@@ -32,7 +33,8 @@ void loop() {
     bear_stop();
     Serial.println("play 11-action-option1.h264");
     bear_led_blink();
-    bear_delay(13000);
+    bear_delay(14000);
+    Serial.println("loop 11-idle-option1.h264");
   }
 
 
