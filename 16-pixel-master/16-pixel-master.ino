@@ -77,7 +77,7 @@ void setup() {
   // neopixels :
   matrix.begin();
   matrix.setTextWrap(false);
-  matrix.setBrightness(20);
+  matrix.setBrightness(3);
   matrix.setTextColor(colors[0]);
 
   x = matrix.width();
@@ -86,8 +86,8 @@ void setup() {
   matrix.setCursor(x, 0);
   matrix.show();
 
-  pixel_print("ready");
-  delay(2000);
+  pixel_print(".");
+  bear_delay(2000);
   pixel_clear();
 
 }
@@ -108,15 +108,21 @@ void loop() {
   for (int slave_id = 10; slave_id < 18; slave_id++)
   {
     Wire.requestFrom(slave_id, 1);    // request 1 bytes from slave device #slave_id (10-17)
+    wdt_reset();
 
     while (Wire.available()) { // slave may send less than requested
       locale = Wire.read(); // receive a byte as character
+     
+      bear_delay(20);
+/*
+      Serial.print("slave id : ");
+      Serial.println(slave_id);         // imprime l'adresse qui a répondu
 
-
-      if (locale != 0)
+      Serial.print("locale id : ");
+      Serial.println(locale);         // imprime l'adresse qui a répondu
+*/
+      if (locale < 5 && locale > 0)
       {
-        Serial.print("slave id : ");
-        Serial.println(slave_id);         // imprime l'adresse qui a répondu
 
 
         // construction du nom de fichier :
@@ -232,7 +238,7 @@ void pixel_print(String message)
   matrix.setCursor(0, 0);
   matrix.print(message);
   matrix.show();
-  bear_delay(70);
+  //bear_delay(70);
 }
 
 
@@ -242,7 +248,7 @@ void pixel_print(String message)
 // 3 = vert
 void pixel_countdown(long number, int color)
 {
-  matrix.setTextColor(matrix.Color(255, 255, 255));
+  matrix.setTextColor(matrix.Color(255, 255, 155));
   matrix.setCursor(0, 0);
 
   long interval = number / 50; // nombre de "frames" dans l'animation du décompte
@@ -274,9 +280,6 @@ void pixel_countdown(long number, int color)
   matrix.fillScreen(matrix.Color(0, 0, 0));
   pixel_print_aligned(number);
   matrix.show();
-
-
-
 }
 
 
@@ -318,7 +321,7 @@ void pixel_print_aligned(long number)
   {
     matrix.setCursor(36, 0);
   }
-  
+
   matrix.print(number);
 }
 
