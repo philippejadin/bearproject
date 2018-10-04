@@ -33,6 +33,9 @@ void setup() {
   bear_init();
   Wire.begin(9);        // join i2c bus (address optional for master)
   Wire.setClock(10000); // 10khz bus speed
+
+  //Serial.println("play 13-bkg.png");
+  Serial.println("loop 13-idle.h264");
 }
 
 //*****************************************************************************************//
@@ -48,13 +51,19 @@ void loop() {
     if (saison != 0) {
       Serial.println("play 13-action-winter.wav");
       Serial.println("play 13-action-winter.h264");
+      //bear_led_blink();
+      bear_delay(11000);
+      Serial.println("loop 13-idle.h264");
     }
   }
-  
+
   if (bear_has_card()) {
     bear_stop();
     Serial.println ("play 13-action-summer.wav");
     Serial.println("play 13-action-summer.h264");
     bear_led_blink();
+    bear_delay(11000);
+    Serial.println("loop 13-idle.h264");
+
   }
 }
