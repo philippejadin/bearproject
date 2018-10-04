@@ -22,9 +22,10 @@
 const char MODULE_NAME[] = "19-led-control"; // à changer pour chaque module, pour l'identifier facilement, à mettre en début de sketch
 const int NEOPIXEL_PIN = 6;
 const int TRIGGER_PIN = 11;
+int k;
 
 //--------------------- config
-int num_pixels = 300;
+int num_pixels = 200;
 // ---------------------------
 
 
@@ -40,7 +41,7 @@ void setup() {
   pinMode(TRIGGER_PIN, INPUT);
 
   strip.begin();
-  strip.setBrightness(180); // 0 -> 255 (à 255 ça chauffe un peu, 220 éclaire quasi autant et semble plus safe)
+  strip.setBrightness(220); // 0 -> 255 (à 255 ça chauffe un peu, 220 éclaire quasi autant et semble plus safe)
   strip.show(); // Initialize all pixels to 'off'
 }
 
@@ -68,22 +69,26 @@ void startshow()
   for (int i = 0; i < num_pixels; i++)
   {
     strip.setPixelColor(i, 255, 200, 150);
+    strip.setPixelColor(num_pixels - i, 255, 200, 150);
     strip.show();
     delay(2);
   }
+
 
   rainbow(1);
+
   delay(500);
 
-// éteint tout progressivement
-  for (int i = num_pixels; i > 0; i--)
+  // éteint tout progressivement
+  for (int i = 0; i < num_pixels / 2; i++)
   {
-    strip.setPixelColor(i, 0, 0, 0);
+    strip.setPixelColor((num_pixels / 2) - i, 0, 0, 0);
+    strip.setPixelColor((num_pixels / 2) + i, 0, 0, 0);
     strip.show();
     delay(2);
   }
 
-// éteint dernier pixels
+  // éteint dernier pixels
   strip.setPixelColor(0, 0, 0, 0);
   strip.show();
 
@@ -95,12 +100,21 @@ void startshow()
 void rainbow(uint8_t wait) {
   uint16_t i, j;
 
-  for (j = 0; j < 256; j++) {
-    for (i = 0; i < strip.numPixels(); i++) {
-      strip.setPixelColor(i, Wheel((i + j) & 255));
+  for (int k=0; k < 1; k++) {
+    for (j = 0; j < 256; j++) {
+      if (j < 125) {
+        strip.setBrightness(50);
+      }
+      else {
+        strip.setBrightness(220);
+      }
+      for (i = 0; i < strip.numPixels(); i++) {
+        strip.setPixelColor(i, Wheel((i + j) & 255));
+      }
+
+      strip.show();
+      delay(wait);
     }
-    strip.show();
-    delay(wait);
   }
 }
 
