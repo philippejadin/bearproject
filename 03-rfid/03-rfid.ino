@@ -46,7 +46,7 @@ void loop() {
       }
 
       if (locale == (LOCALE_NL))
-      {
+      { 
         Serial.println("play 03-action-nl.wav");
       }
 
