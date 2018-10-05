@@ -42,7 +42,7 @@ void loop() {
 
     count ++;
 
-    if (count > 11)
+    if (count > 9)
     {
       count = 1;
     }
@@ -65,8 +65,7 @@ void loop() {
     }
     if (count == 5)
     {
-      Serial.println("play 15-action5.h264");
-      //bear_delay(1000);
+      Serial.println("loop 15-action5.h264");
     }
     if (count == 6)
     {
@@ -84,6 +83,7 @@ void loop() {
     {
       Serial.println("play 15-action9.png");
     }
+    /*
     if (count == 10)
     {
       Serial.println("play 15-action10.png");
@@ -92,10 +92,10 @@ void loop() {
     {
       Serial.println("play 15-action11.png");
     }
-
-
-
+    */
+    
     bear_led_blink();
+    bear_delay(200);
   }
 
 }

@@ -68,6 +68,7 @@ void loop() {
     locale = bear_get_locale();
     bear_stop();
 
+
     // jouer le son d'explication selon la langue
     // note midi
     // 60 = fr
@@ -96,6 +97,8 @@ void loop() {
       {
         note(63);
       }
+
+      bear_led_blink();
 
       bear_delay(1000);
 
