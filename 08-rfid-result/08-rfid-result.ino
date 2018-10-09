@@ -26,6 +26,9 @@ String filename;
 String filecount;
 int count = 0;
 
+unsigned long timeout = 0;
+int playing = false;
+
 
 #include <bearlib.h> // à inclure en dernier
 
@@ -91,7 +94,10 @@ void loop() {
         filename = filename + ".h264";
         Serial.println("loop " + filename);
         bear_led_blink();
-        bear_delay(6000);
+
+        timeout = millis();
+        playing = true;
+
       }
       else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
       {
@@ -114,9 +120,13 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
+        Serial.println("blank");
         Serial.println("play " + filename);
         bear_led_blink();
-        bear_delay(6000);
+
+        timeout = millis();
+        playing = true;
+
       }
       else // sinon on tire au sort un animal chimérique (oui, chimérique!)
       {
@@ -139,14 +149,21 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
+        Serial.println("blank");
         Serial.println("play " + filename);
         bear_led_blink();
-        bear_delay(6000);
+
+        timeout = millis();
+        playing = true;
       }
-
-
-      Serial.println("loop 08-idle.h264");
     }
   }
+
+  if (millis() > timeout + 7000 && playing)
+  {
+    Serial.println("loop 08-idle.h264");
+    playing = false;
+  }
+  
   bear_delay(50);
 }
