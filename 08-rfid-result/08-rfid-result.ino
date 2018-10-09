@@ -116,8 +116,7 @@ void loop() {
         }
         Serial.println("play " + filename);
         bear_led_blink();
-        bear_delay(5000);
-        Serial.println("blank");
+        bear_delay(6000);
       }
       else // sinon on tire au sort un animal chimérique (oui, chimérique!)
       {
@@ -142,12 +141,12 @@ void loop() {
         }
         Serial.println("play " + filename);
         bear_led_blink();
-        bear_delay(5000);
-        Serial.println("blank");
+        bear_delay(6000);
       }
 
 
       Serial.println("loop 08-idle.h264");
     }
   }
+  bear_delay(50);
 }

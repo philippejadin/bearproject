@@ -41,6 +41,7 @@ void loop() {
     if (bear_read(6, 10) == 1) // efface tout si on a affiché le résultat
     {
       bear_erase_block(6);
+      Serial.println("card reset");
     }
 
     if (bear_write(6, 7, 1)) //(block, position, valeur)
@@ -50,6 +51,8 @@ void loop() {
     bear_stop();
 
   }
+
+  bear_delay(100);
 
 
 
