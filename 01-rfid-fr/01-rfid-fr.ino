@@ -15,6 +15,11 @@ const char MODULE_NAME[] = "01-rfid-fr"; // à changer pour chaque module, pour 
 
 #include <bearlib.h> // à inclure en dernier
 
+
+unsigned long timeout = 0;
+int playing = false;
+
+
 void setup() {
   bear_init();
   Serial.println("loop 01-idle-fr.h264");
@@ -37,14 +42,24 @@ void loop() {
 
       // efface les données de la carte
       bear_erase();
-
       bear_stop();
+
+      timeout = millis();
+      playing = true;
+
       bear_led_blink();
-      bear_delay(12000);
-      Serial.println("loop 01-idle-fr.h264");
+      bear_delay(2000);
+
     } else {
       bear_delay(10);
       bear_stop();
     }
   }
+
+  if (millis() > timeout + 12000 && playing)
+  {
+    Serial.println("loop 01-idle-fr.h264");
+    playing = false;
+  }
+  
 }
