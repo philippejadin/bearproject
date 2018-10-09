@@ -41,7 +41,7 @@ void setup() {
   digitalWrite (RELAY_3, LOW);
   digitalWrite (RELAY_4, LOW);
 
-delay(500);
+  delay(500);
 }
 
 
@@ -58,9 +58,14 @@ void loop() {
   if (bear_has_card()) {
 
     bear_stop();
-        count++;
-if (count ==16 ) {
-      software_Reboot();}
+    count++;
+
+    Serial.print("Reboot count ");
+    Serial.println(count);
+
+    if (count == 16 ) {
+      software_Reboot();
+    }
     //coupe tous les relais
     digitalWrite (RELAY_1, LOW);
     digitalWrite (RELAY_2, LOW);
@@ -71,19 +76,20 @@ if (count ==16 ) {
     // selectionne le relais suivant
     if (n_relay < n_max_relay - 1) {
       n_relay++;
-    }else{
+    } else {
       n_relay = 0;
     }
     //allume le relais selectionné
     digitalWrite (relay_pin[n_relay], HIGH );
-    //Serial.print("Enable relay ");
-    //Serial.println(n_relay);
+    Serial.print("Enable relay ");
+    Serial.println(n_relay);
 
     //bling bling
     bear_led_blink();
-    bear_delay(500);
-    
+    bear_delay(200);
   }
+
+  bear_delay(20);
 }
 
 
