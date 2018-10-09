@@ -23,10 +23,10 @@ const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'i
 
 #include <bearlib.h> // à inclure en dernier
 
-const int n_max_relay = 4;//nbre de relay
-int n_relay = 0;
+int relay = 0;
 int relay_pin[4] = {RELAY_1, RELAY_2, RELAY_3, RELAY_4};
-int count = 0;
+unsigned long timeout = 0;
+
 void setup() {
   bear_init();
 
@@ -48,7 +48,6 @@ void setup() {
 //*****************************************************************************************//
 void loop() {
 
-
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
@@ -58,38 +57,41 @@ void loop() {
   if (bear_has_card()) {
 
     bear_stop();
-    count++;
 
-    Serial.print("Reboot count ");
-    Serial.println(count);
-
-    if (count == 16 ) {
-      software_Reboot();
-    }
-    //coupe tous les relais
+    // coupe tous les relais
     digitalWrite (RELAY_1, LOW);
     digitalWrite (RELAY_2, LOW);
     digitalWrite (RELAY_3, LOW);
     digitalWrite (RELAY_4, LOW);
 
 
+    relay++;
+
     // selectionne le relais suivant
-    if (n_relay < n_max_relay - 1) {
-      n_relay++;
-    } else {
-      n_relay = 0;
+    if (relay  == 4) {
+      relay = 0;
     }
+
     //allume le relais selectionné
-    digitalWrite (relay_pin[n_relay], HIGH );
+    digitalWrite (relay_pin[relay], HIGH );
     Serial.print("Enable relay ");
-    Serial.println(n_relay);
+    Serial.println(relay);
 
     //bling bling
     bear_led_blink();
-    bear_delay(200);
+    bear_delay(100);
   }
 
-  bear_delay(20);
+  bear_delay(100);
+
+
+
+  if (millis() > timeout + 10000)
+  {
+    software_Reboot();
+    timeout = millis();
+  }
+
 }
 
 
@@ -97,9 +99,5 @@ void loop() {
 void software_Reboot()
 {
   wdt_enable(WDTO_15MS);
-
-  while (1)
-  {
-
-  }
+  delay(50);
 }
