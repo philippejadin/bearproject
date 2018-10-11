@@ -22,7 +22,7 @@ int count = 1;
 
 void setup() {
   bear_init();
-  Serial.println("play 15-action1.png");
+  Serial.println("play 15-action1.jpg");
 }
 
 
@@ -49,19 +49,19 @@ void loop() {
 
     if (count == 1)
     {
-      Serial.println("play 15-action1.png");
+      Serial.println("play 15-action1.jpg");
     }
     if (count == 2)
     {
-      Serial.println("play 15-action2.png");
+      Serial.println("play 15-action2.jpg");
     }
     if (count == 3)
     {
-      Serial.println("play 15-action3.png");
+      Serial.println("play 15-action3.jpg");
     }
     if (count == 4)
     {
-      Serial.println("play 15-action4.png");
+      Serial.println("play 15-action4.jpg");
     }
     if (count == 5)
     {
@@ -69,19 +69,19 @@ void loop() {
     }
     if (count == 6)
     {
-      Serial.println("play 15-action6.png");
+      Serial.println("play 15-action6.jpg");
     }
     if (count == 7)
     {
-      Serial.println("play 15-action7.png");
+      Serial.println("play 15-action7.jpg");
     }
     if (count == 8)
     {
-      Serial.println("play 15-action8.png");
+      Serial.println("play 15-action8.jpg");
     }
     if (count == 9)
     {
-      Serial.println("play 15-action9.png");
+      Serial.println("play 15-action9.jpg");
     }
     /*
     if (count == 10)
