@@ -64,6 +64,7 @@ void loop() {
       bear_led_blink();
       bear_delay(4000);
       Serial.println("play 09-bkg-lippu.png");
+      Serial.println("loop 09-idle-lippu.h264");
     }
 
     if (food > 0 && food < 12)

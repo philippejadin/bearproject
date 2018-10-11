@@ -59,6 +59,7 @@ void loop() {
       bear_led_blink();
       bear_delay(4000);
       Serial.println("play 09-bkg-panda.png");
+      Serial.println("loop 09-idle-panda.h264");
     }
 
 

@@ -60,6 +60,7 @@ void loop() {
       bear_led_blink();
       bear_delay(4000);
       Serial.println("play 09-bkg-polaire.png");
+      Serial.println("loop 09-idle-polaire.h264");
 
     }
 

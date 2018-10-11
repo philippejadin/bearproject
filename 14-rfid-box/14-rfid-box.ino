@@ -14,6 +14,8 @@ const char MODULE_NAME[] = "14-rfid-box"; // à changer pour chaque module, pour
 #include <bearlib.h> // à inclure en dernier
 
 int locale;
+unsigned long timeout = 0;
+int playing = false;
 
 void setup() {
   bear_init();
@@ -32,15 +34,25 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
     bear_stop();
-    
+
     Serial.println("play 14-action.wav");
     Serial.println("play 14-action.h264");
-    
-    bear_led_blink();
-    
-    bear_delay(72000);
 
-    Serial.println("loop 14-idle.h264");
+    bear_led_blink();
+
+    timeout = millis();
+    playing = true;
+
+
+
   }
+
+  if (millis() > timeout + 72000 && playing)
+  {
+    Serial.println("loop 14-idle.h264");
+    playing = false;
+  }
+
+
 
 }
