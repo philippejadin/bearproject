@@ -23,9 +23,10 @@ const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'i
 
 #include <bearlib.h> // à inclure en dernier
 
-int relay = 0;
-unsigned long timeout = 0;
-
+int relay = 4;
+int changement = 100;
+unsigned long timeout = 60000;
+float R;
 void setup() {
   bear_init();
 
@@ -34,102 +35,68 @@ void setup() {
   pinMode (RELAY_3, OUTPUT);
   pinMode (RELAY_4, OUTPUT);
 
+  randomSeed(analogRead(0));
   //coupe tous les relais sauf 1
-  digitalWrite (RELAY_1, HIGH);
-  digitalWrite (RELAY_2, LOW);
-  digitalWrite (RELAY_3, LOW);
-  digitalWrite (RELAY_4, LOW);
+  relayOff();
+  delay(100);
 
-  delay(500);
+  relay = random(4) + 4;
+  
+  digitalWrite (relay, HIGH);
+  Serial.println("hello");
 }
 
 
 //*****************************************************************************************//
 void loop() {
 
-  // wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
-
+  //wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
-
-
   // Attend une carte RFID
   if (bear_has_card()) {
-    
+
     bear_stop();
+    //bling bling
+    bear_led_blink();
 
-    // coupe tous les relais
-    digitalWrite (RELAY_1, LOW);
-    digitalWrite (RELAY_2, LOW);
-    digitalWrite (RELAY_3, LOW);
-    digitalWrite (RELAY_4, LOW);
-
+    Serial.println ("carte");
+    relayOff(); // coupe tous les relais
 
     relay++;
 
+    delay(100);
+
     // selectionne le relais suivant
-    if (relay  == 4) {
-      relay = 0;
+    if (relay  > 7) {
+      wdt_reset();
+      relay = 4;
+      digitalWrite (relay, HIGH);
+      delay(100);
+      digitalWrite (7, LOW);
+      delay(100);
     }
+    else {
 
-    if (relay == 0)
-    {
-      digitalWrite (RELAY_1, HIGH);
-      digitalWrite (RELAY_2, LOW);
-      digitalWrite (RELAY_3, LOW);
-      digitalWrite (RELAY_4, LOW);
+      wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
+     
+      digitalWrite (relay - 1, LOW);
+      delay(100);
+      digitalWrite (relay, HIGH);
+      delay(100);
+      
     }
-
-    if (relay == 1)
-    {
-      digitalWrite (RELAY_1, LOW);
-      digitalWrite (RELAY_2, HIGH);
-      digitalWrite (RELAY_3, LOW);
-      digitalWrite (RELAY_4, LOW);
-    }
-
-    if (relay == 2)
-    {
-      digitalWrite (RELAY_1, LOW);
-      digitalWrite (RELAY_2, LOW);
-      digitalWrite (RELAY_3, HIGH);
-      digitalWrite (RELAY_4, LOW);
-    }
-
-    if (relay == 3)
-    {
-      digitalWrite (RELAY_1, LOW);
-      digitalWrite (RELAY_2, LOW);
-      digitalWrite (RELAY_3, LOW);
-      digitalWrite (RELAY_4, HIGH);
-    }
-
-    Serial.print("Enable relay ");
+    Serial.print("pin relais n° ");
     Serial.println(relay);
 
-    //bling bling
-    bear_led_blink();
-    bear_delay(1000);
 
   }
-
-  bear_delay(100);
-
-
-
-
-  if (millis() > timeout + 60 * 2 * 1000) // toutes les 2 minutes, reboot
-  {
-    software_Reboot();
-    timeout = millis();
-  }
-
-
 }
 
 
 
-void software_Reboot()
-{
-  wdt_enable(WDTO_15MS);
-  delay(50);
+void relayOff() {
+  for (int i = 0; i < 4; i++) {
+    digitalWrite (4 + i, LOW);
+    delay(100);
+  }
 }
