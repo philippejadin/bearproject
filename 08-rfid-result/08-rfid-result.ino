@@ -92,9 +92,8 @@ void loop() {
           filename = filename + "de";
         }
         filename = filename + ".h264";
-        //Serial.println("play 08-blank.png");
+      
         Serial.println("blank");
-        //Serial.println("play 08-blank.png");
         Serial.println("loop " + filename);
         bear_led_blink();
         bear_delay(4000);
@@ -110,23 +109,23 @@ void loop() {
         // ajout de la locale
         if (locale == LOCALE_FR)
         {
-          filename = filename + "-fr.png";
+          filename = filename + "-fr.jpg";
         }
         if (locale == LOCALE_EN)
         {
-          filename = filename + "-en.png";
+          filename = filename + "-en.jpg";
         }
         if (locale == LOCALE_NL)
         {
-          filename = filename + "-nl.png";
+          filename = filename + "-nl.jpg";
         }
         if (locale == LOCALE_DE)
         {
-          filename = filename + "-de.png";
+          filename = filename + "-de.jpg";
         }
 
         //Serial.println("blank");
-        //Serial.println("play 08-blank.png");
+        //Serial.println("play 08-blank.jpg");
         Serial.println("play " + filename);
         bear_led_blink();
 
@@ -143,21 +142,21 @@ void loop() {
         // ajout de la locale
         if (locale == LOCALE_FR)
         {
-          filename = filename + "-fr.png";
+          filename = filename + "-fr.jpg";
         }
         if (locale == LOCALE_EN)
         {
-          filename = filename + "-en.png";
+          filename = filename + "-en.jpg";
         }
         if (locale == LOCALE_NL)
         {
-          filename = filename + "-nl.png";
+          filename = filename + "-nl.jpg";
         }
         if (locale == LOCALE_DE)
         {
-          filename = filename + "-de.png";
+          filename = filename + "-de.jpg";
         }
-        //Serial.println("play 08-blank.png");
+        //Serial.println("play 08-blank.jpg");
         Serial.println("play " + filename);
         bear_led_blink();
         timeout = millis() + 6000;
