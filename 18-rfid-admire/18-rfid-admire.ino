@@ -25,13 +25,14 @@ const char MODULE_NAME[] = "18-admire"; // à changer pour chaque module, pour l
 
 #include <bearlib.h> // à inclure en dernier
 
-
+int count = 0;
 void setup() {
   bear_init();
   pinMode (RELAY_1, OUTPUT);
   pinMode (RELAY_2, OUTPUT);
   pinMode (RELAY_3, OUTPUT);
   pinMode (RELAY_4, OUTPUT);
+  //Serial.println("play 00-start.wav");
 }
 
 
@@ -46,20 +47,33 @@ void loop() {
   // Attend une carte RFID
   if (bear_has_card()) {
 
-    bear_stop();
 
+    bear_stop();
+    count++;
 
     //allume le relais selectionné
     digitalWrite (RELAY_1, HIGH );
-    Serial.print("Enable relay ");
-
-
+    Serial.println("play 18-applause.wav");
     bear_led_blink();
-    bear_delay(2000);
+    bear_delay(8000);
+    //Serial.print("Enable relay ");
 
     digitalWrite (RELAY_1, LOW );
-    Serial.print("Disable relay ");
+    //Serial.print("Disable relay ");
+    if (count == 20 ) {
+      software_Reboot();
+    }
 
   }
 
+}
+void software_Reboot()
+{
+  Serial.println("je vais rebooter");
+  wdt_enable(WDTO_15MS);
+
+  while (1)
+  {
+
+  }
 }
