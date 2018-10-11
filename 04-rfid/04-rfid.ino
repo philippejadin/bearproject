@@ -24,7 +24,6 @@ const char MODULE_NAME[] = "04-rfid"; // à changer pour chaque module, pour l'i
 #include <bearlib.h> // à inclure en dernier
 
 int relay = 0;
-int relay_pin[4] = {RELAY_1, RELAY_2, RELAY_3, RELAY_4};
 unsigned long timeout = 0;
 
 void setup() {
@@ -48,14 +47,14 @@ void setup() {
 //*****************************************************************************************//
 void loop() {
 
-  wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
+  // wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
 
 
   // Attend une carte RFID
   if (bear_has_card()) {
-
+    
     bear_stop();
 
     // coupe tous les relais
@@ -72,25 +71,58 @@ void loop() {
       relay = 0;
     }
 
-    //allume le relais selectionné
-    digitalWrite (relay_pin[relay], HIGH );
+    if (relay == 0)
+    {
+      digitalWrite (RELAY_1, HIGH);
+      digitalWrite (RELAY_2, LOW);
+      digitalWrite (RELAY_3, LOW);
+      digitalWrite (RELAY_4, LOW);
+    }
+
+    if (relay == 1)
+    {
+      digitalWrite (RELAY_1, LOW);
+      digitalWrite (RELAY_2, HIGH);
+      digitalWrite (RELAY_3, LOW);
+      digitalWrite (RELAY_4, LOW);
+    }
+
+    if (relay == 2)
+    {
+      digitalWrite (RELAY_1, LOW);
+      digitalWrite (RELAY_2, LOW);
+      digitalWrite (RELAY_3, HIGH);
+      digitalWrite (RELAY_4, LOW);
+    }
+
+    if (relay == 3)
+    {
+      digitalWrite (RELAY_1, LOW);
+      digitalWrite (RELAY_2, LOW);
+      digitalWrite (RELAY_3, LOW);
+      digitalWrite (RELAY_4, HIGH);
+    }
+
     Serial.print("Enable relay ");
     Serial.println(relay);
 
     //bling bling
     bear_led_blink();
-    bear_delay(100);
+    bear_delay(1000);
+
   }
 
   bear_delay(100);
 
 
 
-  if (millis() > timeout + 10000)
+
+  if (millis() > timeout + 60 * 2 * 1000) // toutes les 2 minutes, reboot
   {
     software_Reboot();
     timeout = millis();
   }
+
 
 }
 
