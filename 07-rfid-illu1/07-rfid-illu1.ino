@@ -23,8 +23,15 @@ const char MODULE_NAME[] = "07-rfid-illu1"; // à changer pour chaque module, po
 
 #include <bearlib.h> // à inclure en dernier
 
+unsigned long timeout;
 void setup() {
   bear_init();
+  //timeout=10000+(random(5)*1000);// pour les 3 rfid du fond
+  //ou
+  timeout=6000+(random(3)*1000);// pour la rfid d'entrée
+  analogWrite(LED_PIN, 0);
+  yeux();
+  
 }
 
 
@@ -34,11 +41,19 @@ void loop() {
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
   //bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
-  analogWrite(LED_PIN, 1);
-
+  if (millis() > timeout){
+    software_Reboot();
+  }
+    
+    
   // Attend une carte RFID
-  if (bear_has_card()) {
+  carte();
+}
 
+
+void carte()
+{
+  if (bear_has_card()) {
     analogWrite(LED_PIN, LED_HIGH);
     bear_stop();
 
@@ -59,10 +74,32 @@ void loop() {
 
     // TODO code mosfet OFF
     analogWrite(MOSFET_1, 0);
-    analogWrite(LED_PIN, LED_LOW);
+    analogWrite(LED_PIN, 0);
     Serial.println("disable mosfet");
   }
-
 }
 
+void yeux()
+{
+  for (int i = 0; i < 10; i++)
+  { carte();
+    analogWrite(LED_PIN, i);
+    bear_delay(100);
+    Serial.print("i=");
+    Serial.println(i);
+  } for (int i = 10; i > 0; i--)
+  { carte();
+    analogWrite(LED_PIN, i);
+    bear_delay(100);
+    Serial.print("i=");
+    Serial.println(i);
+  }
+  analogWrite(LED_PIN, 0);
+}
 
+void software_Reboot()
+{
+  Serial.println("reboot");
+  wdt_enable(WDTO_15MS);
+  delay(50);
+}
