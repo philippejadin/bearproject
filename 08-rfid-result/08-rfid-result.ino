@@ -92,16 +92,18 @@ void loop() {
           filename = filename + "de";
         }
         filename = filename + ".h264";
+        //Serial.println("play 08-blank.png");
+        Serial.println("blank");
+        //Serial.println("play 08-blank.png");
         Serial.println("loop " + filename);
         bear_led_blink();
-        
-        timeout = millis() + 4000;
-        playing = true;
-        
         bear_delay(4000);
+        Serial.println("blank");
+        Serial.println("loop 08-idle.h264");
+        bear_delay(500);
 
       }
-      else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
+      else if (count < 4 && count > 0)  // si max 3 animaux sélectionnés on génère le nom de fichier :
       {
         filename = "08-result" + filecount;
 
@@ -122,12 +124,16 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
-       
+
+        //Serial.println("blank");
+        //Serial.println("play 08-blank.png");
         Serial.println("play " + filename);
         bear_led_blink();
 
-        timeout = millis() + 7000;
+        timeout = millis() + 6000;
         playing = true;
+
+        bear_delay(1000);
 
       }
       else // sinon on tire au sort un animal chimérique (oui, chimérique!)
@@ -151,12 +157,12 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
-        
+        //Serial.println("play 08-blank.png");
         Serial.println("play " + filename);
         bear_led_blink();
-
-        timeout = millis() + 7000;
+        timeout = millis() + 6000;
         playing = true;
+        bear_delay(1000);
       }
     }
   }
@@ -166,7 +172,8 @@ void loop() {
     Serial.println("blank");
     Serial.println("loop 08-idle.h264");
     playing = false;
+    bear_delay(1000);
   }
-  
-  bear_delay(50);
+
+  bear_delay(10);
 }
