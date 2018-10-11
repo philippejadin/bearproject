@@ -94,9 +94,11 @@ void loop() {
         filename = filename + ".h264";
         Serial.println("loop " + filename);
         bear_led_blink();
-
-        timeout = millis();
+        
+        timeout = millis() + 4000;
         playing = true;
+        
+        bear_delay(4000);
 
       }
       else if (count < 4)  // si max 3 animaux sélectionnés on génère le nom de fichier :
@@ -120,11 +122,11 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
-        Serial.println("blank");
+       
         Serial.println("play " + filename);
         bear_led_blink();
 
-        timeout = millis();
+        timeout = millis() + 7000;
         playing = true;
 
       }
@@ -149,18 +151,19 @@ void loop() {
         {
           filename = filename + "-de.png";
         }
-        Serial.println("blank");
+        
         Serial.println("play " + filename);
         bear_led_blink();
 
-        timeout = millis();
+        timeout = millis() + 7000;
         playing = true;
       }
     }
   }
 
-  if (millis() > timeout + 7000 && playing)
+  if (millis() > timeout && playing)
   {
+    Serial.println("blank");
     Serial.println("loop 08-idle.h264");
     playing = false;
   }
