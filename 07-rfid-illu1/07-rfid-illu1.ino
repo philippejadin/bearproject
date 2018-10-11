@@ -33,46 +33,28 @@ void loop() {
 
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
-  bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
-
+  //bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
+  analogWrite(LED_PIN, 1);
 
   // Attend une carte RFID
   if (bear_has_card()) {
 
     analogWrite(LED_PIN, LED_HIGH);
     bear_stop();
-    bear_led_blink();
 
-
-    // TODO code mosfet ON
 
     Serial.println("enable mosfet");
     for (int i = 0; i < 255; i++)
     {
       analogWrite(MOSFET_1, i);
-      analogWrite(LED_PIN, i);
-      bear_delay(random(20, 30));
+
+      bear_delay(random(2, 10));
     }
 
     for (int i = 255; i > 10; i--)
     {
       analogWrite(MOSFET_1, i);
-      analogWrite(LED_PIN, i);
-      bear_delay(random(10, 20));
-    }
-
-    for (int i = 10; i < 255; i++)
-    {
-      analogWrite(MOSFET_1, i);
-      analogWrite(LED_PIN, i);
-      bear_delay(random(5, 15));
-    }
-
-    for (int i = 255; i > 10; i--)
-    {
-      analogWrite(MOSFET_1, i);
-      analogWrite(LED_PIN, i);
-      bear_delay(random(10, 20));
+      bear_delay(random(2, 15));
     }
 
     // TODO code mosfet OFF
