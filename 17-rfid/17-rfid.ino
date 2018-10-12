@@ -17,6 +17,7 @@ void setup() {
   bear_init();
   Serial.println("play 17-bkg.png");
   Serial.println("loop 17-idle.h264");
+  randomSeed(analogRead(0));
 
 }
 
@@ -43,13 +44,7 @@ void loop() {
         count ++;
       }
     }
-    /*count ++;
 
-      if (count == 6)
-      {
-      count = 1;
-      }
-    */
     bear_led_blink();
 
     if (count == 1)
@@ -83,7 +78,7 @@ void loop() {
       bear_delay(21000);
     }
 
-last_count= count;
+    last_count = count;
     Serial.println("loop 17-idle.h264");
 
 
