@@ -112,6 +112,8 @@ void loop() {
 
   }
 
+  delay(100);
+
 }
 
 //send MIDI message
