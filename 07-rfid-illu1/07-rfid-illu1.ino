@@ -22,16 +22,18 @@ const char MODULE_NAME[] = "07-rfid-illu1"; // à changer pour chaque module, po
 
 
 #include <bearlib.h> // à inclure en dernier
-
 unsigned long timeout;
+
+
 void setup() {
   bear_init();
+  randomSeed(analogRead(0));
   //timeout=10000+(random(5)*1000);// pour les 3 rfid du fond
   //ou
-  timeout=6000+(random(3)*1000);// pour la rfid d'entrée
+  timeout = random(3000, 6000); // entre 2 et 6 secondes / pour la rfid d'entrée
   analogWrite(LED_PIN, 0);
   yeux();
-  
+
 }
 
 
@@ -40,12 +42,10 @@ void loop() {
 
   wdt_reset(); //  à appeller régulièrement, au moins toutes les 8 secondes sinon reboot
 
-  //bear_led_standby(); // les leds se mettent à clignoter doucement, mode attente,
-  if (millis() > timeout){
+  if (millis() > timeout) {
     software_Reboot();
   }
-    
-    
+
   // Attend une carte RFID
   carte();
 }
@@ -54,7 +54,7 @@ void loop() {
 void carte()
 {
   if (bear_has_card()) {
-    analogWrite(LED_PIN, LED_HIGH);
+    analogWrite(LED_PIN, 10);
     bear_stop();
 
 
@@ -72,7 +72,6 @@ void carte()
       bear_delay(random(2, 15));
     }
 
-    // TODO code mosfet OFF
     analogWrite(MOSFET_1, 0);
     analogWrite(LED_PIN, 0);
     Serial.println("disable mosfet");
@@ -82,13 +81,17 @@ void carte()
 void yeux()
 {
   for (int i = 0; i < 10; i++)
-  { carte();
+  {
+    carte();
     analogWrite(LED_PIN, i);
     bear_delay(100);
     Serial.print("i=");
     Serial.println(i);
-  } for (int i = 10; i > 0; i--)
-  { carte();
+  }
+ 
+  for (int i = 10; i > 0; i--)
+  {
+    carte();
     analogWrite(LED_PIN, i);
     bear_delay(100);
     Serial.print("i=");
