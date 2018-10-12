@@ -49,7 +49,7 @@ void loop() {
   if (bear_has_card()) {
     int data_read = bear_read_block(6, data);
     int locale = bear_get_locale();
-    // bear_erase_block(6); // efface les ressemblances
+    
     bear_write(6, 10, 1); // marque le résultat comme affiché
     bear_stop();
 
@@ -92,15 +92,13 @@ void loop() {
           filename = filename + "de";
         }
         filename = filename + ".h264";
-      
-        Serial.println("blank");
+        
         Serial.println("loop " + filename);
         bear_led_blink();
-        bear_delay(4000);
-        Serial.println("blank");
-        Serial.println("loop 08-idle.h264");
-        bear_delay(500);
-
+        
+        timeout = millis() + 4000;
+        playing = true;
+        bear_delay(2000);
       }
       else if (count < 4 && count > 0)  // si max 3 animaux sélectionnés on génère le nom de fichier :
       {
@@ -109,24 +107,23 @@ void loop() {
         // ajout de la locale
         if (locale == LOCALE_FR)
         {
-          filename = filename + "-fr.jpg";
+          filename = filename + "-fr.h264";
         }
         if (locale == LOCALE_EN)
         {
-          filename = filename + "-en.jpg";
+          filename = filename + "-en.h264";
         }
         if (locale == LOCALE_NL)
         {
-          filename = filename + "-nl.jpg";
+          filename = filename + "-nl.h264";
         }
         if (locale == LOCALE_DE)
         {
-          filename = filename + "-de.jpg";
+          filename = filename + "-de.h264";
         }
 
-        //Serial.println("blank");
-        //Serial.println("play 08-blank.jpg");
-        Serial.println("play " + filename);
+     
+        Serial.println("loop " + filename);
         bear_led_blink();
 
         timeout = millis() + 6000;
@@ -142,22 +139,21 @@ void loop() {
         // ajout de la locale
         if (locale == LOCALE_FR)
         {
-          filename = filename + "-fr.jpg";
+          filename = filename + "-fr.h264";
         }
         if (locale == LOCALE_EN)
         {
-          filename = filename + "-en.jpg";
+          filename = filename + "-en.h264";
         }
         if (locale == LOCALE_NL)
         {
-          filename = filename + "-nl.jpg";
+          filename = filename + "-nl.h264";
         }
         if (locale == LOCALE_DE)
         {
-          filename = filename + "-de.jpg";
+          filename = filename + "-de.h264";
         }
-        //Serial.println("play 08-blank.jpg");
-        Serial.println("play " + filename);
+        Serial.println("loop " + filename);
         bear_led_blink();
         timeout = millis() + 6000;
         playing = true;
@@ -168,7 +164,6 @@ void loop() {
 
   if (millis() > timeout && playing)
   {
-    Serial.println("blank");
     Serial.println("loop 08-idle.h264");
     playing = false;
     bear_delay(1000);
