@@ -68,9 +68,6 @@ config_hdmi_boost=6
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
 
-<<<<<<< HEAD
 #enable_uart=1
 
 program_usb_boot_mode=1
-=======
->>>>>>> cc79e5f260ff29a5982b8db6b9729e13c2b4102f
