@@ -48,14 +48,16 @@ void loop() {
 
   // Attend une carte RFID
   carte();
+  delay(100);
 }
 
 
 void carte()
 {
   if (bear_has_card()) {
-    analogWrite(LED_PIN, 10);
     bear_stop();
+    analogWrite(LED_PIN, 10);
+    
 
 
     Serial.println("enable mosfet");
@@ -85,8 +87,6 @@ void yeux()
     carte();
     analogWrite(LED_PIN, i);
     bear_delay(100);
-    Serial.print("i=");
-    Serial.println(i);
   }
  
   for (int i = 10; i > 0; i--)
@@ -94,8 +94,6 @@ void yeux()
     carte();
     analogWrite(LED_PIN, i);
     bear_delay(100);
-    Serial.print("i=");
-    Serial.println(i);
   }
   analogWrite(LED_PIN, 0);
 }

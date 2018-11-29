@@ -60,3 +60,5 @@ dtparam=audio=on
 initramfs initramfs.gz followkernel
 
 #enable_uart=1
+
+program_usb_boot_mode=1

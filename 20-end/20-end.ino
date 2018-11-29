@@ -38,7 +38,8 @@ void setup() {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
-  Serial.println("play 00-start.wav"); // son de démarage pour confirmer que tout est ok
+  //Serial.println("play 00-start.wav"); // son de démarage pour confirmer que tout est ok
+  Serial.println("play 20-growl.wav");
   delay(1000);
 }
 
@@ -51,7 +52,7 @@ void loop() {
   {
     Serial.println("play 20-growl.wav");
     Serial.println(distance());
-    delay(1000);
+    delay(3000);
   }
 
   delay(20);
