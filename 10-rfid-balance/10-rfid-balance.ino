@@ -25,7 +25,8 @@ unsigned long chrono;
 
 
 //------------------ config -------
-const long timeout = 18000; // en ms
+const long timeout = 18000; // en ms, le temps après lequel il va revenir au début de la boucle
+const long reset_after = 1000 * 60 * 60; // reset after 60 minutes
 //---------------------------------
 
 
@@ -109,7 +110,9 @@ void loop() {
         chrono = millis();
 
 
-        String command = "play 10-action";
+        String command;
+        command.reserve(32);
+        command = "play 10-action";
         command = command + i + "-";
 
         if (locale == LOCALE_FR)
@@ -136,17 +139,30 @@ void loop() {
 
         Serial.println(command);
 
-        bear_delay(200); // TODO
-
+        bear_delay(1000); // TODO
       }
+      // fin des différentes scènes avec bouton
+
+      
       bear_delay(7500); // à tester TODO
 
       Serial.println("loop 10-idle.h264");
-    
+
     }
   }
 
+
+
+  if (millis() > reset_after)
+  {
+    wdt_enable(WDTO_15MS);
+    delay(50);
+  }
+
+
+
 }
+
 
 
 
